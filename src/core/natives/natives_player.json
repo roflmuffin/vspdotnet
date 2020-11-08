@@ -1,0 +1,153 @@
+[
+  {
+    "name": "PLAYER_GET_PLAYERINFO",
+    "args": {
+      "entity": "IntPtr"
+    },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "PLAYERINFO_GET_NAME",
+    "args": {
+      "playerInfo": "IntPtr"
+    },
+    "returns": "charPtr"
+  },
+  {
+    "name": "PLAYERINFO_GET_USERID",
+    "args": {
+      "playerInfo": "IntPtr"
+    },
+    "returns": "int"
+  },
+  {
+    "name": "PLAYERINFO_GET_STEAMID",
+    "args": {
+      "playerInfo": "IntPtr"
+    },
+    "returns": "charPtr"
+  },
+  {
+    "name": "PLAYERINFO_GET_TEAM",
+    "args": {
+      "playerInfo": "IntPtr"
+    },
+    "returns": "int"
+  },
+  {
+    "name": "PLAYERINFO_SET_TEAM",
+    "args": {
+      "playerInfo": "IntPtr",
+      "team": "int"
+    }
+  },
+  {
+    "name": "PLAYERINFO_GET_KILLS",
+    "args": {
+      "playerInfo": "IntPtr"
+    },
+    "returns": "int"
+  },
+
+  {
+    "name": "PLAYERINFO_GET_DEATHS",
+    "args": {
+      "playerInfo": "IntPtr"
+    },
+    "returns": "int"
+  },
+  {
+    "name": "PLAYERINFO_IS_CONNECTED",
+    "args": {
+      "playerInfo": "IntPtr"
+    },
+    "returns": "bool"
+  },
+  {
+    "name": "PLAYERINFO_GET_ARMOR",
+    "args": {
+      "playerInfo": "IntPtr"
+    },
+    "returns": "int"
+  },
+  {
+    "name": "PLAYERINFO_IS_HLTV",
+    "args": {
+      "playerInfo": "IntPtr"
+    },
+    "returns": "bool"
+  },
+  {
+    "name": "PLAYERINFO_IS_PLAYER",
+    "args": {
+      "playerInfo": "IntPtr"
+    },
+    "returns": "bool"
+  },
+  {
+    "name": "PLAYERINFO_IS_FAKECLIENT",
+    "args": {
+      "playerInfo": "IntPtr"
+    },
+    "returns": "bool"
+  },
+  {
+    "name": "PLAYERINFO_IS_DEAD",
+    "args": {
+      "playerInfo": "IntPtr"
+    },
+    "returns": "bool"
+  },
+  {
+    "name": "PLAYERINFO_IS_IN_VEHICLE",
+    "args": {
+      "playerInfo": "IntPtr"
+    },
+    "returns": "bool"
+  },
+  {
+    "name": "PLAYERINFO_IS_OBSERVER",
+    "args": {
+      "playerInfo": "IntPtr"
+    },
+    "returns": "bool"
+  },
+  {
+    "name": "PLAYERINFO_GET_WEAPON_NAME",
+    "args": {
+      "playerInfo": "IntPtr"
+    },
+    "returns": "charPtr"
+  },
+  {
+    "name": "PLAYERINFO_GET_MODEL_NAME",
+    "args": {
+      "playerInfo": "IntPtr"
+    },
+    "returns": "charPtr"
+  },
+  {
+    "name": "PLAYERINFO_GET_HEALTH",
+    "args": {
+      "playerInfo": "IntPtr"
+    },
+    "returns": "int"
+  },
+  {
+    "name": "PLAYERINFO_GET_MAX_HEALTH",
+    "args": {
+      "playerInfo": "IntPtr"
+    },
+    "returns": "int"
+  },
+  {
+    "name": "CLIENT_IS_IN_GAME",
+    "args": { "index": "int" },
+    "returns": "bool"
+  },
+  {
+    "name": "IS_FAKE_CLIENT",
+    "args": { "index": "int" },
+    "returns": "bool"
+  }
+]

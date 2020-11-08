@@ -1,0 +1,88 @@
+[
+  {
+    "name": "VECTOR_NEW",
+    "returns": "IntPtr"
+  },
+  {
+    "name": "ANGLE_NEW",
+    "returns": "IntPtr"
+  },
+  {
+    "name": "VECTOR_GET_X",
+    "args": { "vector": "IntPtr" },
+    "returns": "float"
+  },
+  {
+    "name": "VECTOR_GET_Y",
+    "args": { "vector": "IntPtr" },
+    "returns": "float"
+  },
+  {
+    "name": "VECTOR_GET_Z",
+    "args": { "vector": "IntPtr" },
+    "returns": "float"
+  },
+  {
+    "name": "VECTOR_SET_X",
+    "args": {
+      "vector": "IntPtr",
+      "value": "float"
+    }
+  },
+  {
+    "name": "VECTOR_SET_Y",
+    "args": {
+      "vector": "IntPtr",
+      "value": "float"
+    }
+  },
+  {
+    "name": "VECTOR_SET_Z",
+    "args": {
+      "vector": "IntPtr",
+      "value": "float"
+    }
+  },
+  {
+    "name": "VECTOR_ANGLES",
+    "args": {
+      "vector": "IntPtr",
+      "pseudoUp": "IntPtr",
+      "outAngle": "IntPtr"
+    }
+  },
+  {
+    "name": "ANGLE_VECTORS",
+    "args": {
+      "vector": "IntPtr",
+      "forwardOut": "IntPtr",
+      "rightOut": "IntPtr",
+      "upOut": "IntPtr"
+    }
+  },
+  {
+    "name": "VECTOR_LENGTH",
+    "args": { "vector": "IntPtr" },
+    "returns": "float"
+  },
+  {
+    "name": "VECTOR_LENGTH_2D",
+    "args": { "vector": "IntPtr" },
+    "returns": "float"
+  },
+  {
+    "name": "VECTOR_LENGTH_SQR",
+    "args": { "vector": "IntPtr" },
+    "returns": "float"
+  },
+  {
+    "name": "VECTOR_LENGTH_2d_SQR",
+    "args": { "vector": "IntPtr" },
+    "returns": "float"
+  },
+  {
+    "name": "VECTOR_IS_ZERO",
+    "args": { "vector": "IntPtr" },
+    "returns": "bool"
+  }
+]

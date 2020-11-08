@@ -1,0 +1,145 @@
+[
+  {
+    "name": "GET_MAP_NAME",
+    "returns": "charPtr"
+  },
+  {
+    "name": "IS_MAP_VALID",
+    "args": {"mapname": "charPtr" },
+    "returns": "bool"
+  },
+  {
+    "name": "GET_GAME_DIRECTORY",
+    "returns": "charPtr"
+  },
+  {
+    "name": "GET_TICK_INTERVAL",
+    "returns": "float"
+  },
+  {
+    "name": "GET_TICK_COUNT",
+    "returns": "int"
+  },
+  {
+    "name": "GET_CURRENT_TIME",
+    "returns": "float"
+  },
+  {
+    "name": "GET_GAMEFRAME_TIME",
+    "returns": "float"
+  },
+  {
+    "name": "GET_ENGINE_TIME",
+    "returns": "double"
+  },
+  {
+    "name": "ISSUE_SERVER_COMMAND",
+    "args": { "command": "charPtr" }
+  },
+  {
+    "name": "PRECACHE_MODEL",
+    "args": { "command": "charPtr" }
+  },
+  {
+    "name": "PRECACHE_SOUND",
+    "args": {
+      "command": "charPtr",
+      "preload": "bool"
+    },
+    "returns": "bool"
+  },
+  {
+    "name": "IS_SOUND_PRECACHED",
+    "args": { "command": "charPtr" },
+    "returns": "bool"
+  },
+  {
+    "name": "GET_SOUND_DURATION",
+    "args": { "command": "charPtr" },
+    "returns": "float"
+  },
+  {
+    "name": "EMIT_SOUND",
+    "args": {
+      "client": "int",
+      "entity": "int",
+      "channel": "int",
+      "sound": "charPtr",
+      "volume": "float",
+      "attenuation": "float",
+      "flags": "int",
+      "pitch": "int",
+      "origin": "IntPtr",
+      "direction": "IntPtr"
+    }
+  },
+  {
+    "name": "CREATE_RAY_1",
+    "args": {
+      "rayType": "int",
+      "vec1": "IntPtr",
+      "vec2": "IntPtr"
+    },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "CREATE_RAY_2",
+    "args": {
+      "vec1": "IntPtr",
+      "vec2": "IntPtr",
+      "vec3": "IntPtr",
+      "vec4": "IntPtr"
+    },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "TRACE_RAY",
+    "args": {
+      "ray": "IntPtr",
+      "outputTrace": "IntPtr",
+      "traceFilter": "IntPtr",
+      "flags": "uint"
+    }
+  },
+  {
+    "name": "NEW_SIMPLE_TRACE_FILTER",
+    "args": { "indexToIgnore": "int" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "NEW_TRACE_FILTER_PROXY",
+    "returns": "IntPtr"
+  },
+  {
+    "name": "NEW_TRACE_RESULT",
+    "returns": "IntPtr"
+  },
+  {
+    "name": "TRACE_FILTER_PROXY_SET_TRACE_TYPE_CALLBACK",
+    "args": {
+      "traceFilter": "IntPtr",
+      "callback": "IntPtr"
+    }
+  },
+  {
+    "name": "TRACE_FILTER_PROXY_SET_SHOULD_HIT_ENTITY_CALLBACK",
+    "args": {
+      "traceFilter": "IntPtr",
+      "callback": "IntPtr"
+    }
+  },
+  {
+    "name": "TRACE_DID_HIT",
+    "args": { "traceResult": "IntPtr" },
+    "returns": "bool"
+  },
+  {
+    "name": "TRACE_RESULT_ENTITY",
+    "args": { "traceResult": "IntPtr" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "QUEUE_TASK_FOR_NEXT_FRAME",
+    "args": { "function": "IntPtr" }
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "name": "ADD_LISTENER",
+    "args": { "name": "charPtr", "callback": "func" },
+    "returns": "bool"
+  },
+  {
+    "name": "REMOVE_LISTENER",
+    "args": { "name": "charPtr", "callback": "func" },
+    "returns": "bool"
+  }
+]

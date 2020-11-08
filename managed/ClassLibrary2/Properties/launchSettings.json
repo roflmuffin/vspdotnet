@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ClassLibrary2": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

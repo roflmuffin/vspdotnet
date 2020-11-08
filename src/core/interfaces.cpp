@@ -1,4 +1,20 @@
-#include "interfaces.h"
+/*
+ *  This file is part of VSP.NET.
+ *  VSP.NET is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  VSP.NET is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with VSP.NET.  If not, see <https://www.gnu.org/licenses/>. *
+ */
+
+#include "core/interfaces.h"
 
 #include <public/eiface.h>
 #include <public/engine/IEngineSound.h>
@@ -11,12 +27,14 @@
 #include <public/vphysics_interface.h>
 #include <public/vstdlib/random.h>
 
+#include "core/globals.h"
+
 namespace vspdotnet {
   namespace interfaces {
 
     InterfaceHelper_t engine_interfaces[] = {
       {INTERFACEVERSION_VENGINESERVER, (void**)&globals::engine},
-      {INTERFACEVERSION_GAMEEVENTSMANAGER2, (void**)&globals::gameevent_manager},
+      {INTERFACEVERSION_GAMEEVENTSMANAGER2, (void**)&globals::gameeventmanager},
       {INTERFACEVERSION_ISERVERPLUGINHELPERS, (void**)&globals::helpers},
       {INTERFACEVERSION_ENGINETRACE_SERVER, (void**)&globals::engine_trace},
       {IENGINESOUND_SERVER_INTERFACE_VERSION, (void**)&globals::engine_sound},

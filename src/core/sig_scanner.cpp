@@ -1,23 +1,60 @@
-#include "sig_scanner.h"
+/**
+ * =============================================================================
+ * Source Python
+ * Copyright (C) 2012-2015 Source Python Development Team.  All rights reserved.
+ * =============================================================================
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, version 3.0, as published by the
+ * Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * As a special exception, the Source Python Team gives you permission
+ * to link the code of this program (as well as its derivative works) to
+ * "Half-Life 2," the "Source Engine," and any Game MODs that run on software
+ * by the Valve Corporation.  You must obey the GNU General Public License in
+ * all respects for all other code used.  Additionally, the Source.Python
+ * Development Team grants this exception to all derivative works.
+ *
+ * This file has been modified from its original form, under the GNU General
+ * Public License, version 3.0.
+ */
 
-#include "globals.h"
+#include "core/sig_scanner.h"
+
+#include "core/globals.h"
 
 #include <public/eiface.h>
 
 #include <stdio.h>
 #include <fcntl.h>
-#include <sys/mman.h>
 
-#include <elf.h>
-#include <link.h>
+#ifdef _WIN32
+	#include <windows.h>
+#else
+	#include <fcntl.h>
+	#include <link.h>
+	#include <sys/mman.h>
+	extern int PAGE_SIZE;
+	#define PAGE_ALIGN_UP(x) ((x + PAGE_SIZE - 1) & ~(PAGE_SIZE - 1))
+#endif
+
+// #include <sys/mman.h>
+
+// #include <elf.h>
+// #include <link.h>
 
 #include <dynload.h>
 
 #include <list>
 #include <string>
-
-int PAGE_SIZE = sysconf(_SC_PAGESIZE);
-#define PAGE_ALIGN_UP(x) ((x + PAGE_SIZE - 1) & ~(PAGE_SIZE - 1))
 
 namespace vspdotnet {
 
@@ -35,8 +72,8 @@ namespace vspdotnet {
 
   unsigned long CBinaryFile::FindSignature(unsigned char* sigBytes, int length)
   {
-    unsigned char* base = (unsigned char*)m_base_;
-    unsigned char* end = (unsigned char*)(base + m_size_ - length);
+    unsigned char* base = (unsigned char*)m_base;
+    unsigned char* end = (unsigned char*)(base + m_size - length);
 
     while(base < end)
     {
@@ -101,7 +138,7 @@ namespace vspdotnet {
     for (std::list<CBinaryFile*>::iterator iter = m_Binaries.begin(); iter != m_Binaries.end(); ++iter)
     {
       CBinaryFile* binary = *iter;
-      if (binary->m_module_ == ulModule)
+      if (binary->m_module == ulModule)
       {
         // We don't need to open it several times
         dlFreeLibrary((DLLib*)ulModule);

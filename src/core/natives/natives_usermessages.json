@@ -1,0 +1,36 @@
+[
+  {
+    "name": "PRINT_TO_CHAT",
+    "args": {
+      "index": "int",
+      "message": "charPtr"
+    }
+  },
+  {
+    "name": "PRINT_TO_CONSOLE",
+    "args": {
+      "message": "charPtr"
+    }
+  },
+  {
+    "name": "PRINT_TO_HINT",
+    "args": {
+      "index": "int",
+      "message": "charPtr"
+    }
+  },
+  {
+    "name": "PRINT_TO_CENTER",
+    "args": {
+      "index": "int",
+      "message": "charPtr"
+    }
+  },
+  {
+    "name": "GET_USER_MESSAGE_ID",
+    "args": {
+      "name": "charPtr"
+    },
+    "returns": "int"
+  }
+]

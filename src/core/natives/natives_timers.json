@@ -1,0 +1,21 @@
+[
+  {
+    "name": "GET_TICKED_TIME",
+    "returns": "double"
+  },
+  {
+    "name": "CREATE_TIMER",
+    "args": {
+      "interval": "float",
+      "callback": "func",
+      "flags": "int"
+    },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "KILL_TIMER",
+    "args": {
+      "timer": "IntPtr"
+    } 
+  }
+]

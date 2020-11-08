@@ -1,5 +1,23 @@
-#ifndef __ENTITY_LISTENER_H_
-#define __ENTITY_LISTENER_H_
+/*
+ *  This file is part of VSP.NET.
+ *  VSP.NET is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  VSP.NET is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with VSP.NET.  If not, see <https://www.gnu.org/licenses/>. *
+ */
+
+#pragma once
+
+#include "core/globals.h"
+#include "core/global_listener.h"
 
 #include <public/eiface.h>
 #include <game/shared/shareddefs.h>
@@ -7,7 +25,7 @@
 
 // This stub is required to get the correct vtables from the HL2SDK.
 // Trying to include the correct class involves like 15 header files
-// in a circular dependency hell so we just stub them instead.
+// in a circular dependency hell so I'm just gonna stub them instead.
 class IEntityListener
 {
 public:
@@ -63,16 +81,25 @@ public:
 };
 
 namespace vspdotnet {
-    class EntityListener : public IEntityListener {
+
+    class ScriptCallback;
+
+    class EntityListener : public IEntityListener, public GlobalClass {
     public:
         EntityListener() {};
         ~EntityListener(){};
         virtual void OnEntityCreated(CBaseEntity* pEntity) override;
+        void HandleEntityCreated(CBaseEntity* pEntity, int index);
+        void HandleEntitySpawned(CBaseEntity* pEntity, int index);
+        void HandleEntityDeleted(CBaseEntity* pEntity, int index);
         virtual void OnEntitySpawned(CBaseEntity* pEntity) override;
         virtual void OnEntityDeleted(CBaseEntity* pEntity) override;
+        virtual void OnAllInitialized();
+        void Setup();
+      private:
+        ScriptCallback* m_on_entity_created_callback;
+        ScriptCallback* m_on_entity_spawned_callback;
+        ScriptCallback* m_on_entity_deleted_callback;
     };
-
-    extern EntityListener Listener;
-}
-
-#endif // __ENTITY_LISTENER_H_
+   
+    }

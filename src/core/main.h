@@ -1,12 +1,31 @@
+/*
+ *  This file is part of VSP.NET.
+ *  VSP.NET is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  VSP.NET is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with VSP.NET.  If not, see <https://www.gnu.org/licenses/>. *
+ */
+
 #pragma once
 
-#include "engine/iserverplugin.h"
+#include <functional>
+#include <vector>
+
+#include <public/engine/iserverplugin.h>
 
 namespace vspdotnet {
   class MyServerPlugin : public IServerPluginCallbacks {
   public:
-    MyServerPlugin();
-    ~MyServerPlugin();
+    MyServerPlugin() {}
+    ~MyServerPlugin() {}
 
     // IServerPluginCallbacks interface
   public:
@@ -33,5 +52,10 @@ namespace vspdotnet {
     void OnEdictFreed(const edict_t *edict) override;
     bool BNetworkCryptKeyCheckRequired(uint32 unFromIP, uint16 usFromPort, uint32 unAccountIdProvidedByClient, bool bClientWantsToUseCryptKey) override;
     bool BNetworkCryptKeyValidate(uint32 unFromIP, uint16 usFromPort, uint32 unAccountIdProvidedByClient, int nEncryptionKeyIndexFromClient, int numEncryptedBytesFromClient, byte *pbEncryptedBufferFromClient, byte *pbPlainTextKeyForNetchan) override;
+
+    void OnThink(bool last_tick);
+    void AddTaskForNextFrame(std::function<void()>&& task);
+  private:
+      std::vector<std::function<void()>> m_nextTasks;
   };
 }
