@@ -3,6 +3,8 @@
 .kdev4/
 .vscode/
 
+libraries/mono/
+
 build/
 
 # Prerequisites
