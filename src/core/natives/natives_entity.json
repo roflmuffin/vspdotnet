@@ -1,0 +1,165 @@
+[
+  {
+    "name": "ENTITY_GET_PROP_INT",
+    "args": {
+      "entity": "IntPtr",
+      "type": "int",
+      "name": "charPtr"
+    },
+    "returns": "int"
+  },
+  {
+    "name": "ENTITY_GET_PROP_FLOAT",
+    "args": {
+      "entity": "IntPtr",
+      "type": "int",
+      "name": "charPtr"
+    },
+    "returns": "float"
+  },
+  {
+    "name": "ENTITY_GET_PROP_VECTOR",
+    "args": {
+      "entity": "IntPtr",
+      "type": "int",
+      "name": "charPtr"
+    },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "ENTITY_GET_PROP_STRING",
+    "args": {
+      "entity": "IntPtr",
+      "type": "int",
+      "name": "charPtr"
+    },
+    "returns": "charPtr"
+  },
+  {
+    "name": "ENTITY_GET_PROP_ENT",
+    "args": {
+      "entity": "IntPtr",
+      "type": "int",
+      "name": "charPtr"
+    },
+    "returns": "int"
+  },
+  {
+    "name": "ENTITY_SET_PROP_INT",
+    "args": {
+      "entity": "IntPtr",
+      "type": "int",
+      "name": "charPtr",
+      "value": "int"
+    }
+  },
+  {
+    "name": "ENTITY_SET_PROP_FLOAT",
+    "args": {
+      "entity": "IntPtr",
+      "type": "int",
+      "name": "charPtr",
+      "value": "float"
+    }
+  },
+  {
+    "name": "ENTITY_SET_PROP_VECTOR",
+    "args": {
+      "entity": "IntPtr",
+      "type": "int",
+      "name": "charPtr",
+      "value": "IntPtr"
+    }
+  },
+  {
+    "name": "ENTITY_SET_PROP_STRING",
+    "args": {
+      "entity": "IntPtr",
+      "type": "int",
+      "name": "charPtr",
+      "value": "charPtr"
+    }
+  },
+  {
+    "name": "ENTITY_SET_PROP_ENT",
+    "args": {
+      "entity": "IntPtr",
+      "type": "int",
+      "name": "charPtr",
+      "value": "int"
+    }
+  },
+  {
+    "name": "ENTITY_GET_KEYVALUE",
+    "args": {
+      "entity": "IntPtr",
+      "name": "charPtr"
+    },
+    "returns": "charPtr"
+  },
+  {
+    "name": "ENTITY_SET_KEYVALUE",
+    "args": {
+      "entity": "IntPtr",
+      "name": "charPtr",
+      "value": "charPtr"
+    }
+  },
+  {
+    "name": "ENTITY_CREATE_BY_CLASSNAME",
+    "args": {
+      "className": "charPtr"
+    },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "ENTITY_FIND_BY_CLASSNAME",
+    "args": {
+      "index": "int",
+      "className": "charPtr"
+    },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "ENTITY_FIND_BY_NETCLASS",
+    "args": {
+      "index": "int",
+      "netClass": "charPtr"
+    },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "ENTITY_GET_CLASSNAME",
+    "args": {
+      "entity": "IntPtr"
+    },
+    "returns": "charPtr"
+  },
+  {
+    "name": "ENTITY_SPAWN",
+    "args": {
+      "entity": "IntPtr"
+    }
+  },
+  {
+    "name": "ENTITY_IS_PLAYER",
+    "args": {
+      "entity": "IntPtr"
+    },
+    "returns": "bool"
+  },
+  {
+    "name": "ENTITY_IS_WEAPON",
+    "args": {
+      "entity": "IntPtr"
+    },
+    "returns": "bool"
+  },
+  {
+    "name": "ENTITY_IS_NETWORKED",
+    "args": {
+      "entity": "IntPtr"
+    },
+    "returns": "bool"
+  }
+]

@@ -6,18 +6,26 @@
 
 #include <stdio.h>
 #include <fcntl.h>
-#include <sys/mman.h>
 
-#include <elf.h>
-#include <link.h>
+#ifdef _WIN32
+	#include <windows.h>
+#else
+	#include <fcntl.h>
+	#include <link.h>
+	#include <sys/mman.h>
+	extern int PAGE_SIZE;
+	#define PAGE_ALIGN_UP(x) ((x + PAGE_SIZE - 1) & ~(PAGE_SIZE - 1))
+#endif
+
+// #include <sys/mman.h>
+
+// #include <elf.h>
+// #include <link.h>
 
 #include <dynload.h>
 
 #include <list>
 #include <string>
-
-int PAGE_SIZE = sysconf(_SC_PAGESIZE);
-#define PAGE_ALIGN_UP(x) ((x + PAGE_SIZE - 1) & ~(PAGE_SIZE - 1))
 
 namespace vspdotnet {
 

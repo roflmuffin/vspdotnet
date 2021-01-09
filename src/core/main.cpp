@@ -3,19 +3,34 @@
 #include <conventions/x86GccCdecl.h>
 #include <conventions/x86GccThiscall.h>
 #include <hook.h>
+#include <IEngineTrace.h>
 #include <manager.h>
 #include <public/igameevents.h>
 #include <public/iserver.h>
 
-#include <chrono>
 #include <iostream>
-#include <thread>
+//#include <optional>
+
+#include <iomanip>
 
 #include "entity_listener.h"
 #include "globals.h"
+#include "hooks.h"
 #include "interfaces.h"
 #include "log.h"
 #include "sig_scanner.h"
+#include "script_engine.h"
+#include "utils.h"
+#include "dotnet_host.h"
+#include "autonative.h"
+#include "user_message_manager.h"
+
+vspdotnet::GlobalClass * vspdotnet::GlobalClass::head = nullptr;
+
+extern "C" __declspec(dllexport) void InvokeNative(vspdotnet::fxNativeContext &context) {
+  if (context.nativeIdentifier == 0) return;
+  vspdotnet::ScriptEngine::InvokeNative(context);
+}
 
 namespace vspdotnet {
 
@@ -38,6 +53,10 @@ EXPOSE_SINGLE_INTERFACE_GLOBALVAR(MyServerPlugin, IServerPluginCallbacks,
 MyServerPlugin::MyServerPlugin() {}
 
 MyServerPlugin::~MyServerPlugin() {}
+
+static float GetCurrentTime(ScriptContext& context) {
+  return globals::server->GetTime();
+}
 
 bool MyServerPlugin::Load(CreateInterfaceFn interfaceFactory,
                           CreateInterfaceFn gameServerFactory) {
@@ -62,108 +81,117 @@ bool MyServerPlugin::Load(CreateInterfaceFn interfaceFactory,
   VSPDN_CORE_INFO("Initializing commands...");
   InitServerCommands();
 
-  CBinaryFile *engineBinary = vspdotnet::FindBinary("bin/engine", false);
-  CBinaryFile *serverBinary = vspdotnet::FindBinary("server", false);
+   CBinaryFile *engineBinary = vspdotnet::FindBinary("bin/engine", false);
+   CBinaryFile *serverBinary = vspdotnet::FindBinary("server", false);
 
-  VSPDN_CORE_INFO("Engine Binary: {0}", (void *)engineBinary);
-  VSPDN_CORE_INFO("Server Binary: {0}", (void *)serverBinary);
+   VSPDN_CORE_INFO("Engine Binary: {0}", (void *)engineBinary);
+   VSPDN_CORE_INFO("Server Binary: {0}", (void *)serverBinary);
 
-  unsigned char iserversig[17] = {0x55, 0x89, 0xE5, 0x53, 0x83, 0xEC,
-                                  0x14, 0x8B, 0x45, 0x0C, 0xC7, 0x04,
-                                  0x24, 0x2A, 0x2A, 0x2A, 0x2A};
-  unsigned long addr = engineBinary->FindSignature(iserversig, 17);
+  unsigned char iserversig[18] = {0x55, 0x8B, 0xEC, 0x56, 0xFF, 0x2A, 0x2A, 0xB9, 0x2A, 0x2A, 0x2A, 0x2A, 0xE8, 0x2A, 0x2A, 0x2A, 0x2A, 0x8B};
+  unsigned long addr = engineBinary->FindSignature(iserversig, sizeof(iserversig));
 
   unsigned char globalentitylistsig[] = {
-      0xE8, 0x2A, 0x2A, 0x2A, 0x2A, 0xE8, 0x2A, 0x2A, 0x2A, 0x2A, 0xC7, 0x2A,
-      0x2A, 0x2A, 0x2A, 0x2A, 0x2A, 0xE8, 0x2A, 0x2A, 0x2A, 0x2A, 0xE8};
+      0x55, 0x8B, 0xEC, 0x8B, 0x0D, 0x2A, 0x2A, 0x2A, 0x2A, 0x53};
   unsigned long entlistaddr = serverBinary->FindSignature(
       globalentitylistsig,
       sizeof(globalentitylistsig) / sizeof(globalentitylistsig[0]));
 
-  globals::server = *(IServer **)(addr + 13);
-  globals::global_entity_list = *(CGlobalEntityList **)(entlistaddr + 13);
+  globals::server = *(IServer **)(addr + 8); // 13 on windows
+  globals::global_entity_list = *(CGlobalEntityList **)(entlistaddr + 101);
 
-  globals::global_entity_list->AddListenerEntity(&vspdotnet::Listener);
-
-  globals::global_entity_list->AddListenerEntity(nullptr);
+  globals::global_entity_list->AddListenerEntity(&vspdotnet::globals::entity_listener);
 
   VSPDN_CORE_INFO("Server Address: {0}, Entity List Address: {1}",
                   (void *)globals::server, (void *)globals::global_entity_list);
 
+  GlobalClass *pBase = GlobalClass::head;
+  pBase = GlobalClass::head;
+  while (pBase) {
+    pBase->OnAllInitialized();
+    pBase = pBase->m_pGlobalClassNext;
+  }
+
+  globals::entity_listener.Setup();
+
+  ScriptEngine::RegisterNativeHandler<void>(
+      "PRINT_TO_CHAT", [](ScriptContext &script_context) {
+        int index = script_context.GetArgument<int>(0);
+        const char *message = script_context.GetArgument<const char *>(1);
+
+        globals::user_message_manager.SendMessageToChat(index, message);
+      });
+
+  ScriptEngine::RegisterNativeHandler<void>(
+      "PRINT_TO_CONSOLE", [](ScriptContext &script_context) {
+        const char *message = script_context.GetArgument<const char *>(0);
+
+        Msg("%s", message);
+      });
+
+    ScriptEngine::RegisterNativeHandler<void>(
+      "PRINT_TO_HINT", [](ScriptContext &script_context) {
+        int index = script_context.GetArgument<int>(0);
+        const char *message = script_context.GetArgument<const char *>(1);
+
+        globals::user_message_manager.SendHintMessage(index, message);
+      });
+
+  if (!globals::dotnet_manager.Initialize())
+  {
+    VSPDN_CORE_ERROR("Failed to load vspdotnet");
+    return false;
+  }
+
   VSPDN_CORE_INFO("Loaded successfully");
+
   return true;
 }
 
-bool PreMyFunc(HookType_t eHookType, CHook *pHook) {
-  auto event = pHook->GetArgument<IGameEvent *>(1);
-  if (event) {
-    VSPDN_CORE_INFO("Prefunc This: {0}", event->GetName());
-
-    if (strcmp(event->GetName(), "player_death") == 0) {
-      VSPDN_CORE_INFO("Ignoring headshot");
-      event->SetBool("headshot", false);
-      event->SetBool("thrusmoke", true);
-    }
-  }
-
+bool NewHandler(HookType_t hook_type, CHook *hook) {
+  VSPDN_CORE_INFO("Inside our new handler.");
+  hook->SetReturnValue(5000);
   return false;
-}
-
-bool PostMyFunc(HookType_t eHookType, CHook *pHook) {
-  auto event = pHook->GetArgument<IGameEvent *>(1);
-  if (event) {
-    VSPDN_CORE_INFO("Postfunc This: {0}", event->GetName());
-  }
-
-  return false;
-}
-
-void CreateHook(int numArgs, ...) {
-  va_list vl;
-  va_start(vl, numArgs);
-  for (int i = 0; i < numArgs; i++) {
-    int type = va_arg(vl, int);
-    VSPDN_CORE_INFO("Type {0} is {1}", i, type);
-  }
-  va_end(vl);
 }
 
 CON_COMMAND(testing, "testing") {
-  CHookManager *pHookMngr = GetHookManager();
+      HookHandlerFn test = [](HookType_t hook_type, CHook *hook) {
+          VSPDN_CORE_INFO("Inside our new handler.");
+          //hook->SetReturnValue(rand() % 10000);
+          return false;
+      };
 
-  IGameEventManager2 *ptr = globals::gameevent_manager;
+      // hooks::CreateHook(globals::server, &IServer::GetUDPPort, test, true,
+      //                   DATA_TYPE_INT, 0);
+      // //hooks::CreateHook(globals::server, &IServer::)
 
-  auto test = &IGameEventManager2::FireEvent;
-  void *vfuncaddr = (void *)(ptr->*test);
+      /*
+      auto del = fastdelegate::MakeDelegate(vspdotnet::globals::vsp_plugin, &MyServerPlugin::GameFrame);
 
-  auto intdifference = (unsigned long)ptr - (unsigned long)vfuncaddr;
+       hooks::CreateHook(globals::gameeventmanager, &IGameEventManager2::FireEvent,
+                         &EventHandler, false, DATA_TYPE_BOOL, 2, DATA_TYPE_POINTER,
+                         DATA_TYPE_BOOL);*/
+    }
 
-  VSPDN_CORE_INFO("Virtual function pointer {0}, index maybe? {1}", vfuncaddr,
-                  intdifference);
-
-  // Prepare calling convention
-  std::vector<DataType_t> vecArgTypes;
-  vecArgTypes.push_back(DATA_TYPE_POINTER);  // this
-  vecArgTypes.push_back(DATA_TYPE_POINTER);  // igameevent
-  vecArgTypes.push_back(DATA_TYPE_BOOL);
-
-  CreateHook(2, DATA_TYPE_POINTER, DATA_TYPE_BOOL);
-
-  // Hook the function
-  CHook *pHook = pHookMngr->HookFunction(
-      (void *&)vfuncaddr, new x86GccThiscall(vecArgTypes, DATA_TYPE_BOOL));
-
-  CHook *foundHook = pHookMngr->FindHook((void *&)vfuncaddr);
-
-  if (foundHook) {
-    VSPDN_CORE_INFO("Found existing hook {0}", (void *)foundHook);
-  }
-
-  pHook->AddCallback(HOOKTYPE_PRE, (HookHandlerFn *)(void *)&PreMyFunc);
-  // pHook->AddCallback(HOOKTYPE_POST, (HookHandlerFn *) (void *) &PostMyFunc);
+CON_COMMAND(udp_port, "Gets udp port") {
+  VSPDN_CORE_INFO("The UDP Port is: {0}", globals::server->GetUDPPort());
 }
 
-void MyServerPlugin::Unload() {}
+CON_COMMAND(cmd_mapname, "Get Map Name") {
+  VSPDN_CORE_INFO("The current mapname is: {0}", globals::server->GetMapName());
+}
+
+CON_COMMAND(cmd_tick, "Get Current Tick") {
+  VSPDN_CORE_INFO("The current tick is: {0}", globals::server->GetTick());
+  globals::vsp_plugin.AddTaskForNextFrame([]
+  { VSPDN_CORE_INFO("This happened next tick... {0}", globals::server->GetTick());
+  });
+}
+
+void MyServerPlugin::Unload() {
+  // This will crash because CLR does not allow unloading and the srcds server unloads our dll, which in turns unloads CLR.
+  globals::dotnet_manager.Shutdown();
+  vspdotnet::Log::Close();
+}
 
 void MyServerPlugin::Pause() {}
 
@@ -181,7 +209,8 @@ void MyServerPlugin::ServerActivate(edict_t *pEdictList, int edictCount,
                    clientMax);
 }
 
-void MyServerPlugin::GameFrame(bool simulating) {}
+void MyServerPlugin::GameFrame(bool simulating)
+{ }
 
 void MyServerPlugin::LevelShutdown() {
   VSPDN_CORE_TRACE("name={0}", "LevelShutdown");
@@ -265,4 +294,26 @@ bool MyServerPlugin::BNetworkCryptKeyValidate(
     byte *pbEncryptedBufferFromClient, byte *pbPlainTextKeyForNetchan) {
   return false;
 }
-}  // namespace vspdotnet
+
+  void MyServerPlugin::OnThink(bool last_tick) {
+    if (m_nextTasks.empty())
+      return;
+
+    VSPDN_CORE_INFO("Executing queued tasks of size: {0}", m_nextTasks.size());
+
+    for (int i = 0; i < m_nextTasks.size(); i++) {
+      m_nextTasks[i]();
+    }
+
+    m_nextTasks.clear();
+  }
+
+
+  void MyServerPlugin::AddTaskForNextFrame(std::function<void()> &&task) {
+    m_nextTasks.push_back(std::forward<decltype(task)>(task));
+  }
+  }  // namespace vspdotnet
+
+IChangeInfoAccessor *CBaseEdict::GetChangeAccessor() {
+  return vspdotnet::globals::engine->GetChangeAccessor((const edict_t *)this);
+}

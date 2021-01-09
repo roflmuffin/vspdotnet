@@ -1,0 +1,26 @@
+[
+  {
+    "name": "PRINT_TO_CHAT",
+    "args": {
+      "index": "int",
+      "message": "charPtr"
+    }
+  },
+  {
+    "name": "PRINT_TO_CONSOLE",
+    "args": {
+      "message": "charPtr"
+    }
+  },
+  {
+    "name": "PRINT_TO_HINT",
+    "args": {
+      "index": "int",
+      "message": "charPtr"
+    }
+  },
+  {
+    "name": "SET_SCRIPT_CONTEXT",
+    "args": { "context": "IntPtr" }
+  }
+]

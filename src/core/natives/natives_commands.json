@@ -1,0 +1,40 @@
+[
+  {
+    "name": "ADD_COMMAND",
+    "args": {
+      "name": "charPtr",
+      "description": "charPtr",
+      "serverOnly": "bool",
+      "flags": "int",
+      "callback": "func"
+    },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "REMOVE_COMMAND",
+    "args": {
+      "name": "charPtr",
+      "callback": "func"
+    }
+  },
+  {
+    "name": "COMMAND_GET_ARG_COUNT",
+    "args": { "command": "IntPtr" },
+    "returns": "int"
+  },
+  {
+    "name": "COMMAND_GET_ARG_STRING",
+    "args": { "command": "IntPtr" },
+    "returns": "charPtr"
+  },
+  {
+    "name": "COMMAND_GET_COMMAND_STRING",
+    "args": { "command": "IntPtr" },
+    "returns": "charPtr"
+  },
+  {
+    "name": "COMMAND_GET_ARG_BY_INDEX",
+    "args": { "command": "IntPtr", "index": "int" },
+    "returns": "charPtr"
+  }
+]

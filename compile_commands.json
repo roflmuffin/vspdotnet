@@ -1,0 +1,387 @@
+[
+{
+  "directory": "/home/michael/projects/cmake_test/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -DTesting_EXPORTS -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/common -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/game/shared -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/game/server -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/mathlib -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/vstdlib -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/tier0 -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/tier1 -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/common/protobuf-2.5.0/src -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine/protobuf -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/game/shared/csgo/protobuf -I/home/michael/projects/cmake_test/libraries/dyncall/dynload -I/home/michael/projects/cmake_test/libraries/asmjit/src -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src -I/home/michael/projects/cmake_test/libraries/tl -I/home/michael/projects/cmake_test/libraries/mono/include/mono-2.0 -I/home/michael/projects/cmake_test/libraries/spdlog/include -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src/../../asmjit/src/asmjit  -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fPIC -DASMJIT_STATIC -o CMakeFiles/Testing.dir/src/core/main.cpp.o -c /home/michael/projects/cmake_test/src/core/main.cpp",
+  "file": "/home/michael/projects/cmake_test/src/core/main.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -DTesting_EXPORTS -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/common -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/game/shared -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/game/server -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/mathlib -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/vstdlib -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/tier0 -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/tier1 -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/common/protobuf-2.5.0/src -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine/protobuf -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/game/shared/csgo/protobuf -I/home/michael/projects/cmake_test/libraries/dyncall/dynload -I/home/michael/projects/cmake_test/libraries/asmjit/src -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src -I/home/michael/projects/cmake_test/libraries/tl -I/home/michael/projects/cmake_test/libraries/mono/include/mono-2.0 -I/home/michael/projects/cmake_test/libraries/spdlog/include -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src/../../asmjit/src/asmjit  -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fPIC -DASMJIT_STATIC -o CMakeFiles/Testing.dir/src/core/interfaces.cpp.o -c /home/michael/projects/cmake_test/src/core/interfaces.cpp",
+  "file": "/home/michael/projects/cmake_test/src/core/interfaces.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -DTesting_EXPORTS -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/common -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/game/shared -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/game/server -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/mathlib -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/vstdlib -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/tier0 -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/tier1 -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/common/protobuf-2.5.0/src -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine/protobuf -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/game/shared/csgo/protobuf -I/home/michael/projects/cmake_test/libraries/dyncall/dynload -I/home/michael/projects/cmake_test/libraries/asmjit/src -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src -I/home/michael/projects/cmake_test/libraries/tl -I/home/michael/projects/cmake_test/libraries/mono/include/mono-2.0 -I/home/michael/projects/cmake_test/libraries/spdlog/include -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src/../../asmjit/src/asmjit  -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fPIC -DASMJIT_STATIC -o CMakeFiles/Testing.dir/src/core/globals.cpp.o -c /home/michael/projects/cmake_test/src/core/globals.cpp",
+  "file": "/home/michael/projects/cmake_test/src/core/globals.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -DTesting_EXPORTS -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/common -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/game/shared -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/game/server -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/mathlib -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/vstdlib -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/tier0 -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/tier1 -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/common/protobuf-2.5.0/src -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine/protobuf -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/game/shared/csgo/protobuf -I/home/michael/projects/cmake_test/libraries/dyncall/dynload -I/home/michael/projects/cmake_test/libraries/asmjit/src -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src -I/home/michael/projects/cmake_test/libraries/tl -I/home/michael/projects/cmake_test/libraries/mono/include/mono-2.0 -I/home/michael/projects/cmake_test/libraries/spdlog/include -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src/../../asmjit/src/asmjit  -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fPIC -DASMJIT_STATIC -o CMakeFiles/Testing.dir/src/core/log.cpp.o -c /home/michael/projects/cmake_test/src/core/log.cpp",
+  "file": "/home/michael/projects/cmake_test/src/core/log.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -DTesting_EXPORTS -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/common -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/game/shared -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/game/server -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/mathlib -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/vstdlib -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/tier0 -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/tier1 -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/common/protobuf-2.5.0/src -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine/protobuf -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/game/shared/csgo/protobuf -I/home/michael/projects/cmake_test/libraries/dyncall/dynload -I/home/michael/projects/cmake_test/libraries/asmjit/src -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src -I/home/michael/projects/cmake_test/libraries/tl -I/home/michael/projects/cmake_test/libraries/mono/include/mono-2.0 -I/home/michael/projects/cmake_test/libraries/spdlog/include -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src/../../asmjit/src/asmjit  -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fPIC -DASMJIT_STATIC -o CMakeFiles/Testing.dir/src/core/sig_scanner.cpp.o -c /home/michael/projects/cmake_test/src/core/sig_scanner.cpp",
+  "file": "/home/michael/projects/cmake_test/src/core/sig_scanner.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -DTesting_EXPORTS -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/common -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/game/shared -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/game/server -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/mathlib -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/vstdlib -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/tier0 -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/tier1 -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/common/protobuf-2.5.0/src -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine/protobuf -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/game/shared/csgo/protobuf -I/home/michael/projects/cmake_test/libraries/dyncall/dynload -I/home/michael/projects/cmake_test/libraries/asmjit/src -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src -I/home/michael/projects/cmake_test/libraries/tl -I/home/michael/projects/cmake_test/libraries/mono/include/mono-2.0 -I/home/michael/projects/cmake_test/libraries/spdlog/include -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src/../../asmjit/src/asmjit  -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fPIC -DASMJIT_STATIC -o CMakeFiles/Testing.dir/src/core/entity_listener.cpp.o -c /home/michael/projects/cmake_test/src/core/entity_listener.cpp",
+  "file": "/home/michael/projects/cmake_test/src/core/entity_listener.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -DTesting_EXPORTS -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/common -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/game/shared -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/game/server -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/mathlib -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/vstdlib -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/tier0 -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/tier1 -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/common/protobuf-2.5.0/src -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine/protobuf -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/game/shared/csgo/protobuf -I/home/michael/projects/cmake_test/libraries/dyncall/dynload -I/home/michael/projects/cmake_test/libraries/asmjit/src -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src -I/home/michael/projects/cmake_test/libraries/tl -I/home/michael/projects/cmake_test/libraries/mono/include/mono-2.0 -I/home/michael/projects/cmake_test/libraries/spdlog/include -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src/../../asmjit/src/asmjit  -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fPIC -DASMJIT_STATIC -o CMakeFiles/Testing.dir/src/core/script_engine.cpp.o -c /home/michael/projects/cmake_test/src/core/script_engine.cpp",
+  "file": "/home/michael/projects/cmake_test/src/core/script_engine.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -DTesting_EXPORTS -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/common -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/game/shared -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/game/server -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/mathlib -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/vstdlib -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/tier0 -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/tier1 -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/common/protobuf-2.5.0/src -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine/protobuf -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/game/shared/csgo/protobuf -I/home/michael/projects/cmake_test/libraries/dyncall/dynload -I/home/michael/projects/cmake_test/libraries/asmjit/src -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src -I/home/michael/projects/cmake_test/libraries/tl -I/home/michael/projects/cmake_test/libraries/mono/include/mono-2.0 -I/home/michael/projects/cmake_test/libraries/spdlog/include -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src/../../asmjit/src/asmjit  -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fPIC -DASMJIT_STATIC -o CMakeFiles/Testing.dir/libraries/hl2sdk-csgo/public/engine/protobuf/netmessages.pb.cc.o -c /home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine/protobuf/netmessages.pb.cc",
+  "file": "/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine/protobuf/netmessages.pb.cc"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -DTesting_EXPORTS -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/common -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/game/shared -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/game/server -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/mathlib -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/vstdlib -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/tier0 -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/tier1 -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/common/protobuf-2.5.0/src -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine/protobuf -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/game/shared/csgo/protobuf -I/home/michael/projects/cmake_test/libraries/dyncall/dynload -I/home/michael/projects/cmake_test/libraries/asmjit/src -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src -I/home/michael/projects/cmake_test/libraries/tl -I/home/michael/projects/cmake_test/libraries/mono/include/mono-2.0 -I/home/michael/projects/cmake_test/libraries/spdlog/include -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src/../../asmjit/src/asmjit  -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fPIC -DASMJIT_STATIC -o CMakeFiles/Testing.dir/libraries/hl2sdk-csgo/public/game/shared/csgo/protobuf/cstrike15_usermessages.pb.cc.o -c /home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/game/shared/csgo/protobuf/cstrike15_usermessages.pb.cc",
+  "file": "/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/game/shared/csgo/protobuf/cstrike15_usermessages.pb.cc"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -DTesting_EXPORTS -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/common -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/game/shared -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/game/server -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/mathlib -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/vstdlib -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/tier0 -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/tier1 -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/common/protobuf-2.5.0/src -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine/protobuf -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/game/shared/csgo/protobuf -I/home/michael/projects/cmake_test/libraries/dyncall/dynload -I/home/michael/projects/cmake_test/libraries/asmjit/src -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src -I/home/michael/projects/cmake_test/libraries/tl -I/home/michael/projects/cmake_test/libraries/mono/include/mono-2.0 -I/home/michael/projects/cmake_test/libraries/spdlog/include -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src/../../asmjit/src/asmjit  -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fPIC -DASMJIT_STATIC -o CMakeFiles/Testing.dir/libraries/hl2sdk-csgo/public/game/shared/csgo/protobuf/cstrike15_usermessage_helpers.cpp.o -c /home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/game/shared/csgo/protobuf/cstrike15_usermessage_helpers.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/game/shared/csgo/protobuf/cstrike15_usermessage_helpers.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -DTesting_EXPORTS -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/common -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/game/shared -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/game/server -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/mathlib -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/vstdlib -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/tier0 -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/tier1 -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/common/protobuf-2.5.0/src -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/engine/protobuf -I/home/michael/projects/cmake_test/libraries/hl2sdk-csgo/public/game/shared/csgo/protobuf -I/home/michael/projects/cmake_test/libraries/dyncall/dynload -I/home/michael/projects/cmake_test/libraries/asmjit/src -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src -I/home/michael/projects/cmake_test/libraries/tl -I/home/michael/projects/cmake_test/libraries/mono/include/mono-2.0 -I/home/michael/projects/cmake_test/libraries/spdlog/include -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src/../../asmjit/src/asmjit  -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fPIC -DASMJIT_STATIC -o CMakeFiles/Testing.dir/src/core/dotnet_host.cpp.o -c /home/michael/projects/cmake_test/src/core/dotnet_host.cpp",
+  "file": "/home/michael/projects/cmake_test/src/core/dotnet_host.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/spdlog",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/michael/projects/cmake_test/libraries/spdlog/include  -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -std=c++11 -o CMakeFiles/spdlog.dir/src/spdlog.cpp.o -c /home/michael/projects/cmake_test/libraries/spdlog/src/spdlog.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/spdlog/src/spdlog.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/spdlog",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/michael/projects/cmake_test/libraries/spdlog/include  -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -std=c++11 -o CMakeFiles/spdlog.dir/src/stdout_sinks.cpp.o -c /home/michael/projects/cmake_test/libraries/spdlog/src/stdout_sinks.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/spdlog/src/stdout_sinks.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/spdlog",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/michael/projects/cmake_test/libraries/spdlog/include  -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -std=c++11 -o CMakeFiles/spdlog.dir/src/color_sinks.cpp.o -c /home/michael/projects/cmake_test/libraries/spdlog/src/color_sinks.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/spdlog/src/color_sinks.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/spdlog",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/michael/projects/cmake_test/libraries/spdlog/include  -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -std=c++11 -o CMakeFiles/spdlog.dir/src/file_sinks.cpp.o -c /home/michael/projects/cmake_test/libraries/spdlog/src/file_sinks.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/spdlog/src/file_sinks.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/spdlog",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/michael/projects/cmake_test/libraries/spdlog/include  -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -std=c++11 -o CMakeFiles/spdlog.dir/src/async.cpp.o -c /home/michael/projects/cmake_test/libraries/spdlog/src/async.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/spdlog/src/async.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/spdlog",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/michael/projects/cmake_test/libraries/spdlog/include  -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -std=c++11 -o CMakeFiles/spdlog.dir/src/cfg.cpp.o -c /home/michael/projects/cmake_test/libraries/spdlog/src/cfg.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/spdlog/src/cfg.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/spdlog",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -I/home/michael/projects/cmake_test/libraries/spdlog/include  -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -std=c++11 -o CMakeFiles/spdlog.dir/src/fmt.cpp.o -c /home/michael/projects/cmake_test/libraries/spdlog/src/fmt.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/spdlog/src/fmt.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/dyncall/dynload",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG -m32 -o CMakeFiles/dynload_s.dir/dynload.c.o -c /home/michael/projects/cmake_test/libraries/dyncall/dynload/dynload.c",
+  "file": "/home/michael/projects/cmake_test/libraries/dyncall/dynload/dynload.c"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/dyncall/dynload",
+  "command": "/usr/bin/cc   -O3 -DNDEBUG -m32 -o CMakeFiles/dynload_s.dir/dynload_syms.c.o -c /home/michael/projects/cmake_test/libraries/dyncall/dynload/dynload_syms.c",
+  "file": "/home/michael/projects/cmake_test/libraries/dyncall/dynload/dynload_syms.c"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/archtraits.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/archtraits.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/archtraits.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/assembler.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/assembler.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/assembler.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/builder.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/builder.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/builder.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/codeholder.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/codeholder.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/codeholder.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/codewriter.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/codewriter.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/codewriter.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/compiler.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/compiler.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/compiler.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/constpool.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/constpool.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/constpool.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/cpuinfo.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/cpuinfo.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/cpuinfo.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/emithelper.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/emithelper.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/emithelper.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/emitter.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/emitter.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/emitter.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/emitterutils.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/emitterutils.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/emitterutils.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/environment.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/environment.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/environment.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/errorhandler.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/errorhandler.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/errorhandler.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/formatter.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/formatter.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/formatter.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/func.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/func.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/func.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/funcargscontext.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/funcargscontext.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/funcargscontext.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/globals.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/globals.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/globals.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/inst.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/inst.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/inst.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/jitallocator.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/jitallocator.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/jitallocator.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/jitruntime.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/jitruntime.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/jitruntime.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/logger.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/logger.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/logger.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/operand.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/operand.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/operand.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/osutils.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/osutils.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/osutils.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/ralocal.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/ralocal.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/ralocal.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/rapass.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/rapass.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/rapass.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/rastack.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/rastack.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/rastack.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/string.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/string.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/string.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/support.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/support.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/support.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/target.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/target.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/target.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/type.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/type.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/type.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/virtmem.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/virtmem.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/virtmem.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/zone.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/zone.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/zone.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/zonehash.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/zonehash.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/zonehash.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/zonelist.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/zonelist.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/zonelist.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/zonestack.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/zonestack.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/zonestack.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/zonetree.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/zonetree.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/zonetree.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/core/zonevector.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/zonevector.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/core/zonevector.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/x86/x86assembler.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/x86/x86assembler.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/x86/x86assembler.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/x86/x86builder.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/x86/x86builder.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/x86/x86builder.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/x86/x86compiler.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/x86/x86compiler.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/x86/x86compiler.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/x86/x86emithelper.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/x86/x86emithelper.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/x86/x86emithelper.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/x86/x86features.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/x86/x86features.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/x86/x86features.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/x86/x86formatter.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/x86/x86formatter.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/x86/x86formatter.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/x86/x86func.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/x86/x86func.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/x86/x86func.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/x86/x86instdb.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/x86/x86instdb.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/x86/x86instdb.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/x86/x86instapi.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/x86/x86instapi.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/x86/x86instapi.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/x86/x86operand.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/x86/x86operand.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/x86/x86operand.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/asmjit",
+  "command": "/usr/bin/c++    -m32 -D_LINUX -DPOSIX -DGNUC -DCOMPILER_GCC -fpermissive -D_LINUX -DPOSIX -DLINUX -DGNUC -DCOMPILER_GCC -D_GLIBCXX_USE_CXX11_ABI=0 -O3 -DNDEBUG -fvisibility=hidden -Wall -Wextra -Wconversion -fno-math-errno -fno-threadsafe-statics -fno-semantic-interposition -DASMJIT_STATIC -O2 -fmerge-all-constants -fno-enforce-eh-specs -o CMakeFiles/asmjit.dir/src/asmjit/x86/x86rapass.cpp.o -c /home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/x86/x86rapass.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/asmjit/src/asmjit/x86/x86rapass.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/DynamicHooks/src",
+  "command": "/usr/bin/c++  -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src/../../asmjit/src/asmjit -I/home/michael/projects/cmake_test/libraries/asmjit/src -m32 -O3 -DNDEBUG -DASMJIT_STATIC -o CMakeFiles/DynamicHooks.dir/conventions/x86MsCdecl.cpp.o -c /home/michael/projects/cmake_test/libraries/DynamicHooks/src/conventions/x86MsCdecl.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/DynamicHooks/src/conventions/x86MsCdecl.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/DynamicHooks/src",
+  "command": "/usr/bin/c++  -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src/../../asmjit/src/asmjit -I/home/michael/projects/cmake_test/libraries/asmjit/src -m32 -O3 -DNDEBUG -DASMJIT_STATIC -o CMakeFiles/DynamicHooks.dir/conventions/x86MsThiscall.cpp.o -c /home/michael/projects/cmake_test/libraries/DynamicHooks/src/conventions/x86MsThiscall.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/DynamicHooks/src/conventions/x86MsThiscall.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/DynamicHooks/src",
+  "command": "/usr/bin/c++  -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src/../../asmjit/src/asmjit -I/home/michael/projects/cmake_test/libraries/asmjit/src -m32 -O3 -DNDEBUG -DASMJIT_STATIC -o CMakeFiles/DynamicHooks.dir/conventions/x86MsStdcall.cpp.o -c /home/michael/projects/cmake_test/libraries/DynamicHooks/src/conventions/x86MsStdcall.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/DynamicHooks/src/conventions/x86MsStdcall.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/DynamicHooks/src",
+  "command": "/usr/bin/c++  -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src/../../asmjit/src/asmjit -I/home/michael/projects/cmake_test/libraries/asmjit/src -m32 -O3 -DNDEBUG -DASMJIT_STATIC -o CMakeFiles/DynamicHooks.dir/conventions/x86MsFastcall.cpp.o -c /home/michael/projects/cmake_test/libraries/DynamicHooks/src/conventions/x86MsFastcall.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/DynamicHooks/src/conventions/x86MsFastcall.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/DynamicHooks/src",
+  "command": "/usr/bin/c++  -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src/../../asmjit/src/asmjit -I/home/michael/projects/cmake_test/libraries/asmjit/src -m32 -O3 -DNDEBUG -DASMJIT_STATIC -o CMakeFiles/DynamicHooks.dir/asm.cpp.o -c /home/michael/projects/cmake_test/libraries/DynamicHooks/src/asm.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/DynamicHooks/src/asm.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/DynamicHooks/src",
+  "command": "/usr/bin/c++  -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src/../../asmjit/src/asmjit -I/home/michael/projects/cmake_test/libraries/asmjit/src -m32 -O3 -DNDEBUG -DASMJIT_STATIC -o CMakeFiles/DynamicHooks.dir/hook.cpp.o -c /home/michael/projects/cmake_test/libraries/DynamicHooks/src/hook.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/DynamicHooks/src/hook.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/DynamicHooks/src",
+  "command": "/usr/bin/c++  -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src/../../asmjit/src/asmjit -I/home/michael/projects/cmake_test/libraries/asmjit/src -m32 -O3 -DNDEBUG -DASMJIT_STATIC -o CMakeFiles/DynamicHooks.dir/manager.cpp.o -c /home/michael/projects/cmake_test/libraries/DynamicHooks/src/manager.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/DynamicHooks/src/manager.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/DynamicHooks/src",
+  "command": "/usr/bin/c++  -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src/../../asmjit/src/asmjit -I/home/michael/projects/cmake_test/libraries/asmjit/src -m32 -O3 -DNDEBUG -DASMJIT_STATIC -o CMakeFiles/DynamicHooks.dir/registers.cpp.o -c /home/michael/projects/cmake_test/libraries/DynamicHooks/src/registers.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/DynamicHooks/src/registers.cpp"
+},
+{
+  "directory": "/home/michael/projects/cmake_test/build/libraries/DynamicHooks/src",
+  "command": "/usr/bin/c++  -I/home/michael/projects/cmake_test/libraries/DynamicHooks/src/../../asmjit/src/asmjit -I/home/michael/projects/cmake_test/libraries/asmjit/src -m32 -O3 -DNDEBUG -DASMJIT_STATIC -o CMakeFiles/DynamicHooks.dir/utilities.cpp.o -c /home/michael/projects/cmake_test/libraries/DynamicHooks/src/utilities.cpp",
+  "file": "/home/michael/projects/cmake_test/libraries/DynamicHooks/src/utilities.cpp"
+}
+]

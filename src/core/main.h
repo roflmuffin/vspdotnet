@@ -1,5 +1,8 @@
 #pragma once
 
+#include <functional>
+#include <vector>
+
 #include "engine/iserverplugin.h"
 
 namespace vspdotnet {
@@ -33,5 +36,10 @@ namespace vspdotnet {
     void OnEdictFreed(const edict_t *edict) override;
     bool BNetworkCryptKeyCheckRequired(uint32 unFromIP, uint16 usFromPort, uint32 unAccountIdProvidedByClient, bool bClientWantsToUseCryptKey) override;
     bool BNetworkCryptKeyValidate(uint32 unFromIP, uint16 usFromPort, uint32 unAccountIdProvidedByClient, int nEncryptionKeyIndexFromClient, int numEncryptedBytesFromClient, byte *pbEncryptedBufferFromClient, byte *pbPlainTextKeyForNetchan) override;
+
+    void OnThink(bool last_tick);
+    void AddTaskForNextFrame(std::function<void()>&& task);
+  private:
+      std::vector<std::function<void()>> m_nextTasks;
   };
 }

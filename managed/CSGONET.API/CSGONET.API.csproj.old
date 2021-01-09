@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0EDA91B5-FD16-45A3-B370-A80DEC12DBA5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CSGONET.API</RootNamespace>
+    <AssemblyName>CSGONET.API</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseNative.cs" />
+    <Compile Include="ConVarFlags.cs" />
+    <Compile Include="Core\BasePlugin.cs" />
+    <Compile Include="Core\Helpers.cs" />
+    <Compile Include="Core\IPlugin.cs" />
+    <Compile Include="csharp_generated\NativePINVOKE.cs" />
+    <Compile Include="Modules\Commands\CCommand.cs" />
+    <Compile Include="Modules\Commands\ConCommandInfo.cs" />
+    <Compile Include="Modules\Commands\ConsoleCommand.cs" />
+    <Compile Include="Modules\Cvars\ConVar.cs" />
+    <Compile Include="Modules\Engine\Trace\ContentMasks.cs" />
+    <Compile Include="Modules\Engine\Trace\Ray.cs" />
+    <Compile Include="Modules\Engine\Trace\RayType.cs" />
+    <Compile Include="Modules\Engine\Trace\SimpleTraceFilter.cs" />
+    <Compile Include="Modules\Engine\Trace\TraceEngine.cs" />
+    <Compile Include="Modules\Engine\Trace\TraceResult.cs" />
+    <Compile Include="Modules\Engine\Trace\TraceSurface.cs" />
+    <Compile Include="Modules\Entities\BaseEntity.cs" />
+    <Compile Include="Modules\Entities\Constants\CollisionGroup.cs" />
+    <Compile Include="Modules\Entities\Constants\DamageType.cs" />
+    <Compile Include="Modules\Entities\Constants\EntityFlags.cs" />
+    <Compile Include="Modules\Entities\Constants\HitGroup.cs" />
+    <Compile Include="Modules\Entities\Constants\LifeState.cs" />
+    <Compile Include="Modules\Entities\Constants\MoveType.cs" />
+    <Compile Include="Modules\Entities\Constants\ObserverMode.cs" />
+    <Compile Include="Modules\Entities\Constants\PlayerAnimation.cs" />
+    <Compile Include="Modules\Entities\Constants\PropType.cs" />
+    <Compile Include="Modules\Entities\Constants\RenderFx.cs" />
+    <Compile Include="Modules\Entities\Constants\RenderMode.cs" />
+    <Compile Include="Modules\Entities\Constants\SolidFlags.cs" />
+    <Compile Include="Modules\Entities\Constants\SolidType.cs" />
+    <Compile Include="Modules\Entities\Constants\Team.cs" />
+    <Compile Include="Modules\Errors\ExceptionHelper.cs" />
+    <Compile Include="Modules\Events\GameEvent.cs" />
+    <Compile Include="Modules\Listeners\CMarshalObject.cs" />
+    <Compile Include="Modules\Listeners\Listeners.cs" />
+    <Compile Include="Modules\Listeners\Listeners.MarshalCallback.cs" />
+    <Compile Include="Modules\Listeners\ResultType.cs" />
+    <Compile Include="Modules\Players\Constants\NetFlow.cs" />
+    <Compile Include="Modules\Players\NetInfo.cs" />
+    <Compile Include="Modules\Players\Player.cs" />
+    <Compile Include="Modules\Players\PlayerInfo.cs" />
+    <Compile Include="Modules\Sound\Constants\SoundAttenuation.cs" />
+    <Compile Include="Modules\Sound\Constants\SoundChannel.cs" />
+    <Compile Include="Modules\Sound\Constants\SoundFlags.cs" />
+    <Compile Include="Modules\Sound\Constants\SoundLevel.cs" />
+    <Compile Include="Modules\Sound\Constants\SoundPitch.cs" />
+    <Compile Include="Modules\Sound\Constants\SoundSource.cs" />
+    <Compile Include="Modules\Sound\Sound.cs" />
+    <Compile Include="Modules\Utils\Vector.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="PlayerButtons.cs" />
+    <Compile Include="PlayerManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Modules\Utils\Angle.cs" />
+    <Compile Include="Server.cs" />
+    <Compile Include="Utilities.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

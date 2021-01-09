@@ -7,7 +7,7 @@
 
 // This stub is required to get the correct vtables from the HL2SDK.
 // Trying to include the correct class involves like 15 header files
-// in a circular dependency hell so we just stub them instead.
+// in a circular dependency hell so I'm just gonna stub them instead.
 class IEntityListener
 {
 public:
@@ -63,6 +63,7 @@ public:
 };
 
 namespace vspdotnet {
+
     class EntityListener : public IEntityListener {
     public:
         EntityListener() {};
@@ -70,9 +71,8 @@ namespace vspdotnet {
         virtual void OnEntityCreated(CBaseEntity* pEntity) override;
         virtual void OnEntitySpawned(CBaseEntity* pEntity) override;
         virtual void OnEntityDeleted(CBaseEntity* pEntity) override;
+        void Setup();
     };
-
-    extern EntityListener Listener;
 }
 
 #endif // __ENTITY_LISTENER_H_

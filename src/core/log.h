@@ -10,6 +10,7 @@ namespace vspdotnet {
   class Log {
   public:
     static void Init();
+    static void Close();
 
     static std::shared_ptr<spdlog::logger>& GetCoreLogger() {return m_core_logger_; }
 

@@ -19,7 +19,12 @@ void Log::Init() {
   m_core_logger_ = std::make_shared<spdlog::logger>(
       "Source.NET", begin(logSinks), end(logSinks));
   spdlog::register_logger(m_core_logger_);
-  m_core_logger_->set_level(spdlog::level::trace);
-  m_core_logger_->flush_on(spdlog::level::trace);
+  m_core_logger_->set_level(spdlog::level::info);
+  m_core_logger_->flush_on(spdlog::level::info);
+}
+
+void Log::Close() {
+  spdlog::drop("Source.NET");
+  m_core_logger_ = nullptr;
 }
 }  // namespace vspdotnet

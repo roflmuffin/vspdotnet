@@ -1,0 +1,62 @@
+[
+  {
+    "name": "FIND_CONVAR",
+    "args": { "name": "charPtr" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "CREATE_CONVAR",
+    "args": {
+      "name": "charPtr",
+      "value": "charPtr",
+      "description": "charPtr",
+      "flags": "int",
+      "hasMinValue": "bool",
+      "minValue": "float",
+      "hasMaxValue": "bool",
+      "maxValue": "float"
+    },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "HOOK_CONVAR_CHANGE",
+    "args": {
+      "convar": "IntPtr",
+      "callback": "func"
+    }
+  },
+  {
+    "name": "UNHOOK_CONVAR_CHANGE",
+    "args": {
+      "convar": "IntPtr",
+      "callback": "func"
+    }
+  },
+  {
+    "name": "CONVAR_GET_FLAGS",
+    "args": { "convar": "IntPtr" },
+    "returns": "int"
+  },
+  {
+    "name": "CONVAR_SET_FLAGS",
+    "args": { "convar": "IntPtr", "flags": "int" }
+  },
+  {
+    "name": "CONVAR_GET_STRING_VALUE",
+    "args": { "convar": "IntPtr" },
+    "returns": "charPtr"
+  },
+  {
+    "name": "CONVAR_SET_STRING_VALUE",
+    "args": { "convar": "IntPtr", "value": "charPtr" }
+  },
+  {
+    "name": "CONVAR_GET_NAME",
+    "args": { "convar": "IntPtr" },
+    "returns": "charPtr"
+  },
+  {
+    "name": "CONVAR_UNREGISTER",
+    "args": { "convar": "IntPtr" }
+  }
+]

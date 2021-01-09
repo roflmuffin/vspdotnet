@@ -1,0 +1,227 @@
+[
+  {
+    "name": "EDICT_FROM_INDEX",
+    "args": { "index": "int" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "EDICT_FROM_BASEHANDLE",
+    "args": { "baseHandle": "IntPtr" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "EDICT_FROM_INTHANDLE",
+    "args": { "intHandle": "int" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "EDICT_FROM_BASEENTITY",
+    "args": { "baseEntity": "IntPtr" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "EDICT_FROM_USERID",
+    "args": { "userId": "int" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "EDICT_FROM_PLAYERINFO",
+    "args": { "playerInfo": "IntPtr" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "INTHANDLE_FROM_INDEX",
+    "args": { "index": "int" },
+    "returns": "int"
+  },
+  {
+    "name": "INTHANDLE_FROM_EDICT",
+    "args": { "edict": "IntPtr" },
+    "returns": "int"
+  },
+  {
+    "name": "INTHANDLE_FROM_BASEHANDLE",
+    "args": { "baseHandle": "IntPtr" },
+    "returns": "int"
+  },
+  {
+    "name": "INTHANDLE_FROM_BASEENTITY",
+    "args": { "baseEntity": "IntPtr" },
+    "returns": "int"
+  },
+  {
+    "name": "INTHANDLE_FROM_USERID",
+    "args": { "userId": "int" },
+    "returns": "int"
+  },
+  {
+    "name": "INTHANDLE_FROM_PLAYERINFO",
+    "args": { "playerInfo": "IntPtr" },
+    "returns": "int"
+  },
+  {
+    "name": "BASEENTITY_FROM_INDEX",
+    "args": { "index": "int" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "BASEENTITY_FROM_EDICT",
+    "args": { "edict": "IntPtr" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "BASEENTITY_FROM_BASEHANDLE",
+    "args": { "baseHandle": "IntPtr" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "BASEENTITY_FROM_INTHANDLE",
+    "args": { "intHandle": "int" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "BASEENTITY_FROM_USERID",
+    "args": { "userId": "int" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "BASEENTITY_FROM_PLAYERINFO",
+    "args": { "playerInfo": "IntPtr" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "USERID_FROM_INDEX",
+    "args": { "index": "int" },
+    "returns": "int"
+  },
+  {
+    "name": "USERID_FROM_EDICT",
+    "args": { "edict": "IntPtr" },
+    "returns": "int"
+  },
+  {
+    "name": "USERID_FROM_BASEHANDLE",
+    "args": { "baseHandle": "IntPtr" },
+    "returns": "int"
+  },
+  {
+    "name": "USERID_FROM_INTHANDLE",
+    "args": { "intHandle": "int" },
+    "returns": "int"
+  },
+  {
+    "name": "USERID_FROM_PLAYERINFO",
+    "args": { "playerInfo": "IntPtr" },
+    "returns": "int"
+  },
+  {
+    "name": "USERID_FROM_BASEENTITY",
+    "args": { "baseEntity": "IntPtr" },
+    "returns": "int"
+  },
+  {
+    "name": "PLAYERINFO_FROM_INDEX",
+    "args": { "index": "int" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "PLAYERINFO_FROM_EDICT",
+    "args": { "edict": "IntPtr" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "PLAYERINFO_FROM_BASEHANDLE",
+    "args": { "baseHandle": "IntPtr" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "PLAYERINFO_FROM_INTHANDLE",
+    "args": { "intHandle": "int" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "PLAYERINFO_FROM_USERID",
+    "args": { "userId": "int" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "PLAYERINFO_FROM_BASEENTITY",
+    "args": { "baseEntity": "IntPtr" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "INDEX_FROM_EDICT",
+    "args": { "edict": "IntPtr" },
+    "returns": "int"
+  },
+  {
+    "name": "INDEX_FROM_BASEHANDLE",
+    "args": { "baseHandle": "IntPtr" },
+    "returns": "int"
+  },
+  {
+    "name": "INDEX_FROM_INTHANDLE",
+    "args": { "intHandle": "int" },
+    "returns": "int"
+  },
+  {
+    "name": "INDEX_FROM_BASEENTITY",
+    "args": { "baseEntity": "IntPtr" },
+    "returns": "int"
+  },
+  {
+    "name": "INDEX_FROM_USERID",
+    "args": { "userId": "int" },
+    "returns": "int"
+  },
+  {
+    "name": "INDEX_FROM_PLAYERINFO",
+    "args": { "playerInfo": "IntPtr" },
+    "returns": "int"
+  },
+  {
+    "name": "INDEX_FROM_NAME",
+    "args": { "name": "charPtr" },
+    "returns": "int"
+  },
+  {
+    "name": "INDEX_FROM_STEAMID",
+    "args": { "steamId": "charPtr" },
+    "returns": "int"
+  },
+  {
+    "name": "INDEX_FROM_UNIQUEID",
+    "args": { "uniqueId": "int" },
+    "returns": "int"
+  },
+  {
+    "name": "BASEHANDLE_FROM_INDEX",
+    "args": { "index": "int" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "BASEHANDLE_FROM_EDICT",
+    "args": { "edict": "IntPtr" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "BASEHANDLE_FROM_INTHANDLE",
+    "args": { "intHandle": "int" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "BASEHANDLE_FROM_BASEENTITY",
+    "args": { "baseEntity": "IntPtr" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "BASEHANDLE_FROM_USERID",
+    "args": { "userId": "int" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "BASEHANDLE_FROM_PLAYERINFO",
+    "args": { "playerInfo": "IntPtr" },
+    "returns": "IntPtr"
+  }
+]

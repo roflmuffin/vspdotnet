@@ -16,7 +16,7 @@ namespace vspdotnet {
 
     InterfaceHelper_t engine_interfaces[] = {
       {INTERFACEVERSION_VENGINESERVER, (void**)&globals::engine},
-      {INTERFACEVERSION_GAMEEVENTSMANAGER2, (void**)&globals::gameevent_manager},
+      {INTERFACEVERSION_GAMEEVENTSMANAGER2, (void**)&globals::gameeventmanager},
       {INTERFACEVERSION_ISERVERPLUGINHELPERS, (void**)&globals::helpers},
       {INTERFACEVERSION_ENGINETRACE_SERVER, (void**)&globals::engine_trace},
       {IENGINESOUND_SERVER_INTERFACE_VERSION, (void**)&globals::engine_sound},

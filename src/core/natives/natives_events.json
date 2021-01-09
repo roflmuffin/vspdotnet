@@ -1,0 +1,69 @@
+[
+  {
+    "name": "HOOK_EVENT",
+    "args": { "name": "charPtr", "callback": "func" }
+  },
+  {
+    "name": "UNHOOK_EVENT",
+    "args": { "name": "charPtr", "callback": "func" }
+  },
+  {
+    "name": "CREATE_EVENT",
+    "args": { "name": "charPtr", "force": "bool" },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "FIRE_EVENT",
+    "args": { "gameEvent": "IntPtr", "dontBroadcast": "bool" }
+  },
+  {
+    "name": "FIRE_EVENT_TO_CLIENT",
+    "args": { "gameEvent": "IntPtr", "clientIndex": "int" }
+  },
+  {
+    "name": "GET_EVENT_NAME",
+    "args": { "gameEvent": "IntPtr" },
+    "returns": "charPtr"
+  },
+  {
+    "name": "GET_EVENT_BOOL",
+    "args": { "gameEvent": "IntPtr", "name": "charPtr" },
+    "returns": "bool"
+  },
+  {
+    "name": "GET_EVENT_INT",
+    "args": { "gameEvent": "IntPtr", "name": "charPtr" },
+    "returns": "int"
+  },
+  {
+    "name": "GET_EVENT_FLOAT",
+    "args": { "gameEvent": "IntPtr", "name": "charPtr" },
+    "returns": "float"
+  },
+  {
+    "name": "GET_EVENT_STRING",
+    "args": { "gameEvent": "IntPtr", "name": "charPtr" },
+    "returns": "charPtr"
+  },
+  {
+    "name": "SET_EVENT_BOOL",
+    "args": { "gameEvent": "IntPtr", "name": "charPtr", "value": "bool" }
+  },
+  {
+    "name": "SET_EVENT_FLOAT",
+    "args": { "gameEvent": "IntPtr", "name": "charPtr", "value": "float" }
+  },
+  {
+    "name": "SET_EVENT_STRING",
+    "args": { "gameEvent": "IntPtr", "name": "charPtr", "value": "charPtr" }
+  },
+  {
+    "name": "SET_EVENT_INT",
+    "args": { "gameEvent": "IntPtr", "name": "charPtr", "value": "int" }
+  },
+  {
+    "name": "LOAD_EVENTS_FROM_FILE",
+    "args": { "path": "charPtr" },
+    "returns": "int"
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CSGONET.API": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}
