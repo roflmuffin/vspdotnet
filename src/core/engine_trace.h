@@ -1,3 +1,5 @@
+#pragma once
+
 #include "core/callback_manager.h"
 #include "public/engine/IEngineTrace.h"
 #include "public/gametrace.h"

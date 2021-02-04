@@ -1,5 +1,4 @@
-#ifndef __GLOBALS_H_
-#define __GLOBALS_H_
+#pragma once
 
 //#include "main.h"
 #include "convar_hack.h"
@@ -96,5 +95,3 @@ bool InitializeGlobals();
 #define SH_GLOB_SHPTR vspdotnet::globals::source_hook
 #undef SH_GLOB_PLUGPTR
 #define SH_GLOB_PLUGPTR vspdotnet::globals::source_hook_pluginid
-
-#endif // __GLOBALS_H_

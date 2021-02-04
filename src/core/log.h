@@ -1,5 +1,4 @@
-#ifndef __LOG_H_
-#define __LOG_H_
+#pragma once
 
 #include <memory>
 
@@ -25,5 +24,3 @@ namespace vspdotnet {
 #define VSPDN_CORE_WARN(...) ::vspdotnet::Log::GetCoreLogger()->warn(__VA_ARGS__)
 #define VSPDN_CORE_ERROR(...) ::vspdotnet::Log::GetCoreLogger()->error(__VA_ARGS__)
 #define VSPDN_CORE_CRITICAL(...) ::vspdotnet::Log::GetCoreLogger()->critical(__VA_ARGS__)
-
-#endif // __LOG_H_
