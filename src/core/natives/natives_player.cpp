@@ -1,8 +1,17 @@
+#include <core/sig_scanner.h>
+
 #include "core/autonative.h"
 #include "core/entity.h"
 #include "core/script_engine.h"
 
 #include <game/server/iplayerinfo.h>
+
+#include <sstream>
+
+
+
+#include "core/function.h"
+#include "core/player_manager.h"
 
 namespace vspdotnet {
 
@@ -28,6 +37,31 @@ CREATE_GETTER_FUNCTION(PlayerInfo, const char*, ModelName, IPlayerInfo*, obj->Ge
 CREATE_GETTER_FUNCTION(PlayerInfo, int, Health, IPlayerInfo*, obj->GetHealth());
 CREATE_GETTER_FUNCTION(PlayerInfo, int, MaxHealth, IPlayerInfo*, obj->GetMaxHealth());
 
+bool PlayerIsInGame(ScriptContext& script_context)
+{
+  auto index = script_context.GetArgument<int>(0);
+
+
+  if ((index < 1) || (index > globals::player_manager.MaxClients())) {
+    script_context.ThrowNativeError("Client index %d is invalid", index);
+    return false;
+  }
+
+  return globals::player_manager.GetPlayerByIndex(index)->IsInGame();
+}
+
+bool IsFakeClient(ScriptContext& script_context)
+{
+  auto index = script_context.GetArgument<int>(0);
+
+  if ((index < 1) || (index > globals::player_manager.MaxClients())) {
+    script_context.ThrowNativeError("Client index %d is invalid", index);
+    return false;
+  }
+
+   return globals::player_manager.GetPlayerByIndex(index)->IsFakeClient();
+}
+
 REGISTER_NATIVES(player, {
   ScriptEngine::RegisterNativeHandler("PLAYER_GET_PLAYERINFO", PlayerGetPlayerInfo);
 
@@ -50,6 +84,9 @@ REGISTER_NATIVES(player, {
   ScriptEngine::RegisterNativeHandler("PLAYERINFO_GET_MODEL_NAME", PlayerInfoGetModelName);
   ScriptEngine::RegisterNativeHandler("PLAYERINFO_GET_HEALTH", PlayerInfoGetHealth);
   ScriptEngine::RegisterNativeHandler("PLAYERINFO_GET_MAX_HEALTH", PlayerInfoGetMaxHealth);
+
+  ScriptEngine::RegisterNativeHandler("CLIENT_IS_IN_GAME", PlayerIsInGame);
+  ScriptEngine::RegisterNativeHandler("IS_FAKE_CLIENT", IsFakeClient);
 })
 
 }

@@ -10,7 +10,7 @@
 #include "script_engine.h"
 
 namespace vspdotnet {
-class CCallback;
+class ScriptCallback;
 class PluginFunction;
 }
 
@@ -19,18 +19,18 @@ struct EventHook {
     PreHook = nullptr;
     PostHook = nullptr;
   }
-  vspdotnet::CCallback* PreHook;
-  vspdotnet::CCallback* PostHook;
+  vspdotnet::ScriptCallback* PreHook;
+  vspdotnet::ScriptCallback* PostHook;
   std::string name;
 };
 
 namespace vspdotnet {
 
-class CEventManager : public GlobalClass,
+class EventManager : public GlobalClass,
                       public IGameEventListener2 {
  public:
-  CEventManager();
-  ~CEventManager();
+  EventManager();
+  ~EventManager();
 
  public:  // GlobalClass
   void OnShutdown() override;
@@ -52,7 +52,7 @@ class CEventManager : public GlobalClass,
   bool OnFireEvent_Post(IGameEvent* pEvent, bool bDontBroadcast);
 
  private:
-  std::map<std::string, EventHook*> m_hooks_;
+  std::map<std::string, EventHook*> m_hooks;
 };
 
 }  // namespace vspdotnet

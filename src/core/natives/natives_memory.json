@@ -1,0 +1,50 @@
+[
+  {
+    "name": "CREATE_VIRTUAL_FUNCTION",
+    "args": {
+      "ptr": "IntPtr",
+      "vtableOffset": "int",
+      "numArguments": "int",
+      "returnType": "int",
+      "arguments": "object[]"
+    },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "CREATE_VIRTUAL_FUNCTION_BY_SIGNATURE",
+    "args": {
+      "ptr": "IntPtr",
+      "binaryName": "charPtr",
+      "signature": "charPtr",
+      "numArguments": "int",
+      "returnType": "int",
+      "arguments": "object[]"
+    },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "EXECUTE_VIRTUAL_FUNCTION",
+    "args": {
+      "functionPtr": "IntPtr",
+      "arguments": "object[]"
+    }
+  },
+  {
+    "name": "HOOK_FUNCTION",
+    "args": {
+      "functionPtr": "IntPtr",
+      "entityIndex": "int",
+      "post": "bool",
+      "callback": "func"
+    }
+  },
+  {
+    "name": "UNHOOK_FUNCTION",
+    "args": {
+      "functionPtr": "IntPtr",
+      "entityIndex": "int",
+      "post": "bool",
+      "callback": "func"
+    }
+  }
+]

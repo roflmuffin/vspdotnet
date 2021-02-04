@@ -30,14 +30,14 @@ TraceType_t TraceFilterProxy::GetTraceType() const {
 
 bool TraceFilterProxy::ShouldHitEntity(IHandleEntity* pServerEntity,
                                        int contentsMask) {
-  auto entity = ExcBaseEntityFromBaseHandle(pServerEntity->GetRefEHandle());
-  if (!entity) return false;
+  auto entity = ExcIndexFromBaseHandle(pServerEntity->GetRefEHandle());
+  if (entity < 0) return false;
 
   auto nativeContext = fxNativeContext{};
   auto scriptContext = ScriptContextRaw(nativeContext);
 
   scriptContext.Push(entity);
-  scriptContext.Push(contentsMask);
+  scriptContext.Push<int>(0);
 
   m_cb_should_hit_entity(&nativeContext);
 
@@ -45,7 +45,9 @@ bool TraceFilterProxy::ShouldHitEntity(IHandleEntity* pServerEntity,
 
   VSPDN_CORE_INFO("Received result {0} from `ShouldHitEntity`", result);
 
-  return result == 1;
+  return result;
+  /*return result;
+  return true;*/
 }
 
 void TraceFilterProxy::SetShouldHitEntityCallback(CallbackT cb) {

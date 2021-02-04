@@ -1,3 +1,32 @@
+/**
+ * =============================================================================
+ * Source Python
+ * Copyright (C) 2012-2016 Source Python Development Team.  All rights reserved.
+ * =============================================================================
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, version 3.0, as published by the
+ * Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * As a special exception, the Source Python Team gives you permission
+ * to link the code of this program (as well as its derivative works) to
+ * "Half-Life 2," the "Source Engine," and any Game MODs that run on software
+ * by the Valve Corporation.  You must obey the GNU General Public License in
+ * all respects for all other code used.  Additionally, the Source.Python
+ * Development Team grants this exception to all derivative works.
+ *
+ * This file has been modified from its original form, under the GNU General
+ * Public License, version 3.0.
+ */
+
 #pragma once
 
 #include <datamap.h>
@@ -12,10 +41,13 @@
 
 #include "core/utilities/conversions.h"
 #include "core/globals.h"
+#include "core/props.h"
+#include "core/log.h"
 
 //#undef GetClassName
 
 namespace vspdotnet {
+struct SendPropInfo;
 
 enum PropType { Send, Data };
 
@@ -51,10 +83,9 @@ class CBaseEntityWrapper : public IServerEntity {
   virtual int YouForgotToImplementOrDeclareServerClass() = 0;
   virtual datamap_t* GetDataDescMap() = 0;
   virtual bool IsMoving(void) = 0;
-
- private:
   int OffsetToInt(int offset, int bit_count, bool is_unsigned);
   void SetIntByOffset(int offset, int bit_count, bool is_unsigned, int value);
+ private:  
   int MatchTypeDescAsInteger(_fieldtypes type, int flags);
 
   int GetFloatOffset(PropType type, const char* name);
@@ -91,10 +122,11 @@ class CBaseEntityWrapper : public IServerEntity {
   }
 
   int FindNetworkPropertyOffset(const char* name);
-  SendProp* FindNetworkPropertyDescription(const char* name);
+  SendPropInfo* FindNetworkPropertyDescription(const char* name);
 
   template <class T>
-  T GetProperty(PropType type, const char* name) {
+  T GetProperty(PropType type, const char* name)
+  {
     int offset;
     int bit_count;
     bool is_unsigned = false;
@@ -122,18 +154,18 @@ class CBaseEntityWrapper : public IServerEntity {
         break;
       }
       case Send: {
-        SendProp* info = FindNetworkPropertyDescription(name);
+        SendPropInfo* info = FindNetworkPropertyDescription(name);
 
         if (!info) {
           //SetPendingException("Could not find network property %s", name);
           return -1;
         }
 
-        bit_count = info->m_nBits;
-        offset = info->GetOffset();
-        is_unsigned = ((info->GetFlags() & SPROP_UNSIGNED) == SPROP_UNSIGNED);
+        bit_count = info->sendprop->m_nBits;
+        offset = info->actual_offset;
+        is_unsigned = ((info->sendprop->GetFlags() & SPROP_UNSIGNED) == SPROP_UNSIGNED);
 
-        if (info->GetFlags() & SPROP_VARINT) {
+        if (info->sendprop->GetFlags() & SPROP_VARINT) {
           bit_count = sizeof(int) * 8;
         }
 
@@ -175,18 +207,18 @@ class CBaseEntityWrapper : public IServerEntity {
         break;
       }
       case Send: {
-        SendProp* info = FindNetworkPropertyDescription(name);
+        SendPropInfo* info = FindNetworkPropertyDescription(name);
 
         if (!info) {
           //SetPendingException("Could not find network property %s", name);
           return;
         }
 
-        bit_count = info->m_nBits;
-        offset = info->GetOffset();
-        is_unsigned = ((info->GetFlags() & SPROP_UNSIGNED) == SPROP_UNSIGNED);
+        bit_count = info->sendprop->m_nBits;
+        offset = info->actual_offset;
+        is_unsigned = ((info->sendprop->GetFlags() & SPROP_UNSIGNED) == SPROP_UNSIGNED);
 
-        if (info->GetFlags() & SPROP_VARINT) {
+        if (info->sendprop->GetFlags() & SPROP_VARINT) {
           bit_count = sizeof(int) * 8;
         }
 
@@ -221,7 +253,13 @@ class CBaseEntityWrapper : public IServerEntity {
 
   int GetIndex() { return ExcIndexFromBaseEntity(GetThis()); }
 
-  bool IsValid() { return ExcIndexFromBaseEntity(GetThis()) > -1; }
+  bool IsValid()
+  {
+    auto index = ExcIndexFromBaseEntity(GetThis());
+    VSPDN_CORE_INFO("Is Valid Check on Entity {0} is {1}", (void*)GetThis(),
+                    index);
+    return index > -1;
+  }
 
   const char* GetClassname() { return GetNetworkable()->GetClassName(); }
 

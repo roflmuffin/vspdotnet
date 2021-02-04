@@ -1,11 +1,15 @@
 [
   {
     "name": "HOOK_EVENT",
-    "args": { "name": "charPtr", "callback": "func" }
+    "args": { "name": "charPtr", "callback": "func", "isPost":  "bool" }
   },
   {
     "name": "UNHOOK_EVENT",
-    "args": { "name": "charPtr", "callback": "func" }
+    "args": {
+      "name": "charPtr",
+      "callback": "func",
+      "isPost": "bool"
+    }
   },
   {
     "name": "CREATE_EVENT",

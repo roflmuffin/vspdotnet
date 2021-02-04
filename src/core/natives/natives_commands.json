@@ -34,7 +34,17 @@
   },
   {
     "name": "COMMAND_GET_ARG_BY_INDEX",
-    "args": { "command": "IntPtr", "index": "int" },
+    "args": {
+      "command": "IntPtr",
+      "index": "int"
+    },
     "returns": "charPtr"
+  },
+  {
+    "name": "ISSUE_CLIENT_COMMAND",
+    "args": {
+      "entityIndex": "int",
+      "command":  "charPtr" 
+    } 
   }
 ]

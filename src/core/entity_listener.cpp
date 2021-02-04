@@ -1,152 +1,205 @@
 #include "entity_listener.h"
 
-#include <server_class.h>
-
 #include "globals.h"
 
-#include <sourcehook/sourcehook.h>
 
-#include "entity.h"
-#include "hook.h"
-#include "hooks.h"
-#include "log.h"
-#include "manager.h"
-#include "datamaps.h"
+#include "core/callback_manager.h"
+#include "core/entity.h"
+#include "core/log.h"
+#include "core/hooks.h"
 
-namespace vspdotnet {
+typedef CBaseEntity CBaseCombatWeapon;
+SH_DECL_MANUALHOOK3_void(Weapon_Drop, 287, 0, 0, CBaseCombatWeapon*, const Vector*, const Vector*);
 
-  bool UTIL_ContainsDataTable(SendTable *pTable, const char *name) {
-    const char *pname = pTable->GetName();
-    int props = pTable->GetNumProps();
-    SendProp *prop;
-    SendTable *table;
+namespace vspdotnet
+{
+bool UTIL_ContainsDataTable(SendTable* pTable, const char* name)
+{
+  const char* pname = pTable->GetName();
+  int props = pTable->GetNumProps();
+  SendProp* prop;
+  SendTable* table;
 
-    if (pname && strcmp(name, pname) == 0) return true;
+  if (pname && strcmp(name, pname) == 0) return true;
 
-    for (int i = 0; i < props; i++) {
-      prop = pTable->GetProp(i);
+  for (int i = 0; i < props; i++)
+  {
+    prop = pTable->GetProp(i);
 
-      if ((table = prop->GetDataTable()) != NULL) {
-        pname = table->GetName();
-        if (pname && strcmp(name, pname) == 0) {
-          return true;
-        }
+    if ((table = prop->GetDataTable()) != NULL)
+    {
+      pname = table->GetName();
+      if (pname && strcmp(name, pname) == 0)
+      {
+        return true;
+      }
 
-        if (UTIL_ContainsDataTable(table, name)) {
-          return true;
-        }
+      if (UTIL_ContainsDataTable(table, name))
+      {
+        return true;
       }
     }
-
-    return false;
   }
 
-    SH_DECL_MANUALHOOK0_void(PreThink, 371, 0, 0);
-    SH_DECL_MANUALHOOK0_void(Think, 52, 0, 0);
-    SH_DECL_MANUALHOOK0_void(PostThink, 372, 0, 0);
+  return false;
+}
 
-    static void Hook_PreThink()
-    {
-      auto ptr = META_IFACEPTR(CBaseEntityWrapper);
-      auto classname = ptr->GetClassname();
-      if (strcmp(classname, "player") == 0)
-      {
-        bool inBombZone = ptr->GetProp(Send, "m_bInBombZone");
-        VSPDN_CORE_INFO("PreThink called by entity: {0} | inBombZone: {1}", (void *)ptr, inBombZone);        
-      }
+CBaseEntity* m_EntityCache[NUM_ENT_ENTRIES];
+
+void EntityListener::OnEntityCreated(CBaseEntity* pEntity)
+{
+  auto index = ExcIndexFromBaseEntity(pEntity);
+
+  // Index can be -1 for players before any players have connected.
+  if (static_cast<unsigned>(index) == INVALID_EHANDLE_INDEX ||
+      (index > 0 && index <= globals::gpGlobals->maxClients))
+  {
+    return;
+  }
+
+  if (!(index >= 0 && index < NUM_ENT_ENTRIES))
+  {
+    VSPDN_CORE_INFO("OnEntityCreated - Got entity index out of range (%d)",
+                    index);
+    return;
+  }
+
+  if (m_EntityCache[index] != pEntity)
+  {
+    HandleEntityCreated(pEntity, index);
+  }
+}
+
+
+void EntityListener::OnEntitySpawned(CBaseEntity* pEntity)
+{
+  auto index = ExcIndexFromBaseEntity(pEntity);
+
+  // Index can be -1 for players before any players have connected.
+  if (static_cast<unsigned>(index) == INVALID_EHANDLE_INDEX ||
+      (index > 0 && index <= globals::gpGlobals->maxClients))
+  {
+    return;
+  }
+
+  if (!(index >= 0 && index < NUM_ENT_ENTRIES))
+  {
+    VSPDN_CORE_INFO("OnEntitySpawned - Got entity index out of range (%d)",
+                    index);
+    return;
+  }
+
+  HandleEntitySpawned(pEntity, index);
+}
+
+void EntityListener::OnEntityDeleted(CBaseEntity* pEntity)
+{
+  auto index = ExcIndexFromBaseEntity(pEntity);
+
+  // Index can be -1 for players before any players have connected.
+  if (static_cast<unsigned>(index) == INVALID_EHANDLE_INDEX ||
+      (index > 0 && index <= globals::gpGlobals->maxClients))
+  {
+    return;
+  }
+
+  HandleEntityDeleted(pEntity, index);
+}
+
+CHook* hook;
+std::unordered_map<void*, void*> ecx_addresses2;
+
+static bool TestHandler(HookType_t hook_type, CHook* hook)
+{
+  auto entity = hook->GetArgument<CBaseEntityWrapper*>(0);
+  ecx_addresses2[hook->GetArgumentAddress(0)] = entity;
+  auto weapon = hook->GetArgument<CBaseEntityWrapper*>(1);
+  VSPDN_CORE_INFO("WeaponSwitch: {0} | {1} | {2}", entity->GetClassname(), weapon ? weapon->GetClassname() : "", entity->GetIndex());
+  return false;
+}
+
+static bool TestHandlerPost(HookType_t hook_type, CHook* hook) {
+  auto entity = reinterpret_cast<CBaseEntityWrapper*>(ecx_addresses2[hook->GetArgumentAddress(0)]);
+  auto weapon = hook->GetArgument<CBaseEntityWrapper*>(1);
+  VSPDN_CORE_INFO("WeaponSwitchPost: {0} | {1} | {2}", entity->GetClassname(),
+                  weapon ? weapon->GetClassname() : "", entity->GetIndex());
+
+  ecx_addresses2.erase(hook->GetArgumentAddress(0));
+  return false;
+}
+
+static void Hook_WeaponDrop(CBaseCombatWeapon* pWeapon, const Vector* pvecTarget,
+                            const Vector* pVelocity)
+{
+  auto entity = (META_IFACEPTR(CBaseEntityWrapper));
+  auto weapon = reinterpret_cast<CBaseEntityWrapper*>(pWeapon);
+
+  VSPDN_CORE_INFO("WeaponSwitch: {0} | {1} | {2}", entity->GetClassname(),
+                  weapon ? weapon->GetClassname() : "", entity->GetIndex());
+}
+
+static void Hook_WeaponDropPost(CBaseCombatWeapon* pWeapon, const Vector* pvecTarget,
+                            const Vector* pVelocity) {
+  auto entity = (META_IFACEPTR(CBaseEntityWrapper));
+  auto weapon = reinterpret_cast<CBaseEntityWrapper*>(pWeapon);
+
+  VSPDN_CORE_INFO("WeaponSwitchPost: {0} | {1} | {2}", entity->GetClassname(),
+                  weapon ? weapon->GetClassname() : "", entity->GetIndex());
+}
+
+void EntityListener::HandleEntityCreated(CBaseEntity* pEntity, int index)
+{
+  const char* pName = reinterpret_cast<CBaseEntityWrapper*>(pEntity)->GetClassname();
+  if (!pName) pName = "";
+
+  if (index == 1) {
+    std::vector<DataType_t> vecArgTypes{DATA_TYPE_POINTER, DATA_TYPE_POINTER, DATA_TYPE_INT };
+   ;
+    auto prethinkfunc = hooks::GetVirtualFuncHelper((unsigned long)pEntity, 288);
+
+    if (!hook) {
+      /*hook = GetHookManager()->HookFunction((void*)prethinkfunc,
+                                                 new x86MsThiscall(vecArgTypes, DATA_TYPE_VOID));
+
+      hook->AddCallback(HOOKTYPE_PRE, (HookHandlerFn*)(void*)&TestHandler);
+      hook->AddCallback(HOOKTYPE_POST, (HookHandlerFn*)(void*)&TestHandlerPost);*/
+
+      /*SH_ADD_MANUALVPHOOK(Weapon_Drop, pEntity, SH_STATIC(Hook_WeaponDrop), false);
+      SH_ADD_MANUALVPHOOK(Weapon_Drop, pEntity, SH_STATIC(Hook_WeaponDropPost), true);*/
     }
+  }
 
-    static void Hook_PostThink() {
-      auto ptr = META_IFACEPTR(CBaseEntityWrapper);
-      auto classname = ptr->GetClassname();
-      if (strcmp(classname, "player") == 0) {
-        bool inBombZone = ptr->GetProp(Send, "m_bInBombZone");
-        VSPDN_CORE_INFO("PostThink called by entity: {0} | inBombZone: {1}",
-                        (void *)ptr, inBombZone);
-      }
-    }
+  m_on_entity_created_callback_->ScriptContext().Reset();
+  m_on_entity_created_callback_->ScriptContext().Push(index);
+  m_on_entity_created_callback_->ScriptContext().Push(pName);
+  m_on_entity_created_callback_->Execute();
 
-    static void Hook_Think() {
-      auto ptr = META_IFACEPTR(CBaseEntityWrapper);
-      auto classname = ptr->GetClassname();
-      if (strcmp(classname, "player") == 0) {
-        bool inBombZone = ptr->GetProp(Send, "m_bInBombZone");
-        VSPDN_CORE_INFO("Think called by entity: {0} | inBombZone: {1}",
-                        (void *)ptr, inBombZone);
-      }
-    }
+  m_EntityCache[index] = pEntity;
+}
 
-    static void Hook_Reload()
-    {
-    }
+void EntityListener::HandleEntitySpawned(CBaseEntity* pEntity, int index)
+{
+  const char* pName =
+      reinterpret_cast<CBaseEntityWrapper*>(pEntity)->GetClassname();
+  if (!pName) pName = "";
 
+  m_on_entity_spawned_callback_->ScriptContext().Reset();
+  m_on_entity_spawned_callback_->ScriptContext().Push(index);
+  m_on_entity_spawned_callback_->ScriptContext().Push(pName);
+  m_on_entity_spawned_callback_->Execute();
+}
 
-    static bool NewHandler(HookType_t hook_type, CHook *hook) {
-      auto ptr = hook->GetArgument<CBaseEntityWrapper *>(0);
-      auto networked = ptr->GetNetworkable();
-      edict_t *pEdict = networked->GetEdict();
+void EntityListener::HandleEntityDeleted(CBaseEntity* pEntity, int index)
+{
+  m_on_entity_deleted_callback_->ScriptContext().Reset();
+  m_on_entity_deleted_callback_->ScriptContext().Push(index);
+  m_on_entity_deleted_callback_->Execute();
+}
 
-      bool inBombZone = ptr->GetProp(Send, "m_bInBombZone");
-      VSPDN_CORE_INFO("Think called by entity: {0} | inBombZone: {1}",
-                      (void *)ptr, inBombZone);
-      return false;
-    }
-
-    void EntityListener::Setup()
-    {
-      //SH_MANUALHOOK_RECONFIGURE(PreThink, 371, 0, 0);
-    }
-
-    void EntityListener::OnEntityCreated(CBaseEntity *pEntity) {
-      /*SH_ADD_MANUALVPHOOK(PreThink, pEntity, SH_STATIC(Hook_PreThink), false);
-      SH_ADD_MANUALVPHOOK(PostThink, pEntity, SH_STATIC(Hook_PostThink), false);
-      SH_ADD_MANUALVPHOOK(Think, pEntity, SH_STATIC(Hook_Think), false);
-      SH_ADD_MANUALVPHOOK(Reload, pEntity, SH_STATIC(Hook_Reload), false);*/
-      auto wrapped = reinterpret_cast<CBaseEntityWrapper*>(pEntity);
-
-      auto descMap = wrapped->GetDataDescMap();
-
-      bool isPlayer = UTIL_ContainsDataTable(wrapped->GetServerClass()->m_pTable,
-                             "DT_BasePlayer");
-
-      if (!isPlayer) return;
-      if (!wrapped->GetBaseEntity()) return;
-
-      CHookManager *hook_manager = GetHookManager();
-
-
-      hooks::MemFuncInfo info = {true, 0, 52,
-                                 0};  // hooks::GetFunctionInfo(func);
-      unsigned long myaddr = hooks::GetVirtualFuncHelper(
-          (unsigned long)pEntity + info.vtbloffs, info.vtblindex);
-
-      std::vector<DataType_t> vecArgTypes;
-      vecArgTypes.push_back(DATA_TYPE_POINTER);
-
-      /*va_list vl;
-      va_start(vl, numArgs);
-      for (int i = 0; i < numArgs; i++) {
-        int type = va_arg(vl, int);
-        vecArgTypes.push_back((DataType_t)type);
-      }
-      va_end(vl);*/
-
-      bool post = false;
-
-      CHook *pHook = hook_manager->HookFunction(
-          (void *)myaddr, new x86MsThiscall(vecArgTypes, DATA_TYPE_VOID));
-
-      pHook->AddCallback(post ? HOOKTYPE_POST : HOOKTYPE_PRE,
-                         (HookHandlerFn *)(void *)NewHandler);
-
-      VSPDN_CORE_TRACE("Entity Created: {0}", (void*)pEntity);
-    }
-
-    void EntityListener::OnEntitySpawned(CBaseEntity *pEntity) {
-        VSPDN_CORE_TRACE("Entity Spawned: {0}", (void*)pEntity);
-    }
-
-    void EntityListener::OnEntityDeleted(CBaseEntity *pEntity) {
-        VSPDN_CORE_TRACE("Entity Deleted: {0}", (void*)pEntity);
-    }
+void EntityListener::OnAllInitialized()
+{
+  m_on_entity_created_callback_ = globals::callback_manager.CreateCallback("OnEntityCreated");
+  m_on_entity_spawned_callback_ = globals::callback_manager.CreateCallback("OnEntitySpawned");
+  m_on_entity_deleted_callback_ = globals::callback_manager.CreateCallback("OnEntityDeleted");
+}
 }

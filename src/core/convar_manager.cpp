@@ -13,6 +13,8 @@ SH_DECL_HOOK3_void(ICvar, CallGlobalChangeCallbacks, SH_NOATTRIB, false,
 
 namespace vspdotnet {
 
+CPluginConVarAccessor g_ConVarAccessor;
+
 std::map<std::string, ConVarInfo*> convar_cache;
 
 ConVarManager::ConVarManager() {}
@@ -51,7 +53,7 @@ void ConVarManager::OnConVarChanged(ConVar* pConVar, const char* oldValue,
     return;
   }
 
-  CCallback* callback = pInfo->GetCallback();
+  ScriptCallback* callback = pInfo->GetCallback();
   if (callback != nullptr) {
     callback->ScriptContext().Reset();
     callback->ScriptContext().SetArgument(0, pInfo);
@@ -62,7 +64,7 @@ void ConVarManager::OnConVarChanged(ConVar* pConVar, const char* oldValue,
 }
 
 void ConVarManager::HookConVarChange(ConVarInfo* pInfo, CallbackT callback) {
-  CCallback* p_callback;
+  ScriptCallback* p_callback;
 
   /* Find the convar in the lookup trie */
   if (convar_cache_lookup(pInfo->GetName(), &pInfo)) {
@@ -81,7 +83,7 @@ void ConVarManager::HookConVarChange(ConVarInfo* pInfo, CallbackT callback) {
 }
 
 void ConVarManager::UnhookConVarChange(ConVarInfo* pInfo, CallbackT callback) {
-  CCallback* p_callback;
+  ScriptCallback* p_callback;
 
   /* Find the convar in the lookup trie */
   if (convar_cache_lookup(pInfo->GetName(), &pInfo)) {
@@ -97,7 +99,7 @@ void ConVarManager::UnhookConVarChange(ConVarInfo* pInfo, CallbackT callback) {
 }
 
 bool ConVarManager::Unregister(ConVarInfo* pInfo) {
-  CCallback* p_callback;
+  ScriptCallback* p_callback;
 
   if (convar_cache_lookup(pInfo->GetName(), &pInfo)) {
     /* Get the forward */

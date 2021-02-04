@@ -43,6 +43,8 @@ namespace CSGONET.API.Modules.Events
         public string GetString(string name) => NativeAPI.GetEventString(Handle, name);
         public int GetInt(string name) => NativeAPI.GetEventInt(Handle, name);
 
+        public Player GetPlayer(string name) => Player.FromUserId(GetInt(name));
+
         public void SetBool(string name, bool value) => NativeAPI.SetEventBool(Handle, name, value);
         public void SetFloat(string name, float value) => NativeAPI.SetEventFloat(Handle, name, value);
         public void SetString(string name, string value) => NativeAPI.SetEventString(Handle, name, value);

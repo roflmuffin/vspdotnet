@@ -1,0 +1,33 @@
+[
+  {
+    "name": "SHOW_MENU",
+    "args": {
+      "entityIndex": "int",
+      "menu": "IntPtr"
+    }
+  },
+  {
+    "name": "CREATE_MENU",
+    "args": {
+      "title": "charPtr"
+    },
+    "returns": "IntPtr"
+  },
+  {
+    "name": "ADD_MENU_OPTION",
+    "args": {
+      "menu": "IntPtr",
+      "display": "charPtr",
+      "value": "charPtr",
+      "flags": "int" 
+    },
+    "returns": "IntPtr" 
+  },
+  {
+    "name": "ADD_MENU_HANDLER",
+    "args": {
+      "menu": "IntPtr",
+      "callback": "IntPtr"
+    }
+  }
+]

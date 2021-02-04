@@ -115,5 +115,9 @@
     "name": "TRACE_RESULT_ENTITY",
     "args": { "traceResult": "IntPtr" },
     "returns": "IntPtr"
+  },
+  {
+    "name": "QUEUE_TASK_FOR_NEXT_FRAME",
+    "args":  {"function": "IntPtr"}
   }
 ]

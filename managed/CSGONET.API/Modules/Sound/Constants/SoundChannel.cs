@@ -11,5 +11,6 @@
         CHAN_STREAM		= 5,		// allocate stream channel from the static or dynamic area
         CHAN_STATIC		= 6,		// allocate channel from the static area 
         CHAN_VOICE_BASE	= 7,		// allocate channel for network voice data
+        CHAN_USER_BASE = 135
     }
 }

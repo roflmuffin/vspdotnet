@@ -1,0 +1,29 @@
+[
+	{
+		"name": "PRINT_TO_CHAT",
+		"args": {
+			"index": "int",
+			"message": "charPtr"
+		}
+	},
+	{
+		"name": "PRINT_TO_CONSOLE",
+		"args": {
+			"message": "charPtr"
+		}
+	},
+	{
+		"name": "PRINT_TO_HINT",
+		"args": {
+			"index": "int",
+			"message": "charPtr"
+		}
+	},
+  {
+    "name": "PRINT_TO_CENTER",
+    "args": {
+      "index": "int",
+      "message": "charPtr"
+    }
+  }
+]

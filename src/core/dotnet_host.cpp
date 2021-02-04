@@ -168,7 +168,7 @@ void CDotNetManager::UnloadPlugin(PluginContext* context)
 
 void CDotNetManager::Shutdown()
 {
-  // CoreCLR does not currently supporting unloading...
+  // CoreCLR does not currently supporting unloading... :(
 }
 
 

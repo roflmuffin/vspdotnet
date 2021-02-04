@@ -1,5 +1,6 @@
 #pragma once
 
+#include "script_engine.h"
 #include "core/globals.h"
 //#include "script_engine.h"
 
@@ -24,6 +25,11 @@ namespace vspdotnet {}
       ScriptContext& script_context) {                                      \
     auto obj = script_context.GetArgument<from_type>(0);                    \
     return getter;                                                          \
+  }
+
+#define CREATE_STATIC_GETTER_FUNCTION(parameter_name, parameter_type, getter) \
+  static parameter_type Get##parameter_name(ScriptContext& script_context) { \
+    return getter; \
   }
 
 #define CREATE_SETTER_FUNCTION(type_name, get_type, name, from_type, setter) \

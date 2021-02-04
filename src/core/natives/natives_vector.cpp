@@ -1,3 +1,5 @@
+#include <vector>
+
 #include "core/autonative.h"
 #include "core/script_engine.h"
 
@@ -18,9 +20,13 @@ CREATE_SETTER_FUNCTION(Vector, float, X, Vector*, obj->x = value);
 CREATE_SETTER_FUNCTION(Vector, float, Y, Vector*, obj->y = value);
 CREATE_SETTER_FUNCTION(Vector, float, Z, Vector*, obj->z = value);
 
+std::vector<Vector*> managed_vectors;
+
 Vector* VectorNew(ScriptContext& script_context)
 {
-  return new Vector();
+  auto vec = new Vector();
+  managed_vectors.push_back(vec);
+  return vec;
 }
 
 QAngle* AngleNew(ScriptContext& script_context) { return new QAngle(); }
@@ -41,6 +47,16 @@ void NativeVectorAngles(ScriptContext& script_context)
 
 }
 
+void NativeAngleVectors(ScriptContext& script_context) {
+  auto vec = script_context.GetArgument<QAngle*>(0);
+  auto fwd = script_context.GetArgument<Vector*>(1);
+  auto right = script_context.GetArgument<Vector*>(2);
+  auto up = script_context.GetArgument<Vector*>(3);
+
+  AngleVectors(*vec, fwd, right, up);
+}
+
+
 REGISTER_NATIVES(vector, {
   ScriptEngine::RegisterNativeHandler("VECTOR_NEW", VectorNew);
   ScriptEngine::RegisterNativeHandler("ANGLE_NEW", AngleNew);
@@ -53,13 +69,12 @@ REGISTER_NATIVES(vector, {
   ScriptEngine::RegisterNativeHandler("VECTOR_GET_Y", VectorGetY);
   ScriptEngine::RegisterNativeHandler("VECTOR_GET_Z", VectorGetZ);
 
+  ScriptEngine::RegisterNativeHandler("ANGLE_VECTORS", NativeAngleVectors);
   ScriptEngine::RegisterNativeHandler("VECTOR_ANGLES", NativeVectorAngles);
   ScriptEngine::RegisterNativeHandler("VECTOR_LENGTH", VectorGetLength);
   ScriptEngine::RegisterNativeHandler("VECTOR_LENGTH_2D", VectorGetLength2D);
   ScriptEngine::RegisterNativeHandler("VECTOR_LENGTH_SQR", VectorGetLengthSqr);
   ScriptEngine::RegisterNativeHandler("VECTOR_LENGTH_2D_SQR", VectorGetLength2DSqr);
   ScriptEngine::RegisterNativeHandler("VECTOR_IS_ZERO", VectorGetLengthSqr);
-
-
 })
 }

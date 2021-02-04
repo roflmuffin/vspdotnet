@@ -5,7 +5,8 @@
 
 namespace vspdotnet {
 
-typedef std::unordered_map<std::string, SendProp*> OffsetsMap;
+
+typedef std::unordered_map<std::string, SendPropInfo*> OffsetsMap;
 typedef std::unordered_map<std::string, OffsetsMap> SendTableMap;
 
 SendTableMap g_SendTableCache;
@@ -30,19 +31,21 @@ void AddSendTable(SendTable* pTable, OffsetsMap& offsets, int offset = 0,
 
     int currentOffset = offset + pProp->GetOffset();
 
-    char* currentName = NULL;
+    char* currentName = (char*)pProp->GetName();
+    /*char* currentName = NULL;
     if (baseName == NULL) {
       currentName = (char*)pProp->GetName();
     } else {
       char tempName[256];
       sprintf(tempName, "%s.%s", baseName, pProp->GetName());
       currentName = strdup(tempName);
-    }
+    }*/
 
     if (pProp->GetType() == DPT_DataTable) {
       AddSendTable(pProp->GetDataTable(), offsets, currentOffset, currentName);
     } else {
-      offsets.insert(std::make_pair(currentName, pProp));
+      auto prop_info = new SendPropInfo{pProp, currentOffset};
+      offsets.insert(std::make_pair(currentName, prop_info));
     }
   }
 }
@@ -61,13 +64,13 @@ int SendTableSharedExt::FindOffset(SendTable* pTable, const char* name) {
     if (result == offsets->second.end()) {
       pTable = GetNextSendTable(pTable);
     } else {
-      return result->second->GetOffset();
+      return result->second->actual_offset;
     }
   }
   return -1;
 }
 
-SendProp* SendTableSharedExt::FindDescription(SendTable* pTable,
+SendPropInfo* SendTableSharedExt::FindDescription(SendTable* pTable,
                                               const char* name) {
   while (pTable) {
     SendTableMap::iterator offsets = g_SendTableCache.find(pTable->GetName());

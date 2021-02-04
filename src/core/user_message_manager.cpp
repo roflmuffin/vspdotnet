@@ -23,26 +23,26 @@ UserMessageManager::UserMessageManager() {}
 UserMessageManager::~UserMessageManager() {}
 
 void UserMessageManager::OnAllInitialized() {
-  m_text_msg_id_ = g_Cstrike15UsermessageHelpers.GetIndex("TextMsg");
-  m_hint_text_msg_id_ = g_Cstrike15UsermessageHelpers.GetIndex("HintText");
-  m_say_text_msg_id_ = g_Cstrike15UsermessageHelpers.GetIndex("SayText");
-  m_menu_msg_id_ = g_Cstrike15UsermessageHelpers.GetIndex("ShowMenu");
+  m_text_msg_id = g_Cstrike15UsermessageHelpers.GetIndex("TextMsg");
+  m_hint_text_msg_id = g_Cstrike15UsermessageHelpers.GetIndex("HintText");
+  m_say_text_msg_id = g_Cstrike15UsermessageHelpers.GetIndex("SayText");
+  m_menu_msg_id = g_Cstrike15UsermessageHelpers.GetIndex("ShowMenu");
 
-  SH_ADD_HOOK(IVEngineServer, SendUserMessage, vspdotnet::globals::engine,
+  /*SH_ADD_HOOK(IVEngineServer, SendUserMessage, vspdotnet::globals::engine,
               SH_MEMBER(this, &UserMessageManager::OnSendUserMessage_Pre),
               false);
   SH_ADD_HOOK(IVEngineServer, SendUserMessage, vspdotnet::globals::engine,
               SH_MEMBER(this, &UserMessageManager::OnSendUserMessage_Post),
-              true);
+              true);*/
 }
 
 void UserMessageManager::OnShutdown() {
-  SH_REMOVE_HOOK(IVEngineServer, SendUserMessage, vspdotnet::globals::engine,
+  /*SH_REMOVE_HOOK(IVEngineServer, SendUserMessage, vspdotnet::globals::engine,
                  SH_MEMBER(this, &UserMessageManager::OnSendUserMessage_Pre),
                  false);
   SH_REMOVE_HOOK(IVEngineServer, SendUserMessage, vspdotnet::globals::engine,
                  SH_MEMBER(this, &UserMessageManager::OnSendUserMessage_Post),
-                 true);
+                 true);*/
 }
 
 void UserMessageManager::SendMessageToChat(int client, const char* message) {
@@ -55,7 +55,7 @@ void UserMessageManager::SendMessageToChat(int client, const char* message) {
   recipients->AddPlayer(client);
 
   vspdotnet::globals::engine->SendUserMessage(
-      static_cast<IRecipientFilter&>(*recipients), m_say_text_msg_id_, pMsg);
+      static_cast<IRecipientFilter&>(*recipients), m_say_text_msg_id, pMsg);
 }
 
 void UserMessageManager::SendHintMessage(int client, const char* message) {
@@ -67,7 +67,7 @@ void UserMessageManager::SendHintMessage(int client, const char* message) {
   recipients->MakeReliable();
 
   vspdotnet::globals::engine->SendUserMessage(
-      static_cast<IRecipientFilter&>(*recipients), m_hint_text_msg_id_, pMsg);
+      static_cast<IRecipientFilter&>(*recipients), m_hint_text_msg_id, pMsg);
 }
 
 void padTo(std::string& str, const size_t num, const char paddingChar = ' ') {
@@ -105,7 +105,7 @@ void UserMessageManager::SendCenterMessage(int client, const char* message) {
   recipients->AddPlayer(client);
 
   vspdotnet::globals::engine->SendUserMessage(
-      static_cast<IRecipientFilter&>(*recipients), m_text_msg_id_, pMsg);
+      static_cast<IRecipientFilter&>(*recipients), m_text_msg_id, pMsg);
 }
 
 void UserMessageManager::ShowMenu(int client, int keys, int time,
@@ -120,7 +120,7 @@ void UserMessageManager::ShowMenu(int client, int keys, int time,
   recipients->AddPlayer(client);
 
   vspdotnet::globals::engine->SendUserMessage(
-      static_cast<IRecipientFilter&>(*recipients), m_menu_msg_id_, msg);
+      static_cast<IRecipientFilter&>(*recipients), m_menu_msg_id, msg);
 }
 
 void UserMessageManager::OnSendUserMessage_Pre(

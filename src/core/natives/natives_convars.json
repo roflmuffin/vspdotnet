@@ -58,5 +58,9 @@
   {
     "name": "CONVAR_UNREGISTER",
     "args": { "convar": "IntPtr" }
+  },
+  {
+    "name": "CONVAR_RESET",
+    "args": { "convar": "IntPtr" }
   }
 ]

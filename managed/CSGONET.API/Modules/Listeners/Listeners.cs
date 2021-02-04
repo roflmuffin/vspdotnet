@@ -36,6 +36,12 @@ namespace CSGONET.API.Modules.Listeners
             public string CancelReason { get; set; }
         }
 
+        public class EntityArgs : EventArgs
+        {
+            public int EntityIndex { get; internal set; }
+            public string Classname { get; set; }
+        }
+
         public class PlayerConnectArgs : EventArgs
         {
             public int PlayerIndex { get; internal set; }
@@ -59,12 +65,6 @@ namespace CSGONET.API.Modules.Listeners
                 });
             remove => RemoveListener("OnClientConnect", value);
         }*/
-
-        public static event SourceEventHandler<EventArgs> OnTick
-        {
-            add => RegisterListener("OnTick", value);
-            remove => RemoveListener("OnTick", value);
-        }
 
         /*public static event SourceEventHandler<PlayerArgs> OnClientConnected
         {

@@ -12,4 +12,9 @@ class DataMapSharedExt {
                                             const char* name);
 };
 
+class TypeDescriptionSharedExt {
+ public:
+  static void* GetFunction(typedescription_t& pTypeDesc);
+};
+
 }  // namespace vspdotnet

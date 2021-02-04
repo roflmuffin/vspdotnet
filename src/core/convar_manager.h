@@ -10,14 +10,29 @@
 
 namespace vspdotnet {
 
+class CPluginConVarAccessor : public IConCommandBaseAccessor {
+ public:
+  virtual bool RegisterConCommandBase(ConCommandBase* pCommand) {
+    globals::cvars->RegisterConCommand(pCommand);
+    return true;
+  }
+};
 
-class CCallback;
+extern CPluginConVarAccessor g_ConVarAccessor;
+
+
+namespace convar
+{
+  static void InitServerCommands() { ConVar_Register(0, &g_ConVarAccessor); }
+}
+
+class ScriptCallback;
 
 class ConVarInfo {
  private:
   ConVar* m_pConvar;
   bool m_is_created_by_sdn = false;
-  CCallback* m_change_callback_;
+  ScriptCallback* m_change_callback_;
 
  public:
   ConVarInfo(const char* name, const char* value, const char* description,
@@ -86,9 +101,9 @@ class ConVarInfo {
 
   ConVar* GetConVar() { return m_pConvar; }
 
-  CCallback* GetCallback() { return m_change_callback_; }
+  ScriptCallback* GetCallback() { return m_change_callback_; }
 
-  void SetCallback(CCallback* callback) {
+  void SetCallback(ScriptCallback* callback) {
     m_change_callback_ = callback;
   }
 };

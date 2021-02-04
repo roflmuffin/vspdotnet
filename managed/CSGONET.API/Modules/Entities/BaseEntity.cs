@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
 using System.Numerics;
 using CSGONET.API.Core;
@@ -11,53 +12,66 @@ namespace CSGONET.API.Modules.Entities
 {
     public class BaseEntity : NativeObject
     {
-        internal BaseEntity(IntPtr pointer) : base(pointer)
+        public BaseEntity(int index) : base(NativeAPI.BaseentityFromIndex(index))
         {
+            _index = index;
+        }
+
+        public BaseEntity(IntPtr pointer) : base(pointer)
+        {
+            _index = NativeAPI.IndexFromBaseentity(pointer);
         }
 
         public override string ToString()
         {
-            return string.Format("{0:X}", Handle);
+            return string.Format("{0}", Index);
         }
 
         #region Props
-        public int GetProp(PropType type, string name) => NativeAPI.EntityGetPropInt(Handle, (int) type, name);
+        public int GetProp(PropType type, string name) => NativeAPI.EntityGetPropInt(Index, (int) type, name);
 
-        public T GetProp<T>(PropType type, string name) => (T) (NativeAPI.EntityGetPropInt(Handle, (int) type, name) as object);
+        public T GetProp<T>(PropType type, string name) => (T) (NativeAPI.EntityGetPropInt(Index, (int) type, name) as object);
 
-        public void SetProp(PropType type, string name, int value) => NativeAPI.EntitySetPropInt(Handle, (int)type, name, value);
+        public void SetProp(PropType type, string name, int value) => NativeAPI.EntitySetPropInt(Index, (int)type, name, value);
 
-        public void SetProp<T>(PropType type, string name, T value) => NativeAPI.EntitySetPropInt(Handle, (int)type, name, (int)(object)value);
+        public void SetProp<T>(PropType type, string name, T value) => NativeAPI.EntitySetPropInt(Index, (int)type, name, (int)(object)value);
 
         public bool GetPropBool(PropType type, string name) => GetProp(type, name) == 1;
 
         public void SetPropBool(PropType type, string name, bool value) => SetProp(type, name, value ? 1 : 0);
 
-        public float GetPropFloat(PropType type, string name) => NativeAPI.EntityGetPropFloat(Handle, (int) type, name);
+        public float GetPropFloat(PropType type, string name) => NativeAPI.EntityGetPropFloat(Index, (int) type, name);
 
-        public void SetPropFloat(PropType type, string name, float value) => NativeAPI.EntitySetPropFloat(Handle, (int)type, name, value);
+        public void SetPropFloat(PropType type, string name, float value) => NativeAPI.EntitySetPropFloat(Index, (int)type, name, value);
 
-        public Vector GetPropVector(PropType type, string name) => new(NativeAPI.EntityGetPropVector(Handle, (int) type, name));
+        public Vector GetPropVector(PropType type, string name) => new(NativeAPI.EntityGetPropVector(Index, (int) type, name));
 
-        public void SetPropVector(PropType type, string name, Vector vector) => NativeAPI.EntitySetPropVector(Handle, (int) type, name, vector.Handle);
+        public void SetPropVector(PropType type, string name, Vector vector) => NativeAPI.EntitySetPropVector(Index, (int) type, name, vector.Handle);
 
-        public string GetPropString(PropType type, string name) => NativeAPI.EntityGetPropString(Handle, (int)type, name);
+        public string GetPropString(PropType type, string name) => NativeAPI.EntityGetPropString(Index, (int)type, name);
 
-        public void SetPropString(PropType type, string name, string value) => NativeAPI.EntitySetPropString(Handle, (int)type, name, value);
+        public void SetPropString(PropType type, string name, string value) => NativeAPI.EntitySetPropString(Index, (int)type, name, value);
 
         public BaseEntity GetPropEnt(PropType type, string name)
         {
-            var returnVal = NativeAPI.EntityGetPropEnt(Handle, (int) type, name);
+            var returnVal = NativeAPI.EntityGetPropEnt(Index, (int) type, name);
             if (returnVal < 0) return null;
             return BaseEntity.FromIndex(returnVal);
         }
 
-        public void SetPropEnt(PropType type, string name, int index) => NativeAPI.EntitySetPropEnt(Handle, (int) type, name, index);
+        public BaseEntity GetPropEntByOffset(int offset)
+        {
+            var returnVal = NativeAPI.EntityGetPropEntByOffset(Index, offset);
+            if (returnVal < 0) return null;
+            return BaseEntity.FromIndex(returnVal);
+        }
+
+        public void SetPropEnt(PropType type, string name, int index) => NativeAPI.EntitySetPropEnt(Index, (int) type, name, index);
 
         #endregion
 
         #region KeyValues
-        public string GetKeyValue(string name) => NativeAPI.EntityGetKeyvalue(Handle, name);
+        public string GetKeyValue(string name) => NativeAPI.EntityGetKeyvalue(Index, name);
 
         public Vector GetKeyValueVector(string name)
         {
@@ -70,27 +84,29 @@ namespace CSGONET.API.Modules.Entities
             return Convert.ToSingle(GetKeyValue(name));
         }
 
-        public void SetKeyValue(string name, string value) => NativeAPI.EntitySetKeyvalue(Handle, name, value);
+        public void SetKeyValue(string name, string value) => NativeAPI.EntitySetKeyvalue(Index, name, value);
 
         public void SetKeyValueFloat(string name, float value) => SetKeyValue(name, value.ToString());
 
         public void SetKeyValueVector(string name, Vector vec)
         {
             string strValue = $"{vec.X} {vec.Y} {vec.Z}";
-            NativeAPI.EntitySetKeyvalue(Handle, name, strValue);
+            NativeAPI.EntitySetKeyvalue(Index, name, strValue);
         }
 
         #endregion
 
-        public bool IsPlayer => NativeAPI.EntityIsPlayer(Handle);
-        public bool IsWeapon => NativeAPI.EntityIsWeapon(Handle);
+        public bool IsPlayer => NativeAPI.EntityIsPlayer(Index);
+        public bool IsWeapon => NativeAPI.EntityIsWeapon(Index);
 
-        public bool IsNetworked => NativeAPI.EntityIsNetworked(Handle);
+        public bool IsNetworked => NativeAPI.EntityIsNetworked(Index);
+        public bool IsValid => NativeAPI.EntityIsValid(Index);
+
         /*public bool IsPlayer => NativePINVOKE.CBaseEntityWrapper_IsPlayer(ptr);
         public bool IsWeapon => NativePINVOKE.CBaseEntityWrapper_IsWeapon(ptr);
         public bool IsMoving => NativePINVOKE.CBaseEntityWrapper_IsMoving(ptr);*/
 
-        
+
         public Vector Origin
         {
             get => GetKeyValueVector("origin");
@@ -135,6 +151,28 @@ namespace CSGONET.API.Modules.Entities
         }
 
         // TODO: ENTITY RENDER COLOR
+        public Color Color
+        {
+            get
+            {
+                int offset = NativeAPI.FindDatamapInfo(Index, "m_clrRender");
+
+                int r = NativeAPI.EntityGetProp(Index, offset + 0, 8);
+                int g = NativeAPI.EntityGetProp(Index, offset + 1, 8);
+                int b = NativeAPI.EntityGetProp(Index, offset + 2, 8);
+                int a = NativeAPI.EntityGetProp(Index, offset + 3, 8);
+                return Color.FromArgb(a, r, g, b);
+            }
+            set
+            {
+                int offset = NativeAPI.FindDatamapInfo(Index, "m_clrRender");
+
+                NativeAPI.EntitySetProp(Index, offset + 0, 8, value.R);
+                NativeAPI.EntitySetProp(Index, offset + 1, 8, value.G);
+                NativeAPI.EntitySetProp(Index, offset + 2, 8, value.B);
+                NativeAPI.EntitySetProp(Index, offset + 3, 8, value.A);
+            }
+        }
 
         public float Elasticity
         {
@@ -171,6 +209,8 @@ namespace CSGONET.API.Modules.Entities
             get => (MoveType)GetProp(PropType.Send, "movetype");
             set => SetProp(PropType.Send, "movetype", (int)value);
         }
+
+        public IntPtr Handle => NativeAPI.BaseentityFromIndex(Index);
 
         public int ParentHandle
         {
@@ -335,9 +375,16 @@ namespace CSGONET.API.Modules.Entities
             set => SetPropVector(PropType.Data, "m_angRotation", value);
         }
 
-        public int Index => NativeAPI.IndexFromBaseentity(Handle);
+        private int? _index;
+        public int Index
+        {
+            get
+            {
+                return _index.Value;
+            }
+        }
 
-        public string ClassName => NativeAPI.EntityGetClassname(Handle);
+        public string ClassName => NativeAPI.EntityGetClassname(Index);
 
         public Vector AbsVelocity
         {
@@ -351,35 +398,37 @@ namespace CSGONET.API.Modules.Entities
             set => SetPropVector(PropType.Data, "m_vecAbsOrigin", value);
         }
 
+        public void Spawn() => NativeAPI.EntitySpawn(Index);
 
-        public void Spawn() => NativeAPI.EntitySpawn(Handle);
+        public void AcceptInput(string name) => NativeAPI.AcceptInput(Index, name);
 
         public static BaseEntity Create(string className)
         {
-            var newPtr = NativeAPI.EntityCreateByClassname(className);
-            if (newPtr == IntPtr.Zero) return null;
-            return new BaseEntity(newPtr);
+            var index = NativeAPI.EntityCreateByClassname(className);
+            if (index < 0) return null;
+            return new BaseEntity(index);
         }
 
         public static BaseEntity FromIndex(int index)
         {
-            var newPtr = NativeAPI.BaseentityFromIndex(index);
-            if (newPtr == IntPtr.Zero) return null;
-            return new BaseEntity(newPtr);
+            if (index < 0) return null;
+            var entity = new BaseEntity(index);
+            if (!entity.IsValid) return null;
+            return entity;
         }
 
         public static BaseEntity FindByClassname(int startIndex, string className)
         {
-            var newPtr = NativeAPI.EntityFindByClassname(startIndex, className);
-            if (newPtr == IntPtr.Zero) return null;
-            return new BaseEntity(newPtr);
+            var index = NativeAPI.EntityFindByClassname(startIndex, className);
+            if (index < 0) return null;
+            return new BaseEntity(index);
         }
 
         public static BaseEntity FindByNetClass(int startIndex, string className)
         {
-            var newPtr = NativeAPI.EntityFindByNetclass(startIndex, className);
-            if (newPtr == IntPtr.Zero) return null;
-            return new BaseEntity(newPtr);
+            var index = NativeAPI.EntityFindByNetclass(startIndex, className);
+            if (index < 0) return null;
+            return new BaseEntity(index);
         }
     }
 }

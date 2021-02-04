@@ -72,6 +72,8 @@ namespace NativeCodeGenerator
                     return "void";
                 case "func":
                     return "InputArgument";
+                case "object[]":
+                    return "object[]";
             }
 
             return "NOTSUPPORTED";
@@ -113,7 +115,17 @@ namespace NativeCodeGenerator
                 returnStr.Append("\t\t\tScriptContext.GlobalScriptContext.Reset();\n");
                 foreach (var kv in native.Arguments)
                 {
-                    returnStr.Append($"\t\t\tScriptContext.GlobalScriptContext.{GetPushType(kv.Value)}{kv.Key});\n");
+                    if (kv.Value == "object[]")
+                    {
+                        returnStr.Append($"\t\t\tforeach (var obj in {kv.Key})\n");
+                        returnStr.Append($"\t\t\t{{\n");
+                        returnStr.Append($"\t\t\t\tScriptContext.GlobalScriptContext.Push(obj);\n");
+                        returnStr.Append($"\t\t\t}}\n");
+                    }
+                    else
+                    {
+                        returnStr.Append($"\t\t\tScriptContext.GlobalScriptContext.{GetPushType(kv.Value)}{kv.Key});\n");
+                    }
                 }
 
                 returnStr.Append($"\t\t\tScriptContext.GlobalScriptContext.SetIdentifier({string.Format("0x{0:X}", GetHash(native.Name))});\n");

@@ -29,7 +29,7 @@ namespace CSGONET.API.Core
                             var returnO = m_method.DynamicInvoke(scriptContext);
                             if (returnO != null)
                             {
-                                scriptContext.SetResult(returnO);
+                                scriptContext.SetResult(returnO, context);
                             }
 
                             return;
@@ -38,7 +38,16 @@ namespace CSGONET.API.Core
                         var paramsList = method.Method.GetParameters().Select((x, i) =>
                         {
                             var param = method.Method.GetParameters()[i];
-                            var obj = scriptContext.GetArgument(param.ParameterType, i);
+                            object obj = null;
+                            if (typeof(NativeObject).IsAssignableFrom(param.ParameterType))
+                            {
+                                obj = Activator.CreateInstance(param.ParameterType,
+                                    new[] {scriptContext.GetArgument(typeof(IntPtr), i)});
+                            }
+                            else
+                            {
+                                obj = scriptContext.GetArgument(param.ParameterType, i);
+                            }
                             return obj;
                         }).ToArray();
 
@@ -95,6 +104,11 @@ namespace CSGONET.API.Core
 
         public static FunctionReference Create(Delegate method)
         {
+            if (references.ContainsKey(method))
+            {
+                return references[method];
+            }
+
             var reference = new FunctionReference(method);
             var referenceId = Register(reference);
 
@@ -111,10 +125,14 @@ namespace CSGONET.API.Core
         private static Dictionary<int, FunctionReference> ms_references = new Dictionary<int, FunctionReference>();
         private static int ms_referenceId;
 
+        private static Dictionary<Delegate, FunctionReference> references =
+            new Dictionary<Delegate, FunctionReference>();
+
         private static int Register(FunctionReference reference)
         {
             var thisRefId = ms_referenceId;
             ms_references[thisRefId] = reference;
+            references[reference.m_method] = reference;
 
             unchecked { ms_referenceId++; }
 

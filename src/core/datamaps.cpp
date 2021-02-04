@@ -112,4 +112,10 @@ typedescription_t* DataMapSharedExt::FindDescription(datamap_t* pDataMap,
 
   return nullptr;
 }
+
+void* TypeDescriptionSharedExt::GetFunction(
+    typedescription_t& pTypeDesc) {
+  return (void*&)pTypeDesc.inputFunc;
+}
+
 }  // namespace vspdotnet

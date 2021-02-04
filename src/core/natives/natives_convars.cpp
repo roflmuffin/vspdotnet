@@ -107,9 +107,19 @@ void ConVarUnregister(ScriptContext& script_context)
   globals::convar_manager.Unregister(convar);
 }
 
+void ConVarReset(ScriptContext& script_context) {
+  auto convar = script_context.GetArgument<ConVarInfo*>(0);
+
+  if (!convar) {
+    script_context.ThrowNativeError("Invalid ConVar");
+  }
+
+  convar->GetConVar()->Revert();
+}
+
 REGISTER_NATIVES(convars, {
-  ScriptEngine::RegisterNativeHandler("FIND_CONVAR", FindConVar);
   ScriptEngine::RegisterNativeHandler("CREATE_CONVAR", CreateConVar);
+  ScriptEngine::RegisterNativeHandler("FIND_CONVAR", FindConVar);
   ScriptEngine::RegisterNativeHandler("HOOK_CONVAR_CHANGE", HookConVarChange);
   ScriptEngine::RegisterNativeHandler("UNHOOK_CONVAR_CHANGE", UnhookConVarChange);
   ScriptEngine::RegisterNativeHandler("CONVAR_GET_FLAGS", ConVarGetFlags);
@@ -118,5 +128,6 @@ REGISTER_NATIVES(convars, {
   ScriptEngine::RegisterNativeHandler("CONVAR_SET_STRING_VALUE", ConVarSetStringValue);
   ScriptEngine::RegisterNativeHandler("CONVAR_GET_NAME", ConVarGetName);
   ScriptEngine::RegisterNativeHandler("CONVAR_UNREGISTER", ConVarUnregister);
+  ScriptEngine::RegisterNativeHandler("CONVAR_RESET", ConVarReset);
 })
 }

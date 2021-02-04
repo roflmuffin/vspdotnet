@@ -16,14 +16,29 @@ SH_DECL_HOOK1_void(ConCommand, Dispatch, SH_NOATTRIB, false, const CCommand&);
 SH_DECL_HOOK1_void(IServerGameClients, SetCommandClient, SH_NOATTRIB, false,
                    int);
 
-void ConCommandInfo::HookChange(CallbackT cb) {
-  this->callback->AddListener(cb);
+void ConCommandInfo::HookChange(CallbackT cb, bool post) {
+  if (post)
+  {
+    this->callback_post->AddListener(cb);
+  } else
+  {
+    this->callback_pre->AddListener(cb);    
+  }
 }
 
-void ConCommandInfo::UnhookChange(CallbackT cb) {
-  if (this->callback && this->callback->GetFunctionCount()) {
-    callback->RemoveListener(cb);
+void ConCommandInfo::UnhookChange(CallbackT cb, bool post) {
+  if (post)
+  {
+    if (this->callback_post && this->callback_post->GetFunctionCount()) {
+      callback_post->RemoveListener(cb);
+    }
+  } else
+  {
+    if (this->callback_pre && this->callback_pre->GetFunctionCount()) {
+      callback_pre->RemoveListener(cb);
+    }
   }
+  
 }
 
 ConCommandManager::ConCommandManager() : last_command_client_(-1) {}
@@ -41,12 +56,24 @@ void ConCommandManager::OnShutdown() {
                  SH_MEMBER(this, &ConCommandManager::SetCommandClient), false);
 }
 
-#ifndef SWIG
 void CommandCallback(const CCommand& command) {
-  globals::con_command_manager.InternalDispatch(
+  bool rval = globals::con_command_manager.InternalDispatch(
       globals::con_command_manager.GetCommandClient(), &command);
+
+  if (rval)
+  {
+    RETURN_META(MRES_SUPERCEDE);
+  }
 }
-#endif
+
+void CommandCallback_Post(const CCommand& command) {
+  bool rval = globals::con_command_manager.InternalDispatch_Post(
+      globals::con_command_manager.GetCommandClient(), &command);
+
+  if (rval) {
+    RETURN_META(MRES_SUPERCEDE);
+  }
+}
 
 ConCommandInfo* ConCommandManager::AddOrFindCommand(const char* name,
                                                     const char* description,
@@ -76,14 +103,17 @@ ConCommandInfo* ConCommandManager::AddOrFindCommand(const char* name,
 
       p_cmd = new ConCommand(new_name, CommandCallback, new_desc, flags);
       p_info->sdn = true;
-      p_info->callback = globals::callback_manager.CreateCallback(name);
+      p_info->callback_pre = globals::callback_manager.CreateCallback(name);
+      p_info->callback_post = globals::callback_manager.CreateCallback(name);
       p_info->server_only = server_only;
     } else {
-      p_info->callback = globals::callback_manager.CreateCallback(name);
+      p_info->callback_pre = globals::callback_manager.CreateCallback(name);
+      p_info->callback_post = globals::callback_manager.CreateCallback(name);
       p_info->server_only = server_only;
 
       SH_ADD_HOOK(ConCommand, Dispatch, p_cmd, SH_STATIC(CommandCallback),
                   false);
+      SH_ADD_HOOK(ConCommand, Dispatch, p_cmd, SH_STATIC(CommandCallback_Post), true);
     }
 
     if (p_cmd) {
@@ -105,11 +135,11 @@ ConCommandInfo* ConCommandManager::AddCommand(const char* name,
                                               CallbackT callback) {
   ConCommandInfo* p_info =
       AddOrFindCommand(name, description, server_only, flags);
-  if (!p_info || !p_info->callback) {
+  if (!p_info || !p_info->callback_pre) {
     return nullptr;
   }
 
-  p_info->callback->AddListener(callback);
+  p_info->callback_pre->AddListener(callback);
 
   return p_info;
 }
@@ -118,11 +148,15 @@ bool ConCommandManager::RemoveCommand(const char* name, CallbackT callback) {
   ConCommandInfo* p_info = m_cmd_lookup_[std::string(name)];
   if (!p_info) return false;
 
-  if (p_info->callback && p_info->callback->GetFunctionCount()) {
-    p_info->callback->RemoveListener(callback);
+  if (p_info->callback_pre && p_info->callback_pre->GetFunctionCount()) {
+    p_info->callback_pre->RemoveListener(callback);
   }
 
-  if (!p_info->callback || p_info->callback->GetFunctionCount() == 0) {
+  if (p_info->callback_post && p_info->callback_post->GetFunctionCount()) {
+    p_info->callback_post->RemoveListener(callback);
+  }
+
+  if (!p_info->callback_pre  || p_info->callback_pre->GetFunctionCount() == 0) {
     g_pCVar->UnregisterConCommand(p_info->p_cmd);
 
     bool success;
@@ -157,10 +191,12 @@ ConCommandInfo* ConCommandManager::FindCommand(const char* name) {
 
     p_info = new ConCommandInfo();
 
-    p_info->callback = globals::callback_manager.CreateCallback(name);
+    p_info->callback_pre = globals::callback_manager.CreateCallback(name);
+    p_info->callback_post = globals::callback_manager.CreateCallback(name);
     p_info->server_only = false;
 
     SH_ADD_HOOK(ConCommand, Dispatch, p_cmd, SH_STATIC(CommandCallback), false);
+    SH_ADD_HOOK(ConCommand, Dispatch, p_cmd, SH_STATIC(CommandCallback_Post), true);
 
     if (p_cmd) {
       p_info->p_cmd = p_cmd;
@@ -208,14 +244,56 @@ bool ConCommandManager::InternalDispatch(int client, const CCommand* args) {
 
   int realClient = client;
 
-  if (p_info->callback) {
-    p_info->callback->ScriptContext().Reset();
-    p_info->callback->ScriptContext().SetArgument(0, realClient);
-    p_info->callback->ScriptContext().SetArgument(1, args);
-    p_info->callback->Execute();
+  bool result = false;
+  if (p_info->callback_pre) {
+    p_info->callback_pre->ScriptContext().Reset();
+    p_info->callback_pre->ScriptContext().SetArgument(0, realClient);
+    p_info->callback_pre->ScriptContext().SetArgument(1, args);
+    p_info->callback_pre->Execute(false);
+
+    result = p_info->callback_pre->ScriptContext().GetResult<bool>();
   }
 
-  return true;
+  return result;
+}
+
+bool ConCommandManager::InternalDispatch_Post(int client, const CCommand* args) {
+  if (client) {
+    auto entity = reinterpret_cast<CBaseEntityWrapper*>(ExcBaseEntityFromIndex(client));
+    if (!entity || !entity->IsPlayer()) return false;
+  }
+
+  const char* cmd = args->Arg(0);
+
+  ConCommandInfo* p_info = m_cmd_lookup_[cmd];
+  if (p_info == nullptr) {
+    if (client == 0 && !globals::engine->IsDedicatedServer()) return false;
+
+    auto found = std::find_if(m_cmd_list_.begin(), m_cmd_list_.end(), [cmd](ConCommandInfo* info) {
+      return V_strcasecmp(info->p_cmd->GetName(), cmd);
+    });
+    if (found == m_cmd_list_.end()) {
+      return false;
+    }
+
+    p_info = *found;
+  }
+
+  int argc = args->ArgC() - 1;
+
+  int realClient = client;
+
+  bool result = false;
+  if (p_info->callback_post) {
+    p_info->callback_post->ScriptContext().Reset();
+    p_info->callback_post->ScriptContext().SetArgument(0, realClient);
+    p_info->callback_post->ScriptContext().SetArgument(1, args);
+    p_info->callback_post->Execute(false);
+
+    result = p_info->callback_post->ScriptContext().GetResult<bool>();
+  }
+
+  return result;
 }
 
 bool ConCommandManager::DispatchClientCommand(int client, const char* cmd,
@@ -236,15 +314,27 @@ bool ConCommandManager::DispatchClientCommand(int client, const char* cmd,
 
   if (p_info->server_only) return false;
 
-  if (p_info->callback) {
-    p_info->callback->ScriptContext().Reset();
-    p_info->callback->ScriptContext().Push(client);
-    p_info->callback->ScriptContext().Push(reinterpret_cast<int>(args));
-    p_info->callback->Execute();
+  bool result = false;
+  if (p_info->callback_pre) {
+    p_info->callback_pre->ScriptContext().Reset();
+    p_info->callback_pre->ScriptContext().Push(client);
+    p_info->callback_pre->ScriptContext().Push(reinterpret_cast<int>(args));
+    p_info->callback_pre->Execute();
 
-    return true;
+    result = true;
   }
 
-  return false;
+  if (result) {
+    if (p_info->callback_post) {
+      p_info->callback_post->ScriptContext().Reset();
+      p_info->callback_post->ScriptContext().Push(client);
+      p_info->callback_post->ScriptContext().Push(reinterpret_cast<int>(args));
+      p_info->callback_post->Execute();
+
+      result = true;
+    }
+  }
+
+  return result;
 }
 }  // namespace vspdotnet

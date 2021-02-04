@@ -3,33 +3,37 @@
 
 namespace vspdotnet {
 
-CCallback::CCallback(const char* name) : m_root_context_(fxNativeContext{}) {
-  m_script_context_raw_ = ScriptContextRaw(m_root_context_);
-  m_name_ = std::string(name);
+ScriptCallback::ScriptCallback(const char* name) : m_root_context(fxNativeContext{}) {
+  m_script_context_raw = ScriptContextRaw(m_root_context);
+  m_name = std::string(name);
 }
 
-void CCallback::AddListener(CallbackT plugin_function) {
-  m_functions_.push_back(plugin_function);
+ScriptCallback::~ScriptCallback()
+{ m_functions.clear(); }
+
+
+void ScriptCallback::AddListener(CallbackT plugin_function) {
+  m_functions.push_back(plugin_function);
 }
 
 
-bool CCallback::RemoveListener(CallbackT plugin_function) {
+bool ScriptCallback::RemoveListener(CallbackT plugin_function) {
   bool success;
-  auto it = std::remove_if(m_functions_.begin(), m_functions_.end(),
+  auto it = std::remove_if(m_functions.begin(), m_functions.end(),
       [plugin_function](void* i)
       {
         return plugin_function == i;
       });
 
-  if ((success = it != m_functions_.end()))
-    m_functions_.erase(it, m_functions_.end());
+  if ((success = it != m_functions.end()))
+    m_functions.erase(it, m_functions.end());
 
   return success;
 }
 
-void CCallback::Execute(bool resetContext)
+void ScriptCallback::Execute(bool resetContext)
 {
-  for (auto method_to_call : m_functions_) {
+  for (auto method_to_call : m_functions) {
     if (method_to_call) {
       method_to_call(&ScriptContextStruct());
     }
@@ -40,25 +44,25 @@ void CCallback::Execute(bool resetContext)
   }
 }
 
-void CCallback::ResetContext()
+void ScriptCallback::ResetContext()
 {
   ScriptContext().Reset();
 }
 
-CCallbackManager::CCallbackManager() {}
+CallbackManager::CallbackManager() {}
 
 
-CCallback* CCallbackManager::CreateCallback(const char* name)
+ScriptCallback* CallbackManager::CreateCallback(const char* name)
 {
-  auto* callback = new CCallback(name);
-  m_managed_.push_back(callback);
+  auto* callback = new ScriptCallback(name);
+  m_managed.push_back(callback);
 
   return callback;
 }
 
-CCallback* CCallbackManager::FindCallback(const char* name) {
-  for (auto it = m_managed_.begin(); it != m_managed_.end(); ++it) {
-    CCallback* marshal = *it;
+ScriptCallback* CallbackManager::FindCallback(const char* name) {
+  for (auto it = m_managed.begin(); it != m_managed.end(); ++it) {
+    ScriptCallback* marshal = *it;
     if (strcmp(marshal->GetName().c_str(), name) == 0) {
       return marshal;
     }
@@ -67,18 +71,18 @@ CCallback* CCallbackManager::FindCallback(const char* name) {
   return nullptr;
 }
 
-void CCallbackManager::ReleaseCallback(CCallback* callback) {
+void CallbackManager::ReleaseCallback(ScriptCallback* callback) {
   bool success;
   auto it = std::remove_if(
-      m_managed_.begin(), m_managed_.end(),
-                           [callback](CCallback* i) { return callback == i; });
+      m_managed.begin(), m_managed.end(),
+                           [callback](ScriptCallback* i) { return callback == i; });
 
-  if ((success = it != m_managed_.end()))
-    m_managed_.erase(it, m_managed_.end());
+  if ((success = it != m_managed.end()))
+    m_managed.erase(it, m_managed.end());
   delete callback;
 }
 
-bool CCallbackManager::TryAddFunction(const char* name, CallbackT pCallable) {
+bool CallbackManager::TryAddFunction(const char* name, CallbackT pCallable) {
   auto* fwd = FindCallback(name);
   if (fwd) {
     fwd->AddListener(pCallable);
@@ -88,7 +92,7 @@ bool CCallbackManager::TryAddFunction(const char* name, CallbackT pCallable) {
   return false;
 }
 
-bool CCallbackManager::TryRemoveFunction(const char* name,
+bool CallbackManager::TryRemoveFunction(const char* name,
                                          CallbackT pCallable) {
   auto* fwd = FindCallback(name);
   if (fwd) {
@@ -99,7 +103,7 @@ bool CCallbackManager::TryRemoveFunction(const char* name,
   return false;
 }
 
-void CCallbackManager::PrintCallbackDebug()
+void CallbackManager::PrintCallbackDebug()
 {
   /*VSPDN_CORE_INFO("--------------------\n
       ------CALLBACKS-----\n
@@ -107,7 +111,7 @@ void CCallbackManager::PrintCallbackDebug()
   Msg("--------------------\n");
   Msg("------CALLBACKS-----\n");
   Msg("--------------------\n");
-  for (auto it : m_managed_) {
+  for (auto it : m_managed) {
     Msg("%s (%u)\n", it->GetName().c_str(), 1);
   }
   Msg("--------------------\n");*/

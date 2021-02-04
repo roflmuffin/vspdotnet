@@ -7,6 +7,7 @@ using CSGONET.API.Modules.Cvars;
 using CSGONET.API.Modules.Events;
 using CSGONET.API.Modules.Listeners;
 using CSGONET.API.Modules.Players;
+using CSGONET.API.Modules.Timers;
 
 namespace CSGONET.API.Core
 { public abstract class BasePlugin : IPlugin
@@ -60,14 +61,16 @@ namespace CSGONET.API.Core
             {
                 return _value;
             }
+
         }
 
         public Dictionary<Delegate, CallbackSubscriber> handlers = new Dictionary<Delegate, CallbackSubscriber>();
         public Dictionary<Delegate, CallbackSubscriber> commandHandlers = new Dictionary<Delegate, CallbackSubscriber>();
         public Dictionary<Delegate, CallbackSubscriber> convarChangeHandlers = new Dictionary<Delegate, CallbackSubscriber>();
         public Dictionary<Delegate, CallbackSubscriber> listeners = new Dictionary<Delegate, CallbackSubscriber>();
+        public List<Timer> timers = new List<Timer>();
 
-        public void RegisterEventHandler(string name, Action<GameEvent> handler)
+        public void RegisterEventHandler(string name, Action<GameEvent> handler, bool post = false)
         {
             var wrappedHandler = new Action<IntPtr>((IntPtr pointer) =>
             {
@@ -75,18 +78,19 @@ namespace CSGONET.API.Core
                 handler.Invoke(new GameEvent(pointer));
             });
 
-            var subscriber = new CallbackSubscriber(name, handler, wrappedHandler);
-            NativeAPI.HookEvent(name, subscriber.GetInputArgument());
+            var data = new object[] {name, post};
+            var subscriber = new CallbackSubscriber(data, handler, wrappedHandler);
+            NativeAPI.HookEvent(name, subscriber.GetInputArgument(), post);
             handlers[handler] = subscriber;
         }
 
-        public void DeregisterEventHandler(string name, Action<GameEvent> handler)
+        public void DeregisterEventHandler(string name, Action<GameEvent> handler, bool post)
         {
             if (handlers.ContainsKey(handler))
             {
                 var subscriber = handlers[handler];
 
-                NativeAPI.UnhookEvent(name, subscriber.GetInputArgument());
+                NativeAPI.UnhookEvent(name, subscriber.GetInputArgument(), post);
                 FunctionReference.Remove(subscriber.GetReferenceIdentifier());
                 handlers.Remove(handler);
             }
@@ -187,6 +191,13 @@ namespace CSGONET.API.Core
             }
         }
 
+        public Timer AddTimer(float interval, Action callback, TimerFlags? flags = null)
+        {
+            var timer = new Timer(interval, callback, flags ?? 0);
+            timers.Add(timer);
+            return timer;
+        }
+
         public event Listeners.SourceEventHandler<Listeners.PlayerConnectArgs> OnClientConnect
         {
             add => AddListener("OnClientConnect", value,
@@ -209,14 +220,14 @@ namespace CSGONET.API.Core
         public event Listeners.SourceEventHandler<Listeners.PlayerArgs> OnClientConnected
         {
             add => AddListener("OnClientConnected", value,
-                (args, context) => args.Player = context.GetArgument<Player>(0));
+                (args, context) =>  args.Player = new Player(context.GetArgument<IntPtr>(0)));
             remove => RemoveListener("OnClientConnected", value);
         }
 
         public event Listeners.SourceEventHandler<Listeners.PlayerArgs> OnClientDisconnect
         {
             add => AddListener("OnClientDisconnect", value,
-                (args, context) => args.Player = context.GetArgument<Player>(0));
+                (args, context) =>  args.Player = new Player(context.GetArgument<IntPtr>(0)));
             remove => RemoveListener("OnClientDisconnect", value);
         }
 
@@ -233,18 +244,56 @@ namespace CSGONET.API.Core
             remove => RemoveListener("OnTick", value);
         }
 
+        public event Listeners.SourceEventHandler<EventArgs> OnMapEnd
+        {
+            add => AddListener("OnMapEnd", value);
+            remove => RemoveListener("OnMapEnd", value);
+        }
+
         public event Listeners.SourceEventHandler<Listeners.PlayerArgs> OnClientDisconnectPost
         {
             add => AddListener("OnClientDisconnectPost", value,
-                (args, context) => args.Player = context.GetArgument<Player>(0));
+                (args, context) => args.Player = new Player(context.GetArgument<IntPtr>(0)));
             remove => RemoveListener("OnClientDisconnectPost", value);
         }
 
         public event Listeners.SourceEventHandler<Listeners.PlayerArgs> OnClientPutInServer
         {
             add => AddListener("OnClientPutInServer", value,
-                (args, context) => args.Player = context.GetArgument<Player>(0));
+                (args, context) => args.Player = new Player(context.GetArgument<IntPtr>(0)));
             remove => RemoveListener("OnClientPutInServer", value);
+        }
+
+        public event Listeners.SourceEventHandler<Listeners.EntityArgs> OnEntityCreated
+        {
+            add => AddListener("OnEntityCreated", value,
+                (args, context) =>
+                {
+                    args.EntityIndex = context.GetArgument<int>(0);
+                    args.Classname = context.GetArgument<string>(1);
+                });
+            remove => RemoveListener("OnEntityCreated", value);
+        }
+
+        public event Listeners.SourceEventHandler<Listeners.EntityArgs> OnEntitySpawned
+        {
+            add => AddListener("OnEntitySpawned", value,
+                (args, context) =>
+                {
+                    args.EntityIndex = context.GetArgument<int>(0);
+                    args.Classname = context.GetArgument<string>(1);
+                });
+            remove => RemoveListener("OnEntitySpawned", value);
+        }
+
+        public event Listeners.SourceEventHandler<Listeners.EntityArgs> OnEntityDeleted
+        {
+            add => AddListener("OnEntityDeleted", value,
+                (args, context) =>
+                {
+                    args.EntityIndex = context.GetArgument<int>(0);
+                });
+            remove => RemoveListener("OnEntityDeleted", value);
         }
     }
 }

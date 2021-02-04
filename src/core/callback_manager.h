@@ -1,3 +1,5 @@
+#pragma once
+
 #include <vector>
 
 #include "core/globals.h"
@@ -5,44 +7,45 @@
 
 namespace vspdotnet {
 
-class CCallback
+class ScriptCallback
 {
 public:
-  CCallback(const char* name);
+  ScriptCallback(const char* name);
+  ~ScriptCallback();
  void AddListener(CallbackT plugin_function);
   bool RemoveListener(CallbackT plugin_function);
-  std::string GetName() { return m_name_; }
-  unsigned int GetFunctionCount() { return m_functions_.size(); }
+  std::string GetName() { return m_name; }
+  unsigned int GetFunctionCount() { return m_functions.size(); }
   void Execute(bool resetContext = true);
   void ResetContext();
   ScriptContextRaw& ScriptContext()
-  { return m_script_context_raw_;
+  { return m_script_context_raw;
   }
   fxNativeContext& ScriptContextStruct() {
-    return m_root_context_;
+    return m_root_context;
   }
 
 private:
-  std::vector<CallbackT> m_functions_;
-  std::string m_name_;
-  ScriptContextRaw m_script_context_raw_;
-  fxNativeContext m_root_context_;
+  std::vector<CallbackT> m_functions;
+  std::string m_name;
+  ScriptContextRaw m_script_context_raw;
+  fxNativeContext m_root_context;
 };
 
-class CCallbackManager : public GlobalClass {
+class CallbackManager : public GlobalClass {
  public:
-  CCallbackManager();
+  CallbackManager();
 
  public:
-  CCallback* CreateCallback(const char* name);
-  CCallback* FindCallback(const char* name);
-  void ReleaseCallback(CCallback* callback);
+  ScriptCallback* CreateCallback(const char* name);
+  ScriptCallback* FindCallback(const char* name);
+  void ReleaseCallback(ScriptCallback* callback);
   bool TryAddFunction(const char* name, CallbackT pCallable);
   bool TryRemoveFunction(const char* name, CallbackT pCallable);
   void PrintCallbackDebug();
 
  private:
-  std::vector<CCallback*> m_managed_;
+  std::vector<ScriptCallback*> m_managed;
 };
 
 }  // namespace vspdotnet

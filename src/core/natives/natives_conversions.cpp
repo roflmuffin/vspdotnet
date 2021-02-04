@@ -136,11 +136,6 @@ REGISTER_NATIVES(conversions, {
   REGISTER_NATIVE(BASEHANDLE_FROM_USERID, NativeBaseHandleFromUserid);
   REGISTER_NATIVE(BASEHANDLE_FROM_PLAYERINFO, NativeBaseHandleFromPlayerInfo);
 
-  ScriptEngine::RegisterNativeHandler<const char*>("GET_ENTITY_CLASSNAME", [](ScriptContext& script_context) {
-        auto base_entity = script_context.GetArgument<CBaseEntityWrapper*>(0);
-        return base_entity->GetClassname();
-  });
-
   ScriptEngine::RegisterNativeHandler<const char*>(
       "GET_PLAYERINFO_NAME", [](ScriptContext& script_context) {
         auto player_info = script_context.GetArgument<IPlayerInfo*>(0);

@@ -1,5 +1,6 @@
-#ifndef __ENTITY_LISTENER_H_
-#define __ENTITY_LISTENER_H_
+#pragma once
+
+#include <core/globals.h>
 
 #include <public/eiface.h>
 #include <game/shared/shareddefs.h>
@@ -64,15 +65,24 @@ public:
 
 namespace vspdotnet {
 
-    class EntityListener : public IEntityListener {
+    class ScriptCallback;
+
+    class EntityListener : public IEntityListener, public GlobalClass {
     public:
         EntityListener() {};
         ~EntityListener(){};
         virtual void OnEntityCreated(CBaseEntity* pEntity) override;
+        void HandleEntityCreated(CBaseEntity* pEntity, int index);
+        void HandleEntitySpawned(CBaseEntity* pEntity, int index);
+        void HandleEntityDeleted(CBaseEntity* pEntity, int index);
         virtual void OnEntitySpawned(CBaseEntity* pEntity) override;
         virtual void OnEntityDeleted(CBaseEntity* pEntity) override;
+        virtual void OnAllInitialized();
         void Setup();
+      private:
+        ScriptCallback* m_on_entity_created_callback_;
+        ScriptCallback* m_on_entity_spawned_callback_;
+        ScriptCallback* m_on_entity_deleted_callback_;
     };
-}
-
-#endif // __ENTITY_LISTENER_H_
+   
+    }

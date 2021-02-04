@@ -14,15 +14,17 @@ static void HookEvent(ScriptContext& script_context)
 {
   const char* name = script_context.GetArgument<const char*>(0);
   auto callback = script_context.GetArgument<CallbackT>(1);
+  auto post = script_context.GetArgument<bool>(2);
 
-  globals::event_manager.HookEvent(name, callback, false);
+  globals::event_manager.HookEvent(name, callback, post);
 }
 
 static void UnhookEvent(ScriptContext& script_context) {
   const char* name = script_context.GetArgument<const char*>(0);
   auto callback = script_context.GetArgument<CallbackT>(1);
+  auto post = script_context.GetArgument<bool>(2);
 
-  globals::event_manager.UnhookEvent(name, callback, false);
+  globals::event_manager.UnhookEvent(name, callback, post);
 }
 
 static IGameEvent* CreateEvent(ScriptContext& script_context)

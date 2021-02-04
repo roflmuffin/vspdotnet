@@ -1,8 +1,17 @@
 [
   {
+    "name": "ENTITY_GET_PROP",
+    "args": {
+      "entityIndex": "int",
+      "offset": "int",
+      "size": "int"
+    },
+    "returns": "int"
+  },
+  {
     "name": "ENTITY_GET_PROP_INT",
     "args": {
-      "entity": "IntPtr",
+      "entityIndex": "int",
       "type": "int",
       "name": "charPtr"
     },
@@ -11,7 +20,7 @@
   {
     "name": "ENTITY_GET_PROP_FLOAT",
     "args": {
-      "entity": "IntPtr",
+      "entityIndex": "int",
       "type": "int",
       "name": "charPtr"
     },
@@ -20,7 +29,7 @@
   {
     "name": "ENTITY_GET_PROP_VECTOR",
     "args": {
-      "entity": "IntPtr",
+      "entityIndex": "int",
       "type": "int",
       "name": "charPtr"
     },
@@ -29,7 +38,7 @@
   {
     "name": "ENTITY_GET_PROP_STRING",
     "args": {
-      "entity": "IntPtr",
+      "entityIndex": "int",
       "type": "int",
       "name": "charPtr"
     },
@@ -38,16 +47,33 @@
   {
     "name": "ENTITY_GET_PROP_ENT",
     "args": {
-      "entity": "IntPtr",
+      "entityIndex": "int",
       "type": "int",
       "name": "charPtr"
     },
     "returns": "int"
   },
   {
+    "name": "ENTITY_GET_PROP_ENT_BY_OFFSET",
+    "args": {
+      "entityIndex": "int",
+      "offset": "int"
+    },
+    "returns": "int"
+  },
+  {
+    "name": "ENTITY_SET_PROP",
+    "args": {
+      "entityIndex": "int",
+      "offset": "int",
+      "size": "int",
+      "value": "int"
+    }
+  },
+  {
     "name": "ENTITY_SET_PROP_INT",
     "args": {
-      "entity": "IntPtr",
+      "entityIndex": "int",
       "type": "int",
       "name": "charPtr",
       "value": "int"
@@ -56,7 +82,7 @@
   {
     "name": "ENTITY_SET_PROP_FLOAT",
     "args": {
-      "entity": "IntPtr",
+      "entityIndex": "int",
       "type": "int",
       "name": "charPtr",
       "value": "float"
@@ -65,7 +91,7 @@
   {
     "name": "ENTITY_SET_PROP_VECTOR",
     "args": {
-      "entity": "IntPtr",
+      "entityIndex": "int",
       "type": "int",
       "name": "charPtr",
       "value": "IntPtr"
@@ -74,7 +100,7 @@
   {
     "name": "ENTITY_SET_PROP_STRING",
     "args": {
-      "entity": "IntPtr",
+      "entityIndex": "int",
       "type": "int",
       "name": "charPtr",
       "value": "charPtr"
@@ -83,7 +109,7 @@
   {
     "name": "ENTITY_SET_PROP_ENT",
     "args": {
-      "entity": "IntPtr",
+      "entityIndex": "int",
       "type": "int",
       "name": "charPtr",
       "value": "int"
@@ -92,7 +118,7 @@
   {
     "name": "ENTITY_GET_KEYVALUE",
     "args": {
-      "entity": "IntPtr",
+      "entityIndex": "int",
       "name": "charPtr"
     },
     "returns": "charPtr"
@@ -100,7 +126,7 @@
   {
     "name": "ENTITY_SET_KEYVALUE",
     "args": {
-      "entity": "IntPtr",
+      "entityIndex": "int",
       "name": "charPtr",
       "value": "charPtr"
     }
@@ -110,7 +136,7 @@
     "args": {
       "className": "charPtr"
     },
-    "returns": "IntPtr"
+    "returns": "int"
   },
   {
     "name": "ENTITY_FIND_BY_CLASSNAME",
@@ -118,7 +144,7 @@
       "index": "int",
       "className": "charPtr"
     },
-    "returns": "IntPtr"
+    "returns": "int"
   },
   {
     "name": "ENTITY_FIND_BY_NETCLASS",
@@ -126,40 +152,66 @@
       "index": "int",
       "netClass": "charPtr"
     },
-    "returns": "IntPtr"
+    "returns": "int"
   },
   {
     "name": "ENTITY_GET_CLASSNAME",
     "args": {
-      "entity": "IntPtr"
+      "entityIndex": "int"
     },
     "returns": "charPtr"
   },
   {
     "name": "ENTITY_SPAWN",
     "args": {
-      "entity": "IntPtr"
+      "entityIndex": "int"
     }
   },
   {
     "name": "ENTITY_IS_PLAYER",
     "args": {
-      "entity": "IntPtr"
+      "entityIndex": "int"
     },
     "returns": "bool"
   },
   {
     "name": "ENTITY_IS_WEAPON",
     "args": {
-      "entity": "IntPtr"
+      "entityIndex": "int"
     },
     "returns": "bool"
   },
   {
     "name": "ENTITY_IS_NETWORKED",
     "args": {
-      "entity": "IntPtr"
+      "entityIndex": "int"
     },
     "returns": "bool"
+  },
+  {
+    "name": "ENTITY_IS_VALID",
+    "args": {
+      "entityIndex": "int"
+    },
+    "returns": "bool"
+  },
+  {
+    "name": "GET_MAX_ENTITIES",
+    "returns": "int"
+  },
+  {
+    "name": "FIND_DATAMAP_INFO",
+    "args": {
+      "entityIndex": "int",
+      "propertyName": "charPtr"
+    },
+    "returns": "int"
+  },
+  {
+    "name": "ACCEPT_INPUT",
+    "args": {
+      "entityIndex": "int",
+      "inputName": "charPtr"
+    }
   }
 ]

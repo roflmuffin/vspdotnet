@@ -1,0 +1,71 @@
+[
+  {
+    "name": "ADD_TO_STRING_TABLE",
+    "args": {
+      "index": "int",
+      "value": "charPtr",
+      "userdata": "charPtr"
+    }
+  },
+  {
+    "name": "FIND_STRING_INDEX",
+    "args": {
+      "index": "int",
+      "searchValue": "charPtr"
+    },
+    "returns": "int"
+  },
+  {
+    "name": "FIND_STRING_TABLE",
+    "args": {
+      "searchValue": "charPtr"
+    },
+    "returns": "int"
+  },
+  {
+    "name": "GET_NUM_STRING_TABLES",
+    "returns": "int"
+  },
+  {
+    "name": "GET_STRING_TABLE_DATA",
+    "args": {
+      "index": "int",
+      "stringIndex": "int"
+    },
+    "returns": "charPtr"
+  },
+  {
+    "name": "GET_STRING_TABLE_DATA_LENGTH",
+    "args": { "index": "int", "stringIndex": "int" },
+    "returns": "int"
+  },
+  {
+    "name": "GET_STRING_TABLE_MAX_STRINGS",
+    "args": { "index": "int" },
+    "returns": "int"
+  },
+  {
+    "name": "GET_STRING_TABLE_NAME",
+    "args": { "index": "int" },
+    "returns": "charPtr"
+  },
+  {
+    "name": "GET_STRING_TABLE_NUM_STRINGS",
+    "args": { "index": "int" },
+    "returns": "int"
+  },
+  {
+    "name": "LOCK_STRING_TABLES",
+    "args": { "@lock": "bool" },
+    "returns": "bool"
+  },
+  {
+    "name": "READ_STRING_TABLE",
+    "args": { "index": "int", "stringIndex": "int" },
+    "returns": "charPtr"
+  },
+  {
+    "name": "SET_STRING_TABLE_DATA",
+    "args": { "index": "int", "stringIndex": "int", "value": "charPtr" }
+  }
+]

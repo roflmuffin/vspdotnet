@@ -21,6 +21,7 @@ include_directories(
   ${SOURCESDK}/public/tier1
   ${SOURCESDK}/public/engine/protobuf
   libraries/dyncall/dynload
+  libraries/dyncall/dyncall
   libraries/asmjit/src
   libraries/DynamicHooks/src
   libraries/tl
@@ -31,4 +32,4 @@ include_directories(
 
 SET(ASMJIT_STATIC 1)
 
-Project(Testing C CXX)
+Project(vspdotnet C CXX)

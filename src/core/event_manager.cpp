@@ -9,31 +9,31 @@ SH_DECL_HOOK2(IGameEventManager2, FireEvent, SH_NOATTRIB, 0, bool, IGameEvent*,
 namespace vspdotnet
 {
 
-CEventManager::CEventManager() {}
+EventManager::EventManager() {}
 
-CEventManager::~CEventManager() {}
+EventManager::~EventManager() {}
 
-void CEventManager::OnStartup() {}
+void EventManager::OnStartup() {}
 
-void CEventManager::OnAllInitialized() {
+void EventManager::OnAllInitialized() {
   SH_ADD_HOOK(IGameEventManager2, FireEvent, globals::gameeventmanager,
-              SH_MEMBER(this, &CEventManager::OnFireEvent), false);
+              SH_MEMBER(this, &EventManager::OnFireEvent), false);
   SH_ADD_HOOK(IGameEventManager2, FireEvent, globals::gameeventmanager,
-              SH_MEMBER(this, &CEventManager::OnFireEvent_Post), true);  
+              SH_MEMBER(this, &EventManager::OnFireEvent_Post), true);  
 }
 
-void CEventManager::OnShutdown() {
+void EventManager::OnShutdown() {
   SH_REMOVE_HOOK(IGameEventManager2, FireEvent, globals::gameeventmanager,
-                 SH_MEMBER(this, &CEventManager::OnFireEvent), false);
+                 SH_MEMBER(this, &EventManager::OnFireEvent), false);
   SH_REMOVE_HOOK(IGameEventManager2, FireEvent, globals::gameeventmanager,
-                 SH_MEMBER(this, &CEventManager::OnFireEvent_Post), true);
+                 SH_MEMBER(this, &EventManager::OnFireEvent_Post), true);
 
   globals::gameeventmanager->RemoveListener(this);
 }
 
-void CEventManager::FireGameEvent(IGameEvent* event) {}
+void EventManager::FireGameEvent(IGameEvent* event) {}
 
-bool CEventManager::HookEvent(const char* name, CallbackT callback,
+bool EventManager::HookEvent(const char* name, CallbackT callback,
                               bool post) {
   EventHook* p_hook;
 
@@ -47,9 +47,9 @@ bool CEventManager::HookEvent(const char* name, CallbackT callback,
   VSPDN_CORE_INFO("Hooking event: {0} with callback pointer: {1}", name,
                   (void*)callback);
 
-  auto search = m_hooks_.find(name);
+  auto search = m_hooks.find(name);
   // If hook struct is not found
-  if (search == m_hooks_.end()) {
+  if (search == m_hooks.end()) {
     p_hook = new EventHook();
 
     if (post) {
@@ -62,7 +62,7 @@ bool CEventManager::HookEvent(const char* name, CallbackT callback,
 
     p_hook->name = std::string(name);
 
-    m_hooks_[name] = p_hook;
+    m_hooks[name] = p_hook;
 
     return true;
   } else {
@@ -86,13 +86,13 @@ bool CEventManager::HookEvent(const char* name, CallbackT callback,
   return true;
 }
 
-bool CEventManager::UnhookEvent(const char* name, CallbackT callback,
+bool EventManager::UnhookEvent(const char* name, CallbackT callback,
                                 bool post) {
   EventHook* p_hook;
-  CCallback* p_callback;
+  ScriptCallback* p_callback;
 
-  auto search = m_hooks_.find(name);
-  if (search == m_hooks_.end()) {
+  auto search = m_hooks.find(name);
+  if (search == m_hooks.end()) {
     return false;
   }
 
@@ -123,7 +123,7 @@ bool CEventManager::UnhookEvent(const char* name, CallbackT callback,
   return true;
 }
 
-bool CEventManager::OnFireEvent(IGameEvent* pEvent, bool bDontBroadcast) {
+bool EventManager::OnFireEvent(IGameEvent* pEvent, bool bDontBroadcast) {
   EventHook* p_hook;
   const char* name;
 
@@ -133,8 +133,8 @@ bool CEventManager::OnFireEvent(IGameEvent* pEvent, bool bDontBroadcast) {
 
   name = pEvent->GetName();
 
-  auto search = m_hooks_.find(name);
-  if (search != m_hooks_.end()) {
+  auto search = m_hooks.find(name);
+  if (search != m_hooks.end()) {
     auto p_callback = search->second->PreHook;
 
     if (p_callback) {
@@ -142,6 +142,8 @@ bool CEventManager::OnFireEvent(IGameEvent* pEvent, bool bDontBroadcast) {
       p_callback->ScriptContext().Reset();
       p_callback->ScriptContext().SetArgument(0, pEvent);
       p_callback->Execute();
+
+      RETURN_META_VALUE(MRES_IGNORED, false);
     }
   }
 
@@ -150,7 +152,7 @@ bool CEventManager::OnFireEvent(IGameEvent* pEvent, bool bDontBroadcast) {
   return true;
 }
 
-bool CEventManager::OnFireEvent_Post(IGameEvent* pEvent, bool bDontBroadcast) {
+bool EventManager::OnFireEvent_Post(IGameEvent* pEvent, bool bDontBroadcast) {
   return true;
   /*RETURN_META_VALUE(MRES_IGNORED, true);*/
 }

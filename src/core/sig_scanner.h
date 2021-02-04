@@ -1,5 +1,4 @@
-#ifndef __SIG_SCANNER_H_
-#define __SIG_SCANNER_H_
+#pragma once
 
 namespace vspdotnet {
 
@@ -22,4 +21,3 @@ namespace vspdotnet {
   CBinaryFile* FindBinary(const char* szPath, bool bSrvCheck = true, bool bCheckExtension = true);
 
 }
-#endif // __SIG_SCANNER_H_

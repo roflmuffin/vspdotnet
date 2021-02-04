@@ -1,29 +1,28 @@
+#include "core/convar_hack.h"
+
 #include "main.h"
 
-#include <conventions/x86GccCdecl.h>
-#include <conventions/x86GccThiscall.h>
-#include <hook.h>
-#include <IEngineTrace.h>
-#include <manager.h>
 #include <public/igameevents.h>
 #include <public/iserver.h>
 
 #include <iostream>
-//#include <optional>
-
 #include <iomanip>
 
-#include "entity_listener.h"
-#include "globals.h"
-#include "hooks.h"
-#include "interfaces.h"
-#include "log.h"
-#include "sig_scanner.h"
-#include "script_engine.h"
-#include "utils.h"
-#include "dotnet_host.h"
-#include "autonative.h"
-#include "user_message_manager.h"
+
+#include "callback_manager.h"
+#include "timer_system.h"
+#include "core/con_command_manager.h"
+#include "core/dotnet_host.h"
+#include "core/globals.h"
+#include "core/interfaces.h"
+#include "core/log.h"
+#include "core/script_engine.h"
+#include "core/user_message_manager.h"
+#include "core/utils.h"
+#include "core/entity.h"
+#include "core/utilities/conversions.h"
+#include "core/convar_manager.h"
+
 
 vspdotnet::GlobalClass * vspdotnet::GlobalClass::head = nullptr;
 
@@ -34,29 +33,9 @@ extern "C" __declspec(dllexport) void InvokeNative(vspdotnet::fxNativeContext &c
 
 namespace vspdotnet {
 
-class CPluginConVarAccessor : public IConCommandBaseAccessor {
- public:
-  virtual bool RegisterConCommandBase(ConCommandBase *pCommand) {
-    globals::cvars->RegisterConCommand(pCommand);
-    return true;
-  }
-};
-
-CPluginConVarAccessor g_ConVarAccessor;
-
-void InitServerCommands() { ConVar_Register(0, &g_ConVarAccessor); }
-
 EXPOSE_SINGLE_INTERFACE_GLOBALVAR(MyServerPlugin, IServerPluginCallbacks,
                                   INTERFACEVERSION_ISERVERPLUGINCALLBACKS,
                                   globals::vsp_plugin);
-
-MyServerPlugin::MyServerPlugin() {}
-
-MyServerPlugin::~MyServerPlugin() {}
-
-static float GetCurrentTime(ScriptContext& context) {
-  return globals::server->GetTime();
-}
 
 bool MyServerPlugin::Load(CreateInterfaceFn interfaceFactory,
                           CreateInterfaceFn gameServerFactory) {
@@ -79,62 +58,9 @@ bool MyServerPlugin::Load(CreateInterfaceFn interfaceFactory,
   MathLib_Init(2.2f, 2.2f, 0.f, 2.0f);
 
   VSPDN_CORE_INFO("Initializing commands...");
-  InitServerCommands();
+  convar::InitServerCommands();
 
-   CBinaryFile *engineBinary = vspdotnet::FindBinary("bin/engine", false);
-   CBinaryFile *serverBinary = vspdotnet::FindBinary("server", false);
-
-   VSPDN_CORE_INFO("Engine Binary: {0}", (void *)engineBinary);
-   VSPDN_CORE_INFO("Server Binary: {0}", (void *)serverBinary);
-
-  unsigned char iserversig[18] = {0x55, 0x8B, 0xEC, 0x56, 0xFF, 0x2A, 0x2A, 0xB9, 0x2A, 0x2A, 0x2A, 0x2A, 0xE8, 0x2A, 0x2A, 0x2A, 0x2A, 0x8B};
-  unsigned long addr = engineBinary->FindSignature(iserversig, sizeof(iserversig));
-
-  unsigned char globalentitylistsig[] = {
-      0x55, 0x8B, 0xEC, 0x8B, 0x0D, 0x2A, 0x2A, 0x2A, 0x2A, 0x53};
-  unsigned long entlistaddr = serverBinary->FindSignature(
-      globalentitylistsig,
-      sizeof(globalentitylistsig) / sizeof(globalentitylistsig[0]));
-
-  globals::server = *(IServer **)(addr + 8); // 13 on windows
-  globals::global_entity_list = *(CGlobalEntityList **)(entlistaddr + 101);
-
-  globals::global_entity_list->AddListenerEntity(&vspdotnet::globals::entity_listener);
-
-  VSPDN_CORE_INFO("Server Address: {0}, Entity List Address: {1}",
-                  (void *)globals::server, (void *)globals::global_entity_list);
-
-  GlobalClass *pBase = GlobalClass::head;
-  pBase = GlobalClass::head;
-  while (pBase) {
-    pBase->OnAllInitialized();
-    pBase = pBase->m_pGlobalClassNext;
-  }
-
-  globals::entity_listener.Setup();
-
-  ScriptEngine::RegisterNativeHandler<void>(
-      "PRINT_TO_CHAT", [](ScriptContext &script_context) {
-        int index = script_context.GetArgument<int>(0);
-        const char *message = script_context.GetArgument<const char *>(1);
-
-        globals::user_message_manager.SendMessageToChat(index, message);
-      });
-
-  ScriptEngine::RegisterNativeHandler<void>(
-      "PRINT_TO_CONSOLE", [](ScriptContext &script_context) {
-        const char *message = script_context.GetArgument<const char *>(0);
-
-        Msg("%s", message);
-      });
-
-    ScriptEngine::RegisterNativeHandler<void>(
-      "PRINT_TO_HINT", [](ScriptContext &script_context) {
-        int index = script_context.GetArgument<int>(0);
-        const char *message = script_context.GetArgument<const char *>(1);
-
-        globals::user_message_manager.SendHintMessage(index, message);
-      });
+  CALL_GLOBAL_LISTENER(OnAllInitialized())
 
   if (!globals::dotnet_manager.Initialize())
   {
@@ -144,47 +70,12 @@ bool MyServerPlugin::Load(CreateInterfaceFn interfaceFactory,
 
   VSPDN_CORE_INFO("Loaded successfully");
 
+  CallbackT test = [](fxNativeContext *context) {
+    VSPDN_CORE_INFO("Timer called!, current time: {0}", globals::gpGlobals->curtime);
+  };
+  globals::timer_system.CreateTimer(20.0f, test, 0);
+
   return true;
-}
-
-bool NewHandler(HookType_t hook_type, CHook *hook) {
-  VSPDN_CORE_INFO("Inside our new handler.");
-  hook->SetReturnValue(5000);
-  return false;
-}
-
-CON_COMMAND(testing, "testing") {
-      HookHandlerFn test = [](HookType_t hook_type, CHook *hook) {
-          VSPDN_CORE_INFO("Inside our new handler.");
-          //hook->SetReturnValue(rand() % 10000);
-          return false;
-      };
-
-      // hooks::CreateHook(globals::server, &IServer::GetUDPPort, test, true,
-      //                   DATA_TYPE_INT, 0);
-      // //hooks::CreateHook(globals::server, &IServer::)
-
-      /*
-      auto del = fastdelegate::MakeDelegate(vspdotnet::globals::vsp_plugin, &MyServerPlugin::GameFrame);
-
-       hooks::CreateHook(globals::gameeventmanager, &IGameEventManager2::FireEvent,
-                         &EventHandler, false, DATA_TYPE_BOOL, 2, DATA_TYPE_POINTER,
-                         DATA_TYPE_BOOL);*/
-    }
-
-CON_COMMAND(udp_port, "Gets udp port") {
-  VSPDN_CORE_INFO("The UDP Port is: {0}", globals::server->GetUDPPort());
-}
-
-CON_COMMAND(cmd_mapname, "Get Map Name") {
-  VSPDN_CORE_INFO("The current mapname is: {0}", globals::server->GetMapName());
-}
-
-CON_COMMAND(cmd_tick, "Get Current Tick") {
-  VSPDN_CORE_INFO("The current tick is: {0}", globals::server->GetTick());
-  globals::vsp_plugin.AddTaskForNextFrame([]
-  { VSPDN_CORE_INFO("This happened next tick... {0}", globals::server->GetTick());
-  });
 }
 
 void MyServerPlugin::Unload() {
@@ -199,22 +90,43 @@ void MyServerPlugin::UnPause() {}
 
 const char *MyServerPlugin::GetPluginDescription() { return "Source.NET"; }
 
-void MyServerPlugin::LevelInit(const char *pMapName) {
-  VSPDN_CORE_TRACE("name={0},mapname={1}", "LevelInit", pMapName);
-}
-
 void MyServerPlugin::ServerActivate(edict_t *pEdictList, int edictCount,
                                     int clientMax) {
   VSPDN_CORE_TRACE("name={0},arg1={1},arg2={2}\n", "ServerActivate", edictCount,
                    clientMax);
 }
 
+static ScriptCallback *on_map_end_callback;
 void MyServerPlugin::GameFrame(bool simulating)
 { }
 
+static bool NewLevelStarted = false;
 void MyServerPlugin::LevelShutdown() {
-  VSPDN_CORE_TRACE("name={0}", "LevelShutdown");
+  if (NewLevelStarted)
+  {
+    CALL_GLOBAL_LISTENER(OnLevelEnd())
+
+    if (on_map_end_callback && on_map_end_callback->GetFunctionCount()) {
+      on_map_end_callback->ScriptContext().Reset();
+      on_map_end_callback->Execute();
+    }
+
+    globals::timer_system.RemoveMapChangeTimers();
+
+    VSPDN_CORE_TRACE("name={0}", "LevelShutdown");
+    NewLevelStarted = false;
+  }
 }
+
+void MyServerPlugin::LevelInit(const char *pMapName) {
+  VSPDN_CORE_TRACE("name={0},mapname={1}", "LevelInit", pMapName);
+  NewLevelStarted = true;
+
+  if (!on_map_end_callback) {
+    on_map_end_callback = globals::callback_manager.CreateCallback("OnMapEnd");
+  }
+}
+
 
 void MyServerPlugin::ClientActive(edict_t *pEntity) {
   VSPDN_CORE_TRACE("name={0},edict={1}", "ClientActive", (void *)pEntity);
@@ -296,10 +208,12 @@ bool MyServerPlugin::BNetworkCryptKeyValidate(
 }
 
   void MyServerPlugin::OnThink(bool last_tick) {
+    globals::timer_system.OnGameFrame(last_tick);
+
     if (m_nextTasks.empty())
       return;
 
-    VSPDN_CORE_INFO("Executing queued tasks of size: {0}", m_nextTasks.size());
+    VSPDN_CORE_TRACE("Executing queued tasks of size: {0} on tick number {1}", m_nextTasks.size(), globals::gpGlobals->tickcount);
 
     for (int i = 0; i < m_nextTasks.size(); i++) {
       m_nextTasks[i]();

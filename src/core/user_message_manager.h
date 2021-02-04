@@ -39,10 +39,10 @@ class CustomRecipientFilter : public IRecipientFilter {
 };
 
 
-class UserMessageManager : public vspdotnet::GlobalClass {
+class UserMessageManager : public GlobalClass {
  public:
   UserMessageManager();
-  ~UserMessageManager();
+  virtual ~UserMessageManager();
   void OnShutdown() override;
   void OnAllInitialized() override;
   void SendMessageToChat(int client, const char* message);
@@ -55,9 +55,9 @@ class UserMessageManager : public vspdotnet::GlobalClass {
   void ShowMenu(int client, int keys, int time, const char* body);
 
  private:
-  int m_text_msg_id_;
-  int m_hint_text_msg_id_;
-  int m_say_text_msg_id_;
-  int m_menu_msg_id_;
+  int m_text_msg_id;
+  int m_hint_text_msg_id;
+  int m_say_text_msg_id;
+  int m_menu_msg_id;
 };
 }

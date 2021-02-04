@@ -14,7 +14,7 @@
 #undef private
 
 namespace vspdotnet {
-class CCallback;
+class ScriptCallback;
 
 class ConCommandInfo {
   friend class ConCommandManager;
@@ -23,19 +23,22 @@ class ConCommandInfo {
   ConCommandInfo() {}
 
  public:
-  void HookChange(CallbackT callback);
-  void UnhookChange(CallbackT callback);
+  void HookChange(CallbackT callback, bool post);
+  void UnhookChange(CallbackT callback, bool post);
+  ScriptCallback* GetCallback() { return callback_pre; }
 
  private:
   bool sdn;
   ConCommand* p_cmd;
-  CCallback* callback;
+  ScriptCallback* callback_pre;
+  ScriptCallback* callback_post;
   bool server_only;
 };
 
 class ConCommandManager : public GlobalClass {
   friend class ConCommandInfo;
   friend void CommandCallback(const CCommand& command);
+  friend void CommandCallback_Post(const CCommand& command);
 
  public:
   ConCommandManager();
@@ -56,6 +59,7 @@ class ConCommandManager : public GlobalClass {
   int GetCommandClient();
   void SetCommandClient(int client);
   bool InternalDispatch(int client, const CCommand* args);
+  bool InternalDispatch_Post(int client, const CCommand* args);
 
  private:
   int last_command_client_;

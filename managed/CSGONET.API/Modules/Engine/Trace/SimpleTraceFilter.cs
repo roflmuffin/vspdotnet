@@ -67,13 +67,14 @@ namespace CSGONET.API.Modules.Engine.Trace
                 shouldHitCallback = (fxScriptContext* context) =>
                 {
                     var scriptContext = new ScriptContext(context);
-
-                    var entity = new BaseEntity(scriptContext.GetArgument<IntPtr>(0));
+                    
+                    var entity = new BaseEntity(scriptContext.GetArgument<int>(0));
                     var contentMask = scriptContext.GetArgument<int>(1);
 
                     var isValidEntity = _filter.ShouldHitEntity(entity, contentMask);
 
                     Console.WriteLine($"Returning {isValidEntity} to `ShouldHitEntity`");
+
                     scriptContext.SetResult(isValidEntity, context);
                 };
             }

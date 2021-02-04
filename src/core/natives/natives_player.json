@@ -139,5 +139,15 @@
       "playerInfo": "IntPtr"
     },
     "returns": "int"
+  },
+  {
+    "name": "CLIENT_IS_IN_GAME",
+    "args": { "index": "int" },
+    "returns": "bool"
+  },
+  {
+    "name": "IS_FAKE_CLIENT",
+    "args": { "index": "int" },
+    "returns": "bool"
   }
 ]

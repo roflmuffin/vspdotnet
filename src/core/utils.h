@@ -1,5 +1,4 @@
-#ifndef TESTING_UTILS_H
-#define TESTING_UTILS_H
+#pragma once
 
 #include <cstdint>
 
@@ -29,6 +28,3 @@ namespace vspdotnet {
         }
     }
 }
-
-
-#endif //TESTING_UTILS_H

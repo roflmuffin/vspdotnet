@@ -1,5 +1,4 @@
-#ifndef TESTING_SCRIPT_ENGINE_H
-#define TESTING_SCRIPT_ENGINE_H
+#pragma once
 
 #include <cstdint>
 #include <stdexcept>
@@ -7,9 +6,10 @@
 
 #include "tl/optional.hpp"
 
+
 namespace vspdotnet {
 
-inline uint32_t HashString(const char *string) {
+inline uint32_t hash_string(const char *string) {
   unsigned long result = 5381;
 
   for (int i = 0; i < strlen(string); i++) {
@@ -27,6 +27,7 @@ struct fxNativeContext
 
         uint64_t nativeIdentifier;
         uint64_t arguments[32];
+        uint64_t result;
     };
 
 typedef void(__stdcall *CallbackT)(fxNativeContext*);
@@ -45,6 +46,8 @@ typedef void(__stdcall *CallbackT)(fxNativeContext*);
         int m_numResults;
         int *m_has_error;
         uint64_t *m_nativeIdentifier;
+        void *m_result;
+        
 
         fxNativeContext *m_native_context_;
 
@@ -104,6 +107,7 @@ typedef void(__stdcall *CallbackT)(fxNativeContext*);
 
           *reinterpret_cast<T *>(&functionData[m_numArguments]) = value;
           m_numArguments++;
+          m_native_context_->numArguments++;
         }
 
         inline void PushString(const char* value) {
@@ -114,7 +118,7 @@ typedef void(__stdcall *CallbackT)(fxNativeContext*);
 
         template<typename T>
         inline void SetResult(const T &value) {
-          auto functionData = (uint64_t *) m_argumentBuffer;
+          auto functionData = (uint64_t *) m_result;
 
           if (sizeof(T) < ArgumentSize) {
             *reinterpret_cast<uint64_t *>(&functionData[0]) = 0;
@@ -126,9 +130,9 @@ typedef void(__stdcall *CallbackT)(fxNativeContext*);
           m_numArguments = 0;
         }
 
-        template<typename T>
+        template <typename T>
         inline T GetResult() {
-          auto functionData = (uint64_t *) m_argumentBuffer;
+          auto functionData = (uint64_t *)m_result;
 
           return *reinterpret_cast<T *>(functionData);
         }
@@ -154,6 +158,7 @@ typedef void(__stdcall *CallbackT)(fxNativeContext*);
           m_has_error = &context.hasError;
           m_nativeIdentifier = &context.nativeIdentifier;
           m_native_context_ = &context;
+          m_result = &context.result;
         }
 
       
@@ -162,14 +167,6 @@ typedef void(__stdcall *CallbackT)(fxNativeContext*);
           m_numArguments = 0;
         }
     };
-
-
-    /*using TNativeHandler = std::function<void(ScriptContext&)>;*/
-
-    /*template <typename T>
-    using TypedTNativeHandler = std::function<T(ScriptContext &)>;
-    */
-
 
     using TNativeHandler = std::function<void(ScriptContext&)>;
 
@@ -187,8 +184,6 @@ typedef void(__stdcall *CallbackT)(fxNativeContext*);
         static void RegisterNativeHandlerInt(uint64_t nativeIdentifier,
                                              TNativeHandler function);
 
-        static void RegisterNativeHandlerByStr(const char *nativeName,
-                                               TNativeHandler function);
 
         template <typename T>
         static void RegisterNativeHandler(
@@ -201,70 +196,19 @@ typedef void(__stdcall *CallbackT)(fxNativeContext*);
             }
           };
 
-          RegisterNativeHandlerInt(HashString(nativeName), lambda);
+          RegisterNativeHandlerInt(hash_string(nativeName), lambda);
         }
-
+      
         template <>
-        static void RegisterNativeHandler(const char *nativeName,
-                                          TypedTNativeHandler<void> function) {
-          RegisterNativeHandlerInt(HashString(nativeName), function);
+        static void RegisterNativeHandler(const char* nativeName,
+                                          TypedTNativeHandler<void> function)
+        {
+          RegisterNativeHandlerInt(hash_string(nativeName), function);
         }
 
         static void InvokeNative(vspdotnet::fxNativeContext& context);
 
     private:
-     static fxNativeContext* m_global_context_;
-     static ScriptContextRaw m_context_;
-    public:
-     static ScriptContextRaw &GlobalContext() { return m_context_; }
-     static fxNativeContext& GlobalContextStruct() { return *m_global_context_; }
-     static void SetGlobalContext(fxNativeContext& context)
-     {
-       m_global_context_ = &context;
-       m_context_ = ScriptContextRaw(*m_global_context_);
-     }
+     static ScriptContextRaw m_context;
     };
-
-/*class PluginFunction {
-     public:
-      PluginFunction(void *function_ptr)
-          : m_function_ptr_(function_ptr), m_root_context_(fxNativeContext{}) {
-        m_script_context_raw_ = ScriptContextRaw(m_root_context_);
-      }
-
-     public:
-      void Invoke();
-      template <typename T>
-      void Push(T value) {
-        m_script_context_raw_.Push(value);
-      }
-      ScriptContextRaw ScriptContext() const {
-        return ScriptContextRaw();
-        return m_script_context_raw_;
-      }
-      fxNativeContext& ScriptContextStruct() const {
-        return ScriptEngine::GlobalContextStruct();
-        //return m_root_context_;
-      }
-
-      friend bool operator==(const PluginFunction& lhs,
-          const PluginFunction& rhs)
-      {
-        return lhs.m_function_ptr_ == rhs.m_function_ptr_;
-      }
-
-      friend bool operator!=(const PluginFunction& lhs,
-          const PluginFunction& rhs)
-      {
-        return !(lhs == rhs);
-      }
-
-    private:
-      void Reset();
-      void *m_function_ptr_;
-      ScriptContextRaw m_script_context_raw_;
-      fxNativeContext m_root_context_;
-    };*/
     }
-
-#endif //TESTING_SCRIPT_ENGINE_H

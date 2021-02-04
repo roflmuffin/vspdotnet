@@ -24,19 +24,41 @@
   },
   {
     "name": "VECTOR_SET_X",
-    "args": { "vector": "IntPtr", "value": "float" }
+    "args": {
+      "vector": "IntPtr",
+      "value": "float"
+    }
   },
   {
     "name": "VECTOR_SET_Y",
-    "args": { "vector": "IntPtr", "value": "float" }
+    "args": {
+      "vector": "IntPtr",
+      "value": "float"
+    }
   },
   {
     "name": "VECTOR_SET_Z",
-    "args": { "vector": "IntPtr", "value": "float" }
+    "args": {
+      "vector": "IntPtr",
+      "value": "float"
+    }
   },
   {
     "name": "VECTOR_ANGLES",
-    "args": { "vector": "IntPtr", "pseudoUp": "IntPtr", "outAngle": "IntPtr" }
+    "args": {
+      "vector": "IntPtr",
+      "pseudoUp": "IntPtr",
+      "outAngle": "IntPtr"
+    }
+  },
+  {
+    "name": "ANGLE_VECTORS",
+    "args": {
+      "vector": "IntPtr",
+      "forwardOut": "IntPtr",
+      "rightOut": "IntPtr",
+      "upOut": "IntPtr"
+    }
   },
   {
     "name": "VECTOR_LENGTH",

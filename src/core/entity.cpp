@@ -78,11 +78,11 @@ typedescription_t* CBaseEntityWrapper::FindDatamapPropertyDescription(
   return DataMapSharedExt::FindDescription(datamap, name);
 }
 
-SendProp* CBaseEntityWrapper::FindNetworkPropertyDescription(const char* name) {
+SendPropInfo* CBaseEntityWrapper::FindNetworkPropertyDescription(const char* name) {
   ServerClass* pServerClass = GetServerClass();
   if (!pServerClass) return nullptr;
 
-  SendProp* offset =
+  SendPropInfo* offset =
       SendTableSharedExt::FindDescription(pServerClass->m_pTable, name);
 
   return offset;
@@ -171,14 +171,14 @@ int CBaseEntityWrapper::GetFloatOffset(PropType type, const char* name) {
       return -1;
     }
 
-    if (td->m_Type != DPT_Float) {
+    if (td->sendprop->m_Type != DPT_Float) {
       // SetPendingException("Network field %s is not a float (%d != [%d])",
       // name,
                           //td->m_Type, DPT_Float);
                           return -1;
     }
 
-    offset = td->GetOffset();
+    offset = td->actual_offset;
   }
 
   if (offset == 0) {
@@ -216,14 +216,14 @@ int CBaseEntityWrapper::GetStringOffset(PropType type, const char* name) {
       return -1;
     }
 
-    if (td->m_Type != DPT_Float) {
+    if (td->sendprop->m_Type != DPT_Float) {
       // SetPendingException("Network field %s is not a string (%d != [%d])",
       // name,
                           //td->m_Type, DPT_String);
                           return -1;
     }
 
-    offset = td->GetOffset();
+    offset = td->actual_offset;
   }
 
   if (offset == 0) {
@@ -259,14 +259,14 @@ int CBaseEntityWrapper::GetVectorOffset(PropType type, const char* name) {
       return -1;
     }
 
-    if (td->m_Type != DPT_Vector) {
+    if (td->sendprop->m_Type != DPT_Vector) {
       // SetPendingException("Network field %s is not a vector (%d != [%d])",
       // name,
                           //td->m_Type, DPT_Vector);
                           return -1;
     }
 
-    offset = td->GetOffset();
+    offset = td->actual_offset;
   }
 
   if (offset == 0) {
@@ -320,7 +320,7 @@ int CBaseEntityWrapper::GetEntOffset(PropType type, const char* name,
       return -1;
     }
 
-    if (td->m_Type != DPT_Int) {
+    if (td->sendprop->m_Type != DPT_Int) {
       // SetPendingException(
       //     "Network field %s is not an entity or edict (%d != [%d])", name,
       //     td->m_Type, DPT_Int);
@@ -329,7 +329,7 @@ int CBaseEntityWrapper::GetEntOffset(PropType type, const char* name,
 
     prop_ent_type = PropEnt_Handle;
 
-    offset = td->GetOffset();
+    offset = td->actual_offset;
   }
 
   if (offset == 0) {
@@ -507,7 +507,7 @@ int CBaseEntityWrapper::FindSendPropInfo(const char* name,
     return -1;
   }
 
-  switch (td->GetType()) {
+  switch (td->sendprop->GetType()) {
     case DPT_Int: {
       prop_field_type = PropField_Integer;
       break;
@@ -530,8 +530,8 @@ int CBaseEntityWrapper::FindSendPropInfo(const char* name,
     }
   }
 
-  num_bits = td->m_nBits;
-  offset = td->GetOffset();
+  num_bits = td->sendprop->m_nBits;
+  offset = td->actual_offset;
 
   return offset;
 }

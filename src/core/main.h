@@ -8,8 +8,8 @@
 namespace vspdotnet {
   class MyServerPlugin : public IServerPluginCallbacks {
   public:
-    MyServerPlugin();
-    ~MyServerPlugin();
+    MyServerPlugin() {}
+    ~MyServerPlugin() {}
 
     // IServerPluginCallbacks interface
   public:

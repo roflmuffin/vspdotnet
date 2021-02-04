@@ -1,7 +1,12 @@
+#include <eiface.h>
+
 #include "core/autonative.h"
 #include "core/callback_manager.h"
-#include "core/script_engine.h"
 #include "core/con_command_manager.h"
+#include "core/entity.h"
+#include "core/player_manager.h"
+#include "core/script_engine.h"
+#include "core/utilities/conversions.h"
 
 namespace vspdotnet {
 
@@ -70,6 +75,28 @@ static const char* CommandGetArgByIndex(ScriptContext& script_context) {
   return command->Arg(index);
 }
 
+static void IssueClientCommand(ScriptContext& script_context)
+{
+  auto entity_index = script_context.GetArgument<int>(0);
+  auto command = script_context.GetArgument<const char*>(1);
+
+  CBaseEntity* base_entity;
+  if (!BaseEntityFromIndex(entity_index, base_entity)) {
+    script_context.ThrowNativeError("Entity %d is invalid", entity_index);
+    return;
+  }
+
+  if (entity_index > 0 && entity_index <= globals::gpGlobals->maxClients) {
+    auto player = globals::player_manager.GetPlayerByIndex(entity_index);
+    if (!player || !player->IsConnected()) return;
+  }
+
+  auto wrapper_entity = reinterpret_cast<CBaseEntityWrapper*>(base_entity);
+
+  globals::engine->ClientCommand(wrapper_entity->GetEdict(), command);
+}
+
+
 REGISTER_NATIVES(commands, {
   ScriptEngine::RegisterNativeHandler("ADD_COMMAND", AddCommand);
   ScriptEngine::RegisterNativeHandler("REMOVE_COMMAND", RemoveCommand);
@@ -78,5 +105,7 @@ REGISTER_NATIVES(commands, {
   ScriptEngine::RegisterNativeHandler("COMMAND_GET_ARG_STRING", CommandGetArgString);
   ScriptEngine::RegisterNativeHandler("COMMAND_GET_COMMAND_STRING", CommandGetCommandString);
   ScriptEngine::RegisterNativeHandler("COMMAND_GET_ARG_BY_INDEX", CommandGetArgByIndex);
+
+  ScriptEngine::RegisterNativeHandler("ISSUE_CLIENT_COMMAND", IssueClientCommand);
 })
 }

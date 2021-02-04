@@ -3,6 +3,7 @@
 
 //#include "main.h"
 #include "convar_hack.h"
+#include "core/global_listener.h"
 #include <sourcehook/sourcehook.h>
 
 class IVEngineServer;
@@ -32,13 +33,18 @@ class ICvar;
 
 namespace vspdotnet {
 class EntityListener;
-class CEventManager;
+class EventManager;
 class UserMessageManager;
 class ConCommandManager;
-class CCallbackManager;
+class CallbackManager;
 class ConVarManager;
 class MyServerPlugin;
 class PlayerManager;
+class CBinaryFile;
+class MenuManager;
+class TimerSystem;
+class ChatCommands;
+class HookManager;
 
 namespace globals {
 extern IVEngineServer *engine;
@@ -66,39 +72,24 @@ extern ICvar *cvars;
 extern IServer *server;
 extern CGlobalEntityList *global_entity_list;
 extern EntityListener entity_listener;
-extern CEventManager event_manager;
+extern EventManager event_manager;
 extern UserMessageManager user_message_manager;
 extern ConCommandManager con_command_manager;
-extern CCallbackManager callback_manager;
+extern CallbackManager callback_manager;
 extern ConVarManager convar_manager;
 extern PlayerManager player_manager;
+extern MenuManager menu_manager;
+extern TimerSystem timer_system;
+extern ChatCommands chat_commands;
+extern HookManager hook_manager;
 extern SourceHook::ISourceHook *source_hook;
 extern int source_hook_pluginid;
+extern CBinaryFile *server_binary;
+extern CBinaryFile *engine_binary;
 
 bool InitializeGlobals();
 }  // namespace globals
 
-  class GlobalClass {
-   public:
-    virtual ~GlobalClass() = default;
-
-    GlobalClass() {
-      m_pGlobalClassNext = GlobalClass::head;
-      GlobalClass::head = this;
-    }
-
-   public:
-    virtual void OnStartup() {}
-    virtual void OnShutdown() {}
-    virtual void OnAllInitialized() {}
-    virtual void OnAllInitialized_Post() {}
-    virtual void OnLevelChange(const char *mapName) {}
-    virtual void OnLevelEnd() {}
-
-   public:
-    GlobalClass *m_pGlobalClassNext;
-    static GlobalClass *head;
-  };
 }
 
 #undef SH_GLOB_SHPTR

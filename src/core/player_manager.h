@@ -10,7 +10,7 @@ class IPlayerInfo;
 struct edict_t;
 
 namespace vspdotnet {
-class CCallback;
+class ScriptCallback;
 class CBaseEntityWrapper;
 
 class CPlayer {
@@ -63,17 +63,17 @@ class CPlayer {
   float GetLatency() const;
 
  private:
-  std::string m_name_;
-  edict_t* m_p_edict_ = nullptr;
-  IPlayerInfo* m_info_ = nullptr;
-  std::string m_auth_id_;
-  bool m_is_connected_ = false;
-  bool m_is_fake_client_ = false;
-  bool m_is_in_game_ = false;
-  bool m_is_authorized_ = false;
-  int m_user_id_ = 1;
-  int m_i_index_;
-  std::string m_ip_address_;
+  std::string m_name;
+  edict_t* m_p_edict = nullptr;
+  IPlayerInfo* m_info = nullptr;
+  std::string m_auth_id;
+  bool m_is_connected = false;
+  bool m_is_fake_client = false;
+  bool m_is_in_game = false;
+  bool m_is_authorized = false;
+  int m_user_id = 1;
+  int m_i_index;
+  std::string m_ip_address;
   void SetName(const char* name);
   INetChannelInfo* GetNetInfo() const;
 };
@@ -112,20 +112,19 @@ class PlayerManager : public GlobalClass {
   private:
    void InvalidatePlayer(CPlayer* pPlayer) const;
 
-   CPlayer* m_players_;
-   int m_max_clients_ = 0;
-   int m_player_count_ = 0;
-   int* m_user_id_lookup_;
-   int m_listen_client_;
-   bool m_is_listen_server_;
+   CPlayer* m_players;
+   int m_max_clients = 0;
+   int m_player_count = 0;
+   int* m_user_id_lookup;
+   int m_listen_client;
+   bool m_is_listen_server;
 
-  CCallback* m_on_client_connect_callback_;
-  CCallback* m_on_client_put_in_server_callback_;
-  CCallback* m_on_client_connected_callback_;
-  CCallback* m_on_client_disconnect_callback_;
-  CCallback* m_on_client_disconnect_post_callback_;
-  CCallback* m_on_activate_callback_;
-  CCallback* m_on_tick_callback_;
+  ScriptCallback* m_on_client_connect_callback;
+  ScriptCallback* m_on_client_put_in_server_callback;
+  ScriptCallback* m_on_client_connected_callback;
+  ScriptCallback* m_on_client_disconnect_callback;
+  ScriptCallback* m_on_client_disconnect_post_callback;
+  ScriptCallback* m_on_activate_callback;
 };
 
 }  // namespace vspdotnet

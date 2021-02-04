@@ -23,7 +23,8 @@ namespace CSGONET.API.Core
 
 		public ulong nativeIdentifier;
 		public fixed byte functionData[8 * 32];
-	}
+        public fixed byte result[8];
+    }
 
 	public class ScriptContext
 	{
@@ -69,8 +70,9 @@ namespace CSGONET.API.Core
 		{
 			m_extContext.numArguments = 0;
 			m_extContext.numResults = 0;
-			//CleanUp();
-		}
+            m_extContext.hasError = 0;
+            //CleanUp();
+        }
 
 		[SecuritySafeCritical]
 		public void Invoke()
@@ -115,31 +117,13 @@ namespace CSGONET.API.Core
 			PushInternal(arg);
 		}
 
-		[SecuritySafeCritical]
-		public unsafe void SetResult(object arg)
-		{
-			fixed (fxScriptContext* context = &m_extContext)
-			{
-				SetResultInternal(arg, context);
-			}
-		}
-
-		[SecuritySafeCritical]
+        [SecuritySafeCritical]
 		public unsafe void SetResult(object arg, fxScriptContext* cxt)
 		{
-			SetResultInternal(arg, cxt);
+            SetResultInternal(cxt, arg);
 		}
 
-		[SecuritySafeCritical]
-		private unsafe void SetResultInternal(object arg, fxScriptContext* context)
-		{
-			var oldArgs = context->numArguments;
-			context->numArguments = 0;
-			Push(context, arg);
-			context->numArguments = oldArgs;
-		}
-
-		[SecurityCritical]
+        [SecurityCritical]
 		private unsafe void PushInternal(object arg)
 		{
 			fixed (fxScriptContext* context = &m_extContext)
@@ -164,6 +148,7 @@ namespace CSGONET.API.Core
 				if (Convert.ToBoolean(context->hasError))
 				{
 					string error = GetResult<string>();
+					Reset();
 					throw new NativeException(error);
 				}
 			}
@@ -205,12 +190,52 @@ namespace CSGONET.API.Core
 			context->numArguments++;
 		}
 
+        [SecurityCritical]
+        internal unsafe void SetResultInternal(fxScriptContext* context, object arg)
+        {
+            if (arg == null)
+            {
+                arg = 0;
+            }
+
+            if (arg.GetType().IsEnum)
+            {
+                arg = Convert.ChangeType(arg, arg.GetType().GetEnumUnderlyingType());
+            }
+
+            if (arg is string)
+            {
+                var str = (string)Convert.ChangeType(arg, typeof(string));
+                SetResultString(context, str);
+
+                return;
+            }
+            else if (arg is InputArgument ia)
+            {
+                SetResultInternal(context, ia.Value);
+
+                return;
+            }
+
+            if (Marshal.SizeOf(arg.GetType()) <= 8)
+            {
+                SetResultUnsafe(context, arg);
+            }
+        }
+
 		[SecurityCritical]
 		internal unsafe void PushUnsafe(fxScriptContext* cxt, object arg)
 		{
 			*(long*)(&cxt->functionData[8 * cxt->numArguments]) = 0;
 			Marshal.StructureToPtr(arg, new IntPtr(cxt->functionData + (8 * cxt->numArguments)), true);
 		}
+
+        [SecurityCritical]
+        internal unsafe void SetResultUnsafe(fxScriptContext* cxt, object arg)
+        {
+            *(long*)(&cxt->result[0]) = 0;
+            Marshal.StructureToPtr(arg, new IntPtr(cxt->result), true);
+        }
 
 		[SecuritySafeCritical]
 		internal unsafe void PushFast<T>(fxScriptContext* cxt, T arg)
@@ -271,6 +296,29 @@ namespace CSGONET.API.Core
 
 			cxt->numArguments++;
 		}
+
+        [SecurityCritical]
+        internal unsafe void SetResultString(fxScriptContext* cxt, string str)
+        {
+            var ptr = IntPtr.Zero;
+
+            if (str != null)
+            {
+                var b = Encoding.UTF8.GetBytes(str);
+
+                ptr = Marshal.AllocHGlobal(b.Length + 1);
+
+                Marshal.Copy(b, 0, ptr, b.Length);
+                Marshal.WriteByte(ptr, b.Length, 0);
+
+                ms_finalizers.Enqueue(() => Free(ptr));
+            }
+
+            unsafe
+            {
+                *(IntPtr*)(&cxt->result[8]) = ptr;
+            }
+        }
 
 		[SecuritySafeCritical]
 		private void Free(IntPtr ptr)
@@ -341,7 +389,7 @@ namespace CSGONET.API.Core
 		[SecurityCritical]
 		private unsafe object GetResultHelper(fxScriptContext* context, Type type)
 		{
-			return GetResult(type, &context->functionData[0]);
+			return GetResult(type, &context->result[0]);
 		}
 
 		[SecurityCritical]

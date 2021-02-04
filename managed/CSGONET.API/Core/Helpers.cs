@@ -43,7 +43,7 @@ namespace CSGONET.API.Core
             }
         }
 
-        private const string dllPath = "Testing";
+        private const string dllPath = "vspdotnet";
 
         [SecurityCritical]
         [DllImport(dllPath, EntryPoint = "InvokeNative")]

@@ -45,7 +45,6 @@ void ServerCommand(ScriptContext& script_context) {
 void PrecacheModel(ScriptContext& script_context)
 {
   auto name = script_context.GetArgument<const char*>(0);
-
   globals::engine->PrecacheModel(name);
 }
 
@@ -180,7 +179,7 @@ REGISTER_NATIVES(engine, {
   ScriptEngine::RegisterNativeHandler("GET_ENGINE_TIME", GetEngineTime);
   ScriptEngine::RegisterNativeHandler("ISSUE_SERVER_COMMAND", ServerCommand);
   ScriptEngine::RegisterNativeHandler("PRECACHE_MODEL", PrecacheModel);
-  ScriptEngine::RegisterNativeHandler("PRECACHE_MODEL", PrecacheSound);
+  ScriptEngine::RegisterNativeHandler("PRECACHE_SOUND", PrecacheSound);
   ScriptEngine::RegisterNativeHandler("IS_SOUND_PRECACHED", IsSoundPrecached);
   ScriptEngine::RegisterNativeHandler("GET_SOUND_DURATION", GetSoundDuration);
   ScriptEngine::RegisterNativeHandler("EMIT_SOUND", EmitSound);

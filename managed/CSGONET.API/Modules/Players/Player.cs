@@ -10,14 +10,14 @@ namespace CSGONET.API.Modules.Players
 {
     public class Player : BaseEntity
     {
-        internal Player(IntPtr pointer) : base(pointer)
+        public Player(IntPtr pointer) : base(pointer)
         {
         }
 
         public new static Player FromIndex(int index)
         {
             var playerBaseEntity = BaseEntity.FromIndex(index);
-            if (playerBaseEntity != null && !playerBaseEntity.IsPlayer) return null;
+            if (playerBaseEntity != null && !NativeAPI.ClientIsInGame(index)) return null;
             if (playerBaseEntity == null) return null;
             return new Player(playerBaseEntity.Handle);
         }
@@ -113,7 +113,7 @@ namespace CSGONET.API.Modules.Players
             }
         }
 
-        public NetInfo NetInfo => NativePINVOKE.GetPlayerNetInfo(Index).ToObject<NetInfo>();
+        public bool IsFakeClient => NativeAPI.IsFakeClient(Index);
 
         public BaseEntity ActiveWeapon
         {
@@ -125,10 +125,11 @@ namespace CSGONET.API.Modules.Players
         {
             var index = NativeAPI.IndexFromUserid(userid);
             if (index <= 0) return null;
-            return FromIndex(Convert.ToInt32(index));
+            return FromIndex(index);
         }
 
         public void PrintToChat(string message) => NativeAPI.PrintToChat(Index, message);
         public void PrintToHint(string message) => NativeAPI.PrintToHint(Index, message);
+        public void PrintToCenter(string message) => NativeAPI.PrintToCenter(Index, message);
     }
 }

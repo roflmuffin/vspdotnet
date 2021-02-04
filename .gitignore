@@ -6,6 +6,7 @@
 libraries/mono/
 
 build/
+build_test/
 
 # Prerequisites
 *.d

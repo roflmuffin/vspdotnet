@@ -8,7 +8,7 @@ namespace CSGONET.API
 {
     public abstract class NativeObject
     {
-        public IntPtr Handle { get; protected set; }
+        public IntPtr Handle { get; internal set; }
 
         protected NativeObject(IntPtr pointer)
         {

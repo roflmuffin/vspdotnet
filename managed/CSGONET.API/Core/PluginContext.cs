@@ -77,7 +77,8 @@ namespace CSGONET.API.Core
 
             foreach (var kv in _plugin.handlers)
             {
-                _plugin.DeregisterEventHandler((string)kv.Value.GetValue(), (Action<GameEvent>)kv.Key);
+                var data = kv.Value.GetValue() as object[];
+                _plugin.DeregisterEventHandler(data[0].ToString(), (Action<GameEvent>)kv.Key, Convert.ToBoolean(data[1]));
             }
 
             foreach (var kv in _plugin.commandHandlers)
@@ -95,6 +96,11 @@ namespace CSGONET.API.Core
             foreach (var kv in _plugin.listeners)
             {
                 _plugin.RemoveListener((string) kv.Value.GetValue(), kv.Key);
+            }
+
+            foreach (var timer in _plugin.timers)
+            {
+                timer.Kill();
             }
 
             /*
