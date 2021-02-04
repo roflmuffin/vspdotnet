@@ -53,6 +53,7 @@ SET(SOURCE_FILES
   src/core/script_engine.h
   src/core/script_engine.cpp
   src/core/utils.h
+  src/core/hooks.h
   "${SOURCESDK}/public/engine/protobuf/netmessages.pb.cc"
   "${SOURCESDK}/public/game/shared/csgo/protobuf/cstrike15_usermessages.pb.cc"
   "${SOURCESDK}/public/game/shared/csgo/protobuf/cstrike15_usermessage_helpers.cpp"

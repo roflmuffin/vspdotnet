@@ -1,5 +1,4 @@
-#ifndef _CONVAR_MANAGER
-#define _CONVAR_MANAGER
+#pragma once
 
 #include <vector>
 
@@ -109,7 +108,6 @@ class ConVarInfo {
 };
 
 class ConVarManager : public GlobalClass {
-#ifndef SWIG
  public:
   ConVarManager();
   ~ConVarManager();
@@ -118,7 +116,6 @@ class ConVarManager : public GlobalClass {
   void OnAllInitialized() override;
   void OnShutdown();
   void OnConVarChanged(ConVar* pConvar, const char* oldValue, float flOldValue);
-#endif
 
  public:
   ConVarInfo* CreateConVar(const char* name, const char* value,
@@ -135,4 +132,3 @@ class ConVarManager : public GlobalClass {
 };
 
 }  // namespace vspdotnet
-#endif  // !_CONVAR_MANAGER

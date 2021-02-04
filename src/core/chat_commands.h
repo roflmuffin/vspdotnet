@@ -1,3 +1,5 @@
+#pragma once
+
 #include "core/global_listener.h"
 
 class CCommand;

@@ -1,5 +1,4 @@
-#ifndef __HOOKS_H_
-#define __HOOKS_H_
+#pragma once
 
 #include <conventions/x86GccThiscall.h>
 #include <conventions/x86MsThiscall.h>
@@ -294,5 +293,3 @@ void CreateHook(void *ptr, Function func, HookHandlerFn handler, bool post,
 }
 }  // namespace hooks
 }  // namespace vspdotnet
-
-#endif  // __HOOKS_H_

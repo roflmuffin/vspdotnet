@@ -1,5 +1,4 @@
-#ifndef __INTERFACES_H_
-#define __INTERFACES_H_
+#pragma once
 
 #include "globals.h"
 #include "tier1/interface.h"
@@ -16,5 +15,3 @@ namespace vspdotnet {
     bool InitializeGameInterfaces(CreateInterfaceFn factory);
   };
 }
-
-#endif // __INTERFACES_H_
