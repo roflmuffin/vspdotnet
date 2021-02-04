@@ -1,8 +1,6 @@
 #pragma once
 
-//#include "main.h"
-#include "convar_hack.h"
-#include "core/global_listener.h"
+#include "core/convar_hack.h"
 #include <sourcehook/sourcehook.h>
 
 class IVEngineServer;

@@ -1,10 +1,10 @@
 #include "core/timer_system.h"
-#include "core/globals.h"
-#include "core/callback_manager.h"
-#include "core/log.h"
-#include "sourcehook/sourcehook.h"
 
 #include <public/eiface.h>
+
+#include "core/callback_manager.h"
+#include "core/globals.h"
+#include "core/log.h"
 
 
 namespace vspdotnet

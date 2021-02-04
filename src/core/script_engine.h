@@ -1,11 +1,9 @@
 #pragma once
 
 #include <cstdint>
-#include <stdexcept>
 #include <functional>
-
-#include "tl/optional.hpp"
-
+#include <stdexcept>
+#include <tl/optional.hpp>
 
 namespace vspdotnet {
 

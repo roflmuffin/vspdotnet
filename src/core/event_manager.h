@@ -1,13 +1,13 @@
 #pragma once
 
-#include <igameevents.h>
+#include <public/igameevents.h>
 
 #include <map>
 #include <string>
 
-
-#include "globals.h"
-#include "script_engine.h"
+#include "core/globals.h"
+#include "core/global_listener.h"
+#include "core/script_engine.h"
 
 namespace vspdotnet {
 class ScriptCallback;

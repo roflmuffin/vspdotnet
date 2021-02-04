@@ -3,7 +3,7 @@
 #include <functional>
 #include <vector>
 
-#include "engine/iserverplugin.h"
+#include <public/engine/iserverplugin.h>
 
 namespace vspdotnet {
   class MyServerPlugin : public IServerPluginCallbacks {

@@ -1,6 +1,6 @@
-#include "sig_scanner.h"
+#include "core/sig_scanner.h"
 
-#include "globals.h"
+#include "core/globals.h"
 
 #include <public/eiface.h>
 

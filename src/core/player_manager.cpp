@@ -1,20 +1,18 @@
 #include "core/player_manager.h"
-#include "core/callback_manager.h"
 
+#include <public/eiface.h>
+#include <public/inetchannelinfo.h>
+#include <public/iserver.h>
 #include <sourcehook/sourcehook.h>
-#include <eiface.h>
-#include <inetchannelinfo.h>
-#include <iserver.h>
 
-
-
-#include "entity.h"
-#include "con_command_manager.h"
-#include "entity_listener.h"
-#include "main.h"
-#include "menu_manager.h"
-#include "user_message_manager.h"
-#include "utilities/conversions.h"
+#include "core/callback_manager.h"
+#include "core/con_command_manager.h"
+#include "core/entity.h"
+#include "core/entity_listener.h"
+#include "core/main.h"
+#include "core/menu_manager.h"
+#include "core/user_message_manager.h"
+#include "core/utilities/conversions.h"
 
 SH_DECL_HOOK5(IServerGameClients, ClientConnect, SH_NOATTRIB, 0, bool, edict_t*,
               const char*, const char*, char*, int);

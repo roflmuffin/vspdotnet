@@ -1,14 +1,13 @@
 #include "core/con_command_manager.h"
 
-#undef clamp
-#include <eiface.h>
+#include <public/eiface.h>
+#include <sourcehook/sourcehook.h>
 
 #include <algorithm>
 
 #include "core/callback_manager.h"
-#include "sourcehook/sourcehook.h"
-#include "utilities/conversions.h"
-#include "entity.h"
+#include "core/entity.h"
+#include "core/utilities/conversions.h"
 
 namespace vspdotnet {
 

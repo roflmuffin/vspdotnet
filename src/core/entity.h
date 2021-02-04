@@ -29,22 +29,20 @@
 
 #pragma once
 
-#include <datamap.h>
-#include <dt_send.h>
-#include <iserverentity.h>
-#include <iservernetworkable.h>
-#include <public/toolframework/itoolentity.h>
+#include <public/datamap.h>
+#include <public/dt_send.h>
 #include <public/iclient.h>
+#include <public/iserverentity.h>
+#include <public/iservernetworkable.h>
+#include <public/toolframework/itoolentity.h>
 
 #include <cstdint>
 #include <string>
 
-#include "core/utilities/conversions.h"
 #include "core/globals.h"
-#include "core/props.h"
 #include "core/log.h"
-
-//#undef GetClassName
+#include "core/props.h"
+#include "core/utilities/conversions.h"
 
 namespace vspdotnet {
 struct SendPropInfo;

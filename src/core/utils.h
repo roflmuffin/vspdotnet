@@ -1,9 +1,8 @@
 #pragma once
 
-#include <cstdint>
+#include <public/eiface.h>
 
-#include "eiface.h"
-#include "globals.h"
+#include "core/globals.h"
 
 
 namespace vspdotnet {

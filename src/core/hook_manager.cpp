@@ -1,8 +1,7 @@
 #include "core/hook_manager.h"
 
-
-#include "entity.h"
-#include "function.h"
+#include "core/entity.h"
+#include "core/function.h"
 
 namespace vspdotnet
 {

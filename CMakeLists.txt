@@ -48,12 +48,20 @@ SET(SOURCE_FILES
   "src/core/globals.h"
   "src/core/globals.cpp"
   "src/core/log.cpp"
-  "src/core/sig_scanner.cpp"
+  src/core/sig_scanner.h
+  src/core/sig_scanner.cpp
   "src/core/entity_listener.cpp"
   src/core/script_engine.h
   src/core/script_engine.cpp
   src/core/utils.h
   src/core/hooks.h
+  src/core/convar_hack.h
+  src/core/datamaps.h
+  src/core/props.h
+  src/core/entity_listener.h
+  src/core/interfaces.h
+  src/core/log.h
+  src/core/main.h
   "${SOURCESDK}/public/engine/protobuf/netmessages.pb.cc"
   "${SOURCESDK}/public/game/shared/csgo/protobuf/cstrike15_usermessages.pb.cc"
   "${SOURCESDK}/public/game/shared/csgo/protobuf/cstrike15_usermessage_helpers.cpp"

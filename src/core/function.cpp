@@ -29,17 +29,14 @@
 
 #include "core/function.h"
 
+#include "conventions/x86MsCdecl.h"
+#include "conventions/x86MsFastcall.h"
+#include "conventions/x86MsStdcall.h"
+#include "conventions/x86MsThiscall.h"
+#include "core/entity.h"
+#include "core/log.h"
 #include "dyncall/dyncall/dyncall.h"
 
-#include "conventions/x86MsCdecl.h"
-#include "conventions/x86MsThiscall.h"
-#include "conventions/x86MsStdcall.h"
-#include "conventions/x86MsFastcall.h"
-#include <core/entity.h>
-
-#include "core/log.h"
-
-#include <variant_t.h>
 
 namespace vspdotnet {
 

@@ -1,27 +1,27 @@
+// convar_hack must be first header file
 #include "core/convar_hack.h"
 
-#include "main.h"
+#include "core/main.h"
 
 #include <public/igameevents.h>
 #include <public/iserver.h>
 
-#include <iostream>
 #include <iomanip>
+#include <iostream>
 
-
-#include "callback_manager.h"
-#include "timer_system.h"
+#include "core/callback_manager.h"
+#include "core/convar_manager.h"
 #include "core/con_command_manager.h"
 #include "core/dotnet_host.h"
+#include "core/entity.h"
 #include "core/globals.h"
 #include "core/interfaces.h"
 #include "core/log.h"
 #include "core/script_engine.h"
+#include "core/timer_system.h"
 #include "core/user_message_manager.h"
 #include "core/utils.h"
-#include "core/entity.h"
 #include "core/utilities/conversions.h"
-#include "core/convar_manager.h"
 
 
 vspdotnet::GlobalClass * vspdotnet::GlobalClass::head = nullptr;

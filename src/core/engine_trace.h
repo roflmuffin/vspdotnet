@@ -1,8 +1,8 @@
 #pragma once
 
+#include <public/engine/IEngineTrace.h>
+
 #include "core/callback_manager.h"
-#include "public/engine/IEngineTrace.h"
-#include "public/gametrace.h"
 
 namespace vspdotnet {
 class TraceFilterProxy : public ITraceFilter {

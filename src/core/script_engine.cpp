@@ -1,10 +1,10 @@
-#include "script_engine.h"
+#include "core/script_engine.h"
 
-#include <unordered_map>
 #include <stack>
+#include <unordered_map>
 
-#include "utils.h"
-#include "log.h"
+#include "core/log.h"
+#include "core/utils.h"
 
 static std::unordered_map<uint64_t, vspdotnet::TNativeHandler> g_registeredHandlers;
 

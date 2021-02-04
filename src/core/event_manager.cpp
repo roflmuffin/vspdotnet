@@ -1,7 +1,7 @@
-#include "event_manager.h"
-#include "callback_manager.h"
+#include "core/event_manager.h"
 
-#include "log.h"
+#include "core/callback_manager.h"
+#include "core/log.h"
 
 SH_DECL_HOOK2(IGameEventManager2, FireEvent, SH_NOATTRIB, 0, bool, IGameEvent*,
               bool);
