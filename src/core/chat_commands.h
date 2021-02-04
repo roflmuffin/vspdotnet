@@ -16,6 +16,6 @@ public:
  private:
   bool m_execute_in_post = false;
   const char* m_command_to_execute;
-  char* m_args_backup_;
+  char* m_args_backup;
 };
 }  // namespace vspdotnet

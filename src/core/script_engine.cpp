@@ -44,10 +44,10 @@ namespace vspdotnet {
 
       for (int i = 0; i < 32;i++)
       {
-        m_native_context_->arguments[i] = 0;
+        m_native_context->arguments[i] = 0;
       }
 
-      m_native_context_->result = 0;
+      m_native_context->result = 0;
     }
 
     tl::optional<TNativeHandler> ScriptEngine::GetNativeHandler(uint64_t nativeIdentifier) {

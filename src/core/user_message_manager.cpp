@@ -147,27 +147,27 @@ CustomRecipientFilter::CustomRecipientFilter() { Reset(); }
 CustomRecipientFilter::~CustomRecipientFilter() {}
 
 void CustomRecipientFilter::Reset() {
-  m_is_reliable_ = false;
-  m_is_init_message_ = false;
-  m_recipients_.RemoveAll();
+  m_is_reliable = false;
+  m_is_init_message = false;
+  m_recipients.RemoveAll();
 }
 
-bool CustomRecipientFilter::IsReliable() const { return m_is_reliable_; }
+bool CustomRecipientFilter::IsReliable() const { return m_is_reliable; }
 
-bool CustomRecipientFilter::IsInitMessage() const { return m_is_init_message_; }
+bool CustomRecipientFilter::IsInitMessage() const { return m_is_init_message; }
 
 void CustomRecipientFilter::MakeInitMessage() {
-  m_is_init_message_ = true;
+  m_is_init_message = true;
   ;
 }
 
 void CustomRecipientFilter::MakeReliable() {
-  m_is_reliable_ = true;
+  m_is_reliable = true;
   ;
 }
 
 int CustomRecipientFilter::GetRecipientCount() const {
-  return m_recipients_.Count();
+  return m_recipients.Count();
 }
 
 int CustomRecipientFilter::GetRecipientIndex(int slot) const {
@@ -175,19 +175,19 @@ int CustomRecipientFilter::GetRecipientIndex(int slot) const {
     return -1;
   }
 
-  return m_recipients_[slot];
+  return m_recipients[slot];
 }
 
 void CustomRecipientFilter::AddPlayer(int index) {
-  m_recipients_.AddToTail(index);
+  m_recipients.AddToTail(index);
 }
 
 void CustomRecipientFilter::RemovePlayer(int index) {
-  m_recipients_.FindAndRemove(index);
+  m_recipients.FindAndRemove(index);
 }
 
 void CustomRecipientFilter::AddAllPlayers() {
-  m_recipients_.RemoveAll();
+  m_recipients.RemoveAll();
   for (int i = 0; i < vspdotnet::globals::gpGlobals->maxClients; i++) {
     // auto player = g_PlayerManager.GetPlayerByIndex(i);
     // if (!player || !player->IsConnected()) continue;

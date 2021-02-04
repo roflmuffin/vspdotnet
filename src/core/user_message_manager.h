@@ -34,9 +34,9 @@ class CustomRecipientFilter : public IRecipientFilter {
   void Reset();
 
  private:
-  bool m_is_reliable_;
-  bool m_is_init_message_;
-  CUtlVector<int> m_recipients_;
+  bool m_is_reliable;
+  bool m_is_init_message;
+  CUtlVector<int> m_recipients;
 };
 
 

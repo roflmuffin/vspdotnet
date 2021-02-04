@@ -65,30 +65,30 @@ bool ChatCommands::OnSayCommandPre(int client, CCommand* command)
     is_quoted = true;
   }
 
-  delete[] m_args_backup_;
-  m_args_backup_ = new char[CCommand::MaxCommandLength() + 1];
-  memcpy(m_args_backup_, args, len + 1);
+  delete[] m_args_backup;
+  m_args_backup = new char[CCommand::MaxCommandLength() + 1];
+  memcpy(m_args_backup, args, len + 1);
 
   if (is_quoted)
   {
-    if (m_args_backup_[len - 1] == '"')
+    if (m_args_backup[len - 1] == '"')
     {
-      m_args_backup_[--len] = '\0';
+      m_args_backup[--len] = '\0';
     }
   }
 
-  if (strchr("/", m_args_backup_[0]))
+  if (strchr("/", m_args_backup[0]))
   {
     is_trigger = true;
     is_silent = true;
-  } else if (strchr("!", m_args_backup_[0]))
+  } else if (strchr("!", m_args_backup[0]))
   {
     is_trigger = true;
   }
 
   if (is_trigger)
   {
-    args = &m_args_backup_[1];
+    args = &m_args_backup[1];
   }
 
   if (is_trigger)

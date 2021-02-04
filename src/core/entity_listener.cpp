@@ -167,10 +167,10 @@ void EntityListener::HandleEntityCreated(CBaseEntity* pEntity, int index)
     }
   }
 
-  m_on_entity_created_callback_->ScriptContext().Reset();
-  m_on_entity_created_callback_->ScriptContext().Push(index);
-  m_on_entity_created_callback_->ScriptContext().Push(pName);
-  m_on_entity_created_callback_->Execute();
+  m_on_entity_created_callback->ScriptContext().Reset();
+  m_on_entity_created_callback->ScriptContext().Push(index);
+  m_on_entity_created_callback->ScriptContext().Push(pName);
+  m_on_entity_created_callback->Execute();
 
   m_EntityCache[index] = pEntity;
 }
@@ -181,23 +181,23 @@ void EntityListener::HandleEntitySpawned(CBaseEntity* pEntity, int index)
       reinterpret_cast<CBaseEntityWrapper*>(pEntity)->GetClassname();
   if (!pName) pName = "";
 
-  m_on_entity_spawned_callback_->ScriptContext().Reset();
-  m_on_entity_spawned_callback_->ScriptContext().Push(index);
-  m_on_entity_spawned_callback_->ScriptContext().Push(pName);
-  m_on_entity_spawned_callback_->Execute();
+  m_on_entity_spawned_callback->ScriptContext().Reset();
+  m_on_entity_spawned_callback->ScriptContext().Push(index);
+  m_on_entity_spawned_callback->ScriptContext().Push(pName);
+  m_on_entity_spawned_callback->Execute();
 }
 
 void EntityListener::HandleEntityDeleted(CBaseEntity* pEntity, int index)
 {
-  m_on_entity_deleted_callback_->ScriptContext().Reset();
-  m_on_entity_deleted_callback_->ScriptContext().Push(index);
-  m_on_entity_deleted_callback_->Execute();
+  m_on_entity_deleted_callback->ScriptContext().Reset();
+  m_on_entity_deleted_callback->ScriptContext().Push(index);
+  m_on_entity_deleted_callback->Execute();
 }
 
 void EntityListener::OnAllInitialized()
 {
-  m_on_entity_created_callback_ = globals::callback_manager.CreateCallback("OnEntityCreated");
-  m_on_entity_spawned_callback_ = globals::callback_manager.CreateCallback("OnEntitySpawned");
-  m_on_entity_deleted_callback_ = globals::callback_manager.CreateCallback("OnEntityDeleted");
+  m_on_entity_created_callback = globals::callback_manager.CreateCallback("OnEntityCreated");
+  m_on_entity_spawned_callback = globals::callback_manager.CreateCallback("OnEntitySpawned");
+  m_on_entity_deleted_callback = globals::callback_manager.CreateCallback("OnEntityDeleted");
 }
 }

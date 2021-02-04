@@ -40,7 +40,7 @@ void ConCommandInfo::UnhookChange(CallbackT cb, bool post) {
   
 }
 
-ConCommandManager::ConCommandManager() : last_command_client_(-1) {}
+ConCommandManager::ConCommandManager() : last_command_client(-1) {}
 
 ConCommandManager::~ConCommandManager() {}
 
@@ -78,14 +78,14 @@ ConCommandInfo* ConCommandManager::AddOrFindCommand(const char* name,
                                                     const char* description,
                                                     bool server_only,
                                                     int flags) {
-  ConCommandInfo* p_info = m_cmd_lookup_[std::string(name)];
+  ConCommandInfo* p_info = m_cmd_lookup[std::string(name)];
 
   if (!p_info) {
     auto found = std::find_if(
-        m_cmd_list_.begin(), m_cmd_list_.end(), [&](ConCommandInfo* info) {
+        m_cmd_list.begin(), m_cmd_list.end(), [&](ConCommandInfo* info) {
           return V_strcasecmp(info->p_cmd->GetName(), name) == 0;
         });
-    if (found != m_cmd_list_.end()) {
+    if (found != m_cmd_list.end()) {
       return *found;
     }
 
@@ -118,8 +118,8 @@ ConCommandInfo* ConCommandManager::AddOrFindCommand(const char* name,
     if (p_cmd) {
       p_info->p_cmd = p_cmd;
 
-      m_cmd_list_.push_back(p_info);
-      m_cmd_lookup_[name] = p_info;
+      m_cmd_list.push_back(p_info);
+      m_cmd_lookup[name] = p_info;
     }
 
     return p_info;
@@ -144,7 +144,7 @@ ConCommandInfo* ConCommandManager::AddCommand(const char* name,
 }
 
 bool ConCommandManager::RemoveCommand(const char* name, CallbackT callback) {
-  ConCommandInfo* p_info = m_cmd_lookup_[std::string(name)];
+  ConCommandInfo* p_info = m_cmd_lookup[std::string(name)];
   if (!p_info) return false;
 
   if (p_info->callback_pre && p_info->callback_pre->GetFunctionCount()) {
@@ -160,12 +160,12 @@ bool ConCommandManager::RemoveCommand(const char* name, CallbackT callback) {
 
     bool success;
     auto it =
-        std::remove_if(m_cmd_list_.begin(), m_cmd_list_.end(),
+        std::remove_if(m_cmd_list.begin(), m_cmd_list.end(),
                        [p_info](ConCommandInfo* i) { return p_info == i; });
 
-    if ((success = it != m_cmd_list_.end()))
-      m_cmd_list_.erase(it, m_cmd_list_.end());
-    if (success) m_cmd_lookup_[std::string(name)] = nullptr;
+    if ((success = it != m_cmd_list.end()))
+      m_cmd_list.erase(it, m_cmd_list.end());
+    if (success) m_cmd_lookup[std::string(name)] = nullptr;
 
     return success;
   }
@@ -174,14 +174,14 @@ bool ConCommandManager::RemoveCommand(const char* name, CallbackT callback) {
 }
 
 ConCommandInfo* ConCommandManager::FindCommand(const char* name) {
-  ConCommandInfo* p_info = m_cmd_lookup_[std::string(name)];
+  ConCommandInfo* p_info = m_cmd_lookup[std::string(name)];
 
   if (!p_info) {
     auto found = std::find_if(
-        m_cmd_list_.begin(), m_cmd_list_.end(), [&](ConCommandInfo* info) {
+        m_cmd_list.begin(), m_cmd_list.end(), [&](ConCommandInfo* info) {
           return V_strcasecmp(info->p_cmd->GetName(), name) == 0;
         });
-    if (found != m_cmd_list_.end()) {
+    if (found != m_cmd_list.end()) {
       return *found;
     }
 
@@ -200,8 +200,8 @@ ConCommandInfo* ConCommandManager::FindCommand(const char* name) {
     if (p_cmd) {
       p_info->p_cmd = p_cmd;
 
-      m_cmd_list_.push_back(p_info);
-      m_cmd_lookup_[name] = p_info;
+      m_cmd_list.push_back(p_info);
+      m_cmd_lookup[name] = p_info;
     }
 
     return p_info;
@@ -210,10 +210,10 @@ ConCommandInfo* ConCommandManager::FindCommand(const char* name) {
   return p_info;
 }
 
-int ConCommandManager::GetCommandClient() { return last_command_client_; }
+int ConCommandManager::GetCommandClient() { return last_command_client; }
 
 void ConCommandManager::SetCommandClient(int client) {
-  last_command_client_ = client + 1;
+  last_command_client = client + 1;
 }
 
 bool ConCommandManager::InternalDispatch(int client, const CCommand* args) {
@@ -224,15 +224,15 @@ bool ConCommandManager::InternalDispatch(int client, const CCommand* args) {
 
   const char* cmd = args->Arg(0);
 
-  ConCommandInfo* p_info = m_cmd_lookup_[cmd];
+  ConCommandInfo* p_info = m_cmd_lookup[cmd];
   if (p_info == nullptr) {
     if (client == 0 && !globals::engine->IsDedicatedServer()) return false;
 
     auto found = std::find_if(
-        m_cmd_list_.begin(), m_cmd_list_.end(), [cmd](ConCommandInfo* info) {
+        m_cmd_list.begin(), m_cmd_list.end(), [cmd](ConCommandInfo* info) {
           return V_strcasecmp(info->p_cmd->GetName(), cmd);
         });
-    if (found == m_cmd_list_.end()) {
+    if (found == m_cmd_list.end()) {
       return false;
     }
 
@@ -264,14 +264,14 @@ bool ConCommandManager::InternalDispatch_Post(int client, const CCommand* args) 
 
   const char* cmd = args->Arg(0);
 
-  ConCommandInfo* p_info = m_cmd_lookup_[cmd];
+  ConCommandInfo* p_info = m_cmd_lookup[cmd];
   if (p_info == nullptr) {
     if (client == 0 && !globals::engine->IsDedicatedServer()) return false;
 
-    auto found = std::find_if(m_cmd_list_.begin(), m_cmd_list_.end(), [cmd](ConCommandInfo* info) {
+    auto found = std::find_if(m_cmd_list.begin(), m_cmd_list.end(), [cmd](ConCommandInfo* info) {
       return V_strcasecmp(info->p_cmd->GetName(), cmd);
     });
-    if (found == m_cmd_list_.end()) {
+    if (found == m_cmd_list.end()) {
       return false;
     }
 
@@ -297,14 +297,14 @@ bool ConCommandManager::InternalDispatch_Post(int client, const CCommand* args) 
 
 bool ConCommandManager::DispatchClientCommand(int client, const char* cmd,
                                               const CCommand* args) {
-  ConCommandInfo* p_info = m_cmd_lookup_[cmd];
+  ConCommandInfo* p_info = m_cmd_lookup[cmd];
   if (p_info == nullptr) {
     auto found =
-        std::find_if(m_cmd_list_.begin(), m_cmd_list_.end(),
+        std::find_if(m_cmd_list.begin(), m_cmd_list.end(),
                      [&](const ConCommandInfo* info) {
                        return V_strcasecmp(info->p_cmd->GetName(), cmd) == 0;
                      });
-    if (found == m_cmd_list_.end()) {
+    if (found == m_cmd_list.end()) {
       return false;
     }
 

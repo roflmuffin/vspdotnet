@@ -11,71 +11,71 @@
 #include "core/user_message_manager.h"
 
 namespace vspdotnet {
-Menu::Menu(std::string title) : m_title_(title) {
-  m_callback_ = globals::callback_manager.CreateCallback(title.c_str());
+Menu::Menu(std::string title) : m_title(title) {
+  m_callback = globals::callback_manager.CreateCallback(title.c_str());
 }
 
-void Menu::AddMenuItem(MenuItem* item) { m_menuitems_.push_back(item); }
+void Menu::AddMenuItem(MenuItem* item) { m_menuitems.push_back(item); }
 
 std::string Menu::GetMenuString() {
   std::string buffer;
 
-  buffer.append(m_title_ + "\n \n");
+  buffer.append(m_title + "\n \n");
 
   int keyOffset = 1;
 
   if (RequiresPrevPageButton()) {
     buffer.append("->1. Prev\n");
-    m_keybits_ |= (1 << 1 - 1);
+    m_keybits |= (1 << 1 - 1);
     keyOffset++;
   }
 
-  m_num_displayed_ = 0;
+  m_num_displayed = 0;
 
-  for (int i = m_current_offset_;
-       i < std::min(m_current_offset_ + MenuItemsPerPage(), (int)m_menuitems_.size()); i++) {
-    auto option = m_menuitems_[i];
-    if (option->m_enabled_) {
+  for (int i = m_current_offset;
+       i < std::min(m_current_offset + MenuItemsPerPage(), (int)m_menuitems.size()); i++) {
+    auto option = m_menuitems[i];
+    if (option->m_enabled) {
       buffer.append("->");
     }
 
-    buffer.append(std::to_string(keyOffset++) + ". " + option->m_display_ + "\n");
-    m_keybits_ |= (1 << (keyOffset - 2));
-    m_num_displayed_++;
+    buffer.append(std::to_string(keyOffset++) + ". " + option->m_display + "\n");
+    m_keybits |= (1 << (keyOffset - 2));
+    m_num_displayed++;
   }
 
   if (RequiresNextPageButton()) {
     buffer.append("->8. Next\n");
-    m_keybits_ |= (1 << 8 - 1);
+    m_keybits |= (1 << 8 - 1);
   }
 
   buffer.append("->9. Close\n");
-  m_keybits_ |= (1 << 9 - 1);
+  m_keybits |= (1 << 9 - 1);
 
   return buffer;
 }
 
-bool Menu::RequiresPrevPageButton() const { return m_page_ > 0; }
+bool Menu::RequiresPrevPageButton() const { return m_page > 0; }
 
 bool Menu::RequiresNextPageButton() const {
-  return (m_current_offset_ + m_num_per_page_) < m_menuitems_.size();
+  return (m_current_offset + m_num_per_page) < m_menuitems.size();
 }
 
 int Menu::MenuItemsPerPage() const {
-  return m_num_per_page_ + 2 - (RequiresNextPageButton() ? 1 : 0) -
+  return m_num_per_page + 2 - (RequiresNextPageButton() ? 1 : 0) -
          (RequiresPrevPageButton() ? 1 : 0);
 }
 
 void Menu::PrevPage() {
-  m_page_--;
-  m_current_offset_ = m_prev_page_offsets.top();
+  m_page--;
+  m_current_offset = m_prev_page_offsets.top();
   m_prev_page_offsets.pop();
 }
 
 void Menu::NextPage() {
-  m_prev_page_offsets.push(m_current_offset_);
-  m_current_offset_ = m_current_offset_ + MenuItemsPerPage();
-  m_page_++;
+  m_prev_page_offsets.push(m_current_offset);
+  m_current_offset = m_current_offset + MenuItemsPerPage();
+  m_page++;
 }
 
 bool Menu::HandleKeyPress(int client, unsigned key) {
@@ -93,33 +93,33 @@ bool Menu::HandleKeyPress(int client, unsigned key) {
     return true;
   }
 
-  auto offset = m_current_offset_;
+  auto offset = m_current_offset;
   auto desired_value = key;
 
   if (RequiresPrevPageButton()) desired_value = key - 1;
 
-  auto menu_item_index = m_current_offset_ + desired_value - 1;
+  auto menu_item_index = m_current_offset + desired_value - 1;
 
-  auto menu_option = m_menuitems_[m_current_offset_ + desired_value - 1];
+  auto menu_option = m_menuitems[m_current_offset + desired_value - 1];
 
   VSPDN_CORE_INFO("User selected menu option with display {0} and value {1}",
-                  menu_option->m_display_, menu_option->m_value_);
+                  menu_option->m_display, menu_option->m_value);
 
   globals::menu_manager.SetActiveMenu(client, nullptr);
   Reset();
 
-  m_callback_->ScriptContext().Push(client);
-  m_callback_->ScriptContext().Push(menu_option->m_display_.c_str());
-  m_callback_->ScriptContext().Push(menu_option->m_value_.c_str());
-  m_callback_->Execute();
+  m_callback->ScriptContext().Push(client);
+  m_callback->ScriptContext().Push(menu_option->m_display.c_str());
+  m_callback->ScriptContext().Push(menu_option->m_value.c_str());
+  m_callback->Execute();
 
   return true;
 }
 
 void Menu::Reset() {
-  m_current_offset_ = 0;
-  m_page_ = 0;
-  m_keybits_ = 0;
+  m_current_offset = 0;
+  m_page = 0;
+  m_keybits = 0;
   m_prev_page_offsets = std::stack<int>();
 }
 
@@ -152,7 +152,7 @@ void MenuManager::HandleKeyPress(int client, unsigned key) {
 
 Menu* MenuManager::CreateMenu(std::string title) {
   auto* menu = new Menu(title);
-  m_menus_.push_back(menu);
+  m_menus.push_back(menu);
 
   return menu;
 }

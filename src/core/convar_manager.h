@@ -31,13 +31,13 @@ class ConVarInfo {
  private:
   ConVar* m_pConvar;
   bool m_is_created_by_sdn = false;
-  ScriptCallback* m_change_callback_;
+  ScriptCallback* m_change_callback;
 
  public:
   ConVarInfo(const char* name, const char* value, const char* description,
              int flags, bool hasMinValue, float min_value, bool hasMaxValue,
              float max_value)
-      : m_change_callback_(nullptr) {
+      : m_change_callback(nullptr) {
     ConVar* pConVar = g_pCVar->FindVar(name);
     if (!pConVar) {
       ConVar* pConVar =
@@ -52,7 +52,7 @@ class ConVarInfo {
     m_pConvar = pConVar;
   }
 
-  ConVarInfo(ConVar* pConVar) : m_change_callback_(nullptr) {
+  ConVarInfo(ConVar* pConVar) : m_change_callback(nullptr) {
     m_pConvar = pConVar;
   }
 
@@ -100,10 +100,10 @@ class ConVarInfo {
 
   ConVar* GetConVar() { return m_pConvar; }
 
-  ScriptCallback* GetCallback() { return m_change_callback_; }
+  ScriptCallback* GetCallback() { return m_change_callback; }
 
   void SetCallback(ScriptCallback* callback) {
-    m_change_callback_ = callback;
+    m_change_callback = callback;
   }
 };
 

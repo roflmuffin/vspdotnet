@@ -47,7 +47,7 @@ typedef void(__stdcall *CallbackT)(fxNativeContext*);
         void *m_result;
         
 
-        fxNativeContext *m_native_context_;
+        fxNativeContext *m_native_context;
 
     public:
         inline ScriptContext() = default;
@@ -105,7 +105,7 @@ typedef void(__stdcall *CallbackT)(fxNativeContext*);
 
           *reinterpret_cast<T *>(&functionData[m_numArguments]) = value;
           m_numArguments++;
-          m_native_context_->numArguments++;
+          m_native_context->numArguments++;
         }
 
         inline void PushString(const char* value) {
@@ -140,7 +140,7 @@ typedef void(__stdcall *CallbackT)(fxNativeContext*);
         }
 
         inline int GetNumArguments()
-        { return m_native_context_->numArguments;
+        { return m_native_context->numArguments;
         }
     };
 
@@ -155,7 +155,7 @@ typedef void(__stdcall *CallbackT)(fxNativeContext*);
           m_numResults = 0;
           m_has_error = &context.hasError;
           m_nativeIdentifier = &context.nativeIdentifier;
-          m_native_context_ = &context;
+          m_native_context = &context;
           m_result = &context.result;
         }
 

@@ -81,9 +81,9 @@ namespace vspdotnet {
         virtual void OnAllInitialized();
         void Setup();
       private:
-        ScriptCallback* m_on_entity_created_callback_;
-        ScriptCallback* m_on_entity_spawned_callback_;
-        ScriptCallback* m_on_entity_deleted_callback_;
+        ScriptCallback* m_on_entity_created_callback;
+        ScriptCallback* m_on_entity_spawned_callback;
+        ScriptCallback* m_on_entity_deleted_callback;
     };
    
     }

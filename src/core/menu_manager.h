@@ -17,18 +17,18 @@ class MenuItem
   friend class Menu;
 
  public:
-  MenuItem(std::string display, std::string value, int flags) : m_display_(display), m_value_(value), m_enabled_(true)
+  MenuItem(std::string display, std::string value, int flags) : m_display(display), m_value(value), m_enabled(true)
   {
     if (flags & MENUOPTION_DISABLED)
     {
-      m_enabled_ = false;
+      m_enabled = false;
     }
   }
 
  private:
-  std::string m_display_;
-  std::string m_value_;
-  bool m_enabled_;
+  std::string m_display;
+  std::string m_value;
+  bool m_enabled;
 };
 
 class Menu
@@ -45,22 +45,22 @@ public:
   bool HandleKeyPress(int client, unsigned int key);
   void Reset();
 
-  ScriptCallback* GetCallback() { return m_callback_; }
+  ScriptCallback* GetCallback() { return m_callback; }
 
-  int GetKeyBits() { return m_keybits_; }
+  int GetKeyBits() { return m_keybits; }
   std::string GetMenuString();
 
 private:
- std::vector<MenuItem*> m_menuitems_;
- std::string m_title_;
- ScriptCallback* m_callback_;
+ std::vector<MenuItem*> m_menuitems;
+ std::string m_title;
+ ScriptCallback* m_callback;
 
- int m_keybits_ = 0;
+ int m_keybits = 0;
 
- int m_page_ = 0;
- int m_current_offset_ = 0;
- int m_num_displayed_ = 0;
- int m_num_per_page_ = 6;
+ int m_page = 0;
+ int m_current_offset = 0;
+ int m_num_displayed = 0;
+ int m_num_per_page = 6;
 
  std::stack<int> m_prev_page_offsets;
 
@@ -77,7 +77,7 @@ class MenuManager
   void ShowMenu(int client, Menu* menu);
 
  private:
-  std::vector<Menu*> m_menus_;
+  std::vector<Menu*> m_menus;
   Menu* m_active_menus_[65];
 };
 }

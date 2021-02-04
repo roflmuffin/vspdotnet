@@ -63,9 +63,9 @@ class ConCommandManager : public GlobalClass {
   bool InternalDispatch_Post(int client, const CCommand* args);
 
  private:
-  int last_command_client_;
-  std::vector<ConCommandInfo*> m_cmd_list_;
-  std::map<std::string, ConCommandInfo*> m_cmd_lookup_;
+  int last_command_client;
+  std::vector<ConCommandInfo*> m_cmd_list;
+  std::map<std::string, ConCommandInfo*> m_cmd_lookup;
 };
 
 }  // namespace vspdotnet

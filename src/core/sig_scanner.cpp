@@ -43,8 +43,8 @@ namespace vspdotnet {
 
   unsigned long CBinaryFile::FindSignature(unsigned char* sigBytes, int length)
   {
-    unsigned char* base = (unsigned char*)m_base_;
-    unsigned char* end = (unsigned char*)(base + m_size_ - length);
+    unsigned char* base = (unsigned char*)m_base;
+    unsigned char* end = (unsigned char*)(base + m_size - length);
 
     while(base < end)
     {
@@ -109,7 +109,7 @@ namespace vspdotnet {
     for (std::list<CBinaryFile*>::iterator iter = m_Binaries.begin(); iter != m_Binaries.end(); ++iter)
     {
       CBinaryFile* binary = *iter;
-      if (binary->m_module_ == ulModule)
+      if (binary->m_module == ulModule)
       {
         // We don't need to open it several times
         dlFreeLibrary((DLLib*)ulModule);

@@ -10,11 +10,11 @@ class PluginContext
     friend class CDotNetManager;
 public:
     PluginContext(std::string dll_path)
-            : m_dll_path_(dll_path)
+            : m_dll_path(dll_path)
     {
     }
 private:
-    std::string m_dll_path_;
+    std::string m_dll_path;
 };
 
 class CDotNetManager {
@@ -29,5 +29,5 @@ public:
     PluginContext* FindContext(std::string path);
 private:
 private:
-    std::vector<std::shared_ptr<PluginContext>> m_app_domains_;
+    std::vector<std::shared_ptr<PluginContext>> m_app_domains;
 };
