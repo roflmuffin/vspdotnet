@@ -1,4 +1,4 @@
-#include "interfaces.h"
+#include "core/interfaces.h"
 
 #include <public/eiface.h>
 #include <public/engine/IEngineSound.h>
@@ -10,6 +10,8 @@
 #include <public/toolframework/itoolentity.h>
 #include <public/vphysics_interface.h>
 #include <public/vstdlib/random.h>
+
+#include "core/globals.h"
 
 namespace vspdotnet {
   namespace interfaces {

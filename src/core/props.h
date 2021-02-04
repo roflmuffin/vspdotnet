@@ -1,6 +1,6 @@
 #pragma once
 
-#include "dt_send.h"
+#include <public/dt_send.h>
 
 namespace vspdotnet {
 

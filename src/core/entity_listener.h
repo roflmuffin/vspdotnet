@@ -1,6 +1,7 @@
 #pragma once
 
-#include <core/globals.h>
+#include "core/globals.h"
+#include "core/global_listener.h"
 
 #include <public/eiface.h>
 #include <game/shared/shareddefs.h>

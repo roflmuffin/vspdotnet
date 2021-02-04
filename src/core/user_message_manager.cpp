@@ -1,17 +1,13 @@
-#include "user_message_manager.h"
+#include "core/user_message_manager.h"
 
-#include <google/protobuf/message.h>
-
-
-#include <game/shared/csgo/protobuf/cstrike15_usermessage_helpers.h>
+#include <game/shared/shareddefs.h>
 #include <game/shared/csgo/protobuf/cstrike15_usermessages.pb.h>
-
-#include <eiface.h>
-#include <shareddefs.h>
+#include <game/shared/csgo/protobuf/cstrike15_usermessage_helpers.h>
+#include <google/protobuf/message.h>
+#include <public/eiface.h>
 #include <sourcehook/sourcehook.h>
 
-#include "globals.h"
-
+#include "core/globals.h"
 
 
 SH_DECL_HOOK3_void(IVEngineServer, SendUserMessage, SH_NOATTRIB, 0,

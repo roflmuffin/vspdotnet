@@ -1,7 +1,6 @@
 #pragma once
 
-#include "globals.h"
-#include "tier1/interface.h"
+#include <public/tier1/interface.h>
 
 namespace vspdotnet {
   namespace interfaces {

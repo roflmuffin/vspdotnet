@@ -1,9 +1,9 @@
 #include "core/datamaps.h"
 
-#include <unordered_map>
-#include <string>
+#include <public/datamap.h>
 
-#include <datamap.h>
+#include <string>
+#include <unordered_map>
 
 namespace vspdotnet {
 

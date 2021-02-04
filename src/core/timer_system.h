@@ -1,9 +1,8 @@
 #pragma once
 
-#include <memory>
 #include <vector>
 
-#include "script_engine.h"
+#include "core/script_engine.h"
 #include "core/global_listener.h"
 
 namespace vspdotnet

@@ -1,10 +1,9 @@
 #pragma once
 
-#include <conventions/x86GccThiscall.h>
 #include <conventions/x86MsThiscall.h>
 #include <manager.h>
 
-#include "log.h"
+#include "core/log.h"
 
 namespace vspdotnet {
 namespace hooks {

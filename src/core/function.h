@@ -30,7 +30,8 @@
 
 #pragma once
 
-#include "manager.h"
+#include <manager.h>
+
 #include "core/callback_manager.h"
 
 namespace vspdotnet {

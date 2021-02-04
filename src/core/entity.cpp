@@ -1,13 +1,12 @@
 #include "core/entity.h"
 
-#include <iserver.h>
+#include <public/eiface.h>
+#include <public/iserver.h>
+#include <public/server_class.h>
 
-
+#include "core/datamaps.h"
 #include "core/props.h"
 #include "core/utilities/conversions.h"
-#include "core/datamaps.h"
-#include "server_class.h"
-#include "eiface.h"
 
 //-----------------------------------------------------------------------------
 

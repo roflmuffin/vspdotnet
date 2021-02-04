@@ -3,6 +3,7 @@
 #include <string>
 
 #include "core/globals.h"
+#include "core/global_listener.h"
 
 class CBaseEntity;
 class INetChannelInfo;

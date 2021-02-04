@@ -1,9 +1,10 @@
 #pragma once
 
+#include <hook.h>
+
 #include <map>
 #include <vector>
 
-#include "hook.h"
 #include "core/autonative.h"
 #include "core/global_listener.h"
 

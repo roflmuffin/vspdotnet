@@ -1,25 +1,25 @@
 #include "core/globals.h"
-#include "main.h"
-#include "core/dotnet_host.h"
-#include "core/entity_listener.h"
-#include "core/event_manager.h"
 
-#include <public/game/server/iplayerinfo.h>
 #include <sourcehook/sourcehook.h>
 #include <sourcehook/sourcehook_impl.h>
 
-
-#include "chat_commands.h"
-#include "core/user_message_manager.h"
-#include "core/con_command_manager.h"
 #include "core/callback_manager.h"
-#include "convar_manager.h"
-#include "hook_manager.h"
-#include "core/timer_system.h"
+#include "core/chat_commands.h"
+#include "core/convar_manager.h"
+#include "core/con_command_manager.h"
+#include "core/dotnet_host.h"
+#include "core/entity_listener.h"
+#include "core/event_manager.h"
+#include "core/hook_manager.h"
 #include "core/log.h"
-#include "core/player_manager.h"
+#include "core/main.h"
 #include "core/menu_manager.h"
+#include "core/player_manager.h"
 #include "core/sig_scanner.h"
+#include "core/timer_system.h"
+#include "core/user_message_manager.h"
+
+#include <public/game/server/iplayerinfo.h>
 
 namespace vspdotnet {
 

@@ -1,14 +1,14 @@
+#include "core/menu_manager.h"
+
 #include <public/tier1/convar.h>
 
-#include "core/menu_manager.h"
-#include "core/user_message_manager.h"
-#include "core/callback_manager.h"
-#include "core/log.h"
-
-#include <cstring>
 #include <algorithm>
+#include <cstring>
 
-#include "globals.h"
+#include "core/callback_manager.h"
+#include "core/globals.h"
+#include "core/log.h"
+#include "core/user_message_manager.h"
 
 namespace vspdotnet {
 Menu::Menu(std::string title) : m_title_(title) {

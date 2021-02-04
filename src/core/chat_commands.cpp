@@ -1,14 +1,12 @@
 #include "core/chat_commands.h"
 
-#include <iserverplugin.h>
+#include <public/engine/iserverplugin.h>
 
-
-#include "con_command_manager.h"
-#include "player_manager.h"
+#include "core/con_command_manager.h"
 #include "core/globals.h"
 #include "core/log.h"
-#include "core/convar_hack.h"
-#include "utilities/conversions.h"
+#include "core/player_manager.h"
+#include "core/utilities/conversions.h"
 
 namespace vspdotnet
 {

@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "core/globals.h"
+#include "core/global_listener.h"
 #include "core/script_engine.h"
 
 namespace vspdotnet {

@@ -1,12 +1,14 @@
-#include "dotnet_host.h"
+#include "core/dotnet_host.h"
 
+#include <netcore/coreclr_delegates.h>
+#include <netcore/hostfxr.h>
 
 #include <codecvt>
 #include <locale>
 
 #ifdef WIN32
-#include <Windows.h>
 #include <direct.h>
+#include <Windows.h>
 
 #define STR(s) L##s
 #define CH(c) L##c
@@ -16,8 +18,8 @@
 
 #include <iostream>
 
-#include "log.h"
-#include "utils.h"
+#include "core/log.h"
+#include "core/utils.h"
 
 std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 

@@ -1,12 +1,10 @@
 #include "entity_listener.h"
 
-#include "globals.h"
-
-
 #include "core/callback_manager.h"
 #include "core/entity.h"
-#include "core/log.h"
+#include "core/globals.h"
 #include "core/hooks.h"
+#include "core/log.h"
 
 typedef CBaseEntity CBaseCombatWeapon;
 SH_DECL_MANUALHOOK3_void(Weapon_Drop, 287, 0, 0, CBaseCombatWeapon*, const Vector*, const Vector*);

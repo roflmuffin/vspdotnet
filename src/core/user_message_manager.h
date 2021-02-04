@@ -1,9 +1,10 @@
 #pragma once
 
-#include <irecipientfilter.h>
-#include <utlvector.h>
+#include <public/irecipientfilter.h>
+#include <public/tier1/utlvector.h>
 
-#include "globals.h"
+#include "core/globals.h"
+#include "core/global_listener.h"
 
 namespace google {
 namespace protobuf {

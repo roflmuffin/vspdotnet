@@ -1,11 +1,12 @@
 #include "core/convar_manager.h"
 
+#include <sourcehook/sourcehook.h>
+
 #include <algorithm>
 #include <map>
 #include <string>
 
 #include "core/callback_manager.h"
-#include "sourcehook/sourcehook.h"
 
 
 SH_DECL_HOOK3_void(ICvar, CallGlobalChangeCallbacks, SH_NOATTRIB, false,

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "script_engine.h"
+#include "core/script_engine.h"
 #include "core/globals.h"
-//#include "script_engine.h"
+#include "core/global_listener.h"
 
 namespace vspdotnet {}
 

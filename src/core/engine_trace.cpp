@@ -1,9 +1,6 @@
 #include "core/engine_trace.h"
 
 #include "core/utilities/conversions.h"
-#include "core/globals.h"
-#include "public/mathlib/mathlib.h"
-#include "public/worldsize.h"
 #include "core/log.h"
 
 namespace vspdotnet {
