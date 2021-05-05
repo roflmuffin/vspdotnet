@@ -1,0 +1,12 @@
+[submodule "libraries/spdlog"]
+	path = libraries/spdlog
+	url = https://github.com/gabime/spdlog
+[submodule "libraries/dyncall"]
+	path = libraries/dyncall
+	url = https://github.com/LWJGL-CI/dyncall
+[submodule "libraries/asmjit"]
+	path = libraries/asmjit
+	url = https://github.com/asmjit/asmjit
+[submodule "libraries/DynamicHooks"]
+	path = libraries/DynamicHooks
+	url = https://github.com/roflmuffin/DynamicHooks
