@@ -46,12 +46,38 @@ A lot of code has been borrowed from SourceMod as well as Source.Python, two pio
 
 I've also used the scripting context & native system that is implemented in FiveM for GTA5.
 
-## Installing
+## How to Build
 
-### Libraries
+Building requires CMake for Windows.
 
-- A copy of [hl2sdk-csgo](https://github.com/alliedmodders/hl2sdk/tree/csgo) needs to be installed under libraries.
-- [spdlog](https://github.com/gabime/spdlog)
-- [dyncall](https://github.com/LWJGL-CI/dyncall)
-- [DynamicHooks](https://github.com/Ayuto/DynamicHooks) credit to Ayuto from the Source.Python team
-- [asmjit](https://github.com/asmjit/asmjit)
+Clone the repository
+
+```bash
+git clone https://github.com/roflmuffin/VSP.NET
+```
+
+Init and update submodules
+
+```bash
+git submodule init
+git submodule update
+```
+
+Make build folder
+
+```bash
+mkdir build
+cd build
+```
+
+Generate CMake Build Files
+
+```bash
+cmake -A Win32 ..
+```
+
+Build
+
+```bash
+cmake --build . --config Debug
+```
