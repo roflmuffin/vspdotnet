@@ -33,14 +33,12 @@ namespace CSGONET.API.Core
         private static GlobalContext _instance = null;
         public static GlobalContext Instance => _instance;
 
-        bool AreModulesWereLoaded;
         private DirectoryInfo rootDir;
 
         private List<PluginContext> _loadedPlugins = new List<PluginContext>();
 
         public GlobalContext()
         {
-            AreModulesWereLoaded = false;
             rootDir = new FileInfo(Assembly.GetExecutingAssembly().Location).Directory.Parent;
             _instance = this;
         }

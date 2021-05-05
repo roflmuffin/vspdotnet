@@ -225,7 +225,7 @@ namespace CSGONET.API.Modules.Entities
             set => SetProp(PropType.Send, "movetype", (int)value);
         }
 
-        public IntPtr Handle => NativeAPI.BaseentityFromIndex(Index);
+        public new IntPtr Handle => NativeAPI.BaseentityFromIndex(Index);
 
         public int ParentHandle
         {

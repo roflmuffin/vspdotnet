@@ -78,38 +78,6 @@ namespace CSGONET.API.Core
                     {
                         Console.WriteLine(e);
                     }
-
-                    /*try
-                    {
-                        var scriptContext = new ScriptContext(fxScriptContext);
-
-                        object returnObj = null;
-
-                        if (method.Method.GetParameters().FirstOrDefault()?.ParameterType == typeof(ScriptContext))
-                        {
-                            returnObj = m_method.DynamicInvoke(scriptContext);
-                        }
-                        else
-                        {
-                            var paramsList = method.Method.GetParameters().Select((x, i) =>
-                            {
-                                var param = method.Method.GetParameters()[i];
-                                var obj = scriptContext.GetArgument(param.ParameterType, i);
-                                return obj;
-                            }).ToArray();
-
-                            returnObj = m_method.DynamicInvoke(paramsList);
-                        }
-
-                        if (returnObj != null)
-                        {
-                            scriptContext.SetResult(returnObj, fxScriptContext);
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                    }*/
                 });
                 s_callback = dg;
             }
@@ -164,20 +132,7 @@ namespace CSGONET.API.Core
 
             return null;
         }
-
-        /*
-        [UnmanagedCallersOnly]
-        public static unsafe void Invoke(int reference, fxScriptContext scriptContext)
-        {
-            Console.WriteLine("Invoking function reference: " + reference);
-            if (!ms_references.TryGetValue(reference, out var funcRef))
-            {
-                Debug.WriteLine("No such reference for {0}.", reference);
-
-                // return nil
-            }
-        }*/
-
+        
         public IntPtr GetFunctionPointer()
         {
             IntPtr cb = Marshal.GetFunctionPointerForDelegate(s_callback);
@@ -196,59 +151,5 @@ namespace CSGONET.API.Core
                 Console.ResetColor();
             }
         }
-
-        /*public static byte[] Invoke(int reference, byte[] arguments)
-        {
-            if (!ms_references.TryGetValue(reference, out var funcRef))
-            {
-                Debug.WriteLine("No such reference for {0}.", reference);
-
-                // return nil
-                return new byte[] { 0xC0 };
-            }
-
-            var method = funcRef.m_method;
-
-            // deserialize the passed arguments
-            var argList = (List<object>)MsgPackDeserializer.Deserialize(arguments);
-            var argArray = CallUtilities.GetPassArguments(method.Method, argList.ToArray(), string.Empty);
-
-            // the Lua runtime expects this to be an array, so it be an array.
-            var rv = method.DynamicInvoke(argArray);
-
-            // is this actually an asynchronous method?
-            if (rv is Task)
-            {
-                dynamic rt = rv;
-
-                rv = new
-                {
-                    __cfx_async_retval = new Action<dynamic>(rvcb =>
-                    {
-                        rt.ContinueWith(new Action<Task>(t =>
-                        {
-                            rvcb(new object[] { rt.Result }, false);
-                        }));
-                    })
-                };
-            }
-
-            return MsgPackSerializer.Serialize(new[] { rv });
-        }
-
-        public static int Duplicate(int reference)
-        {
-            FunctionReference funcRef;
-
-            if (ms_references.TryGetValue(reference, out funcRef))
-            {
-                funcRef.m_refCount++; // TODO: interlocked?
-                return reference;
-            }
-
-            return -1;
-        }
-
-        */
     }
 }

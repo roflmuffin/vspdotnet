@@ -1,17 +1,26 @@
 ﻿/*
- *  This file is part of VSP.NET.
- *  VSP.NET is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ * Copyright (c) 2014 Bas Timmer/NTAuthority et al.
  *
- *  VSP.NET is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- *  You should have received a copy of the GNU General Public License
- *  along with VSP.NET.  If not, see <https://www.gnu.org/licenses/>. *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * This file has been modified from its original form for use in this program
+ * under GNU Lesser General Public License, version 2.
  */
 
 using System;
@@ -24,7 +33,7 @@ namespace CSGONET.API.Core
 {
 	public class NativeException : Exception
 	{
-		public NativeException(string? message) : base(message)
+		public NativeException(string message) : base(message)
 		{
 		}
 	}
@@ -253,33 +262,7 @@ namespace CSGONET.API.Core
             Marshal.StructureToPtr(arg, new IntPtr(cxt->result), true);
         }
 
-		[SecuritySafeCritical]
-		internal unsafe void PushFast<T>(fxScriptContext* cxt, T arg)
-			where T : struct
-		{
-			var size = FastStructure<T>.Size;
-
-			var numArgs = (size / 8);
-
-			if ((size % 8) != 0)
-			{
-				*(long*)(&cxt->functionData[8 * cxt->numArguments]) = 0;
-				numArgs++;
-			}
-
-			FastStructure<T>.StructureToPtr(ref arg, new IntPtr(&cxt->functionData[8 * cxt->numArguments]));
-
-			cxt->numArguments += numArgs;
-		}
-
-		[SecurityCritical]
-		internal unsafe T GetResultFast<T>(fxScriptContext* cxt)
-			where T : struct
-		{
-			return FastStructure<T>.PtrToStructure(new IntPtr(&cxt->functionData));
-		}
-
-		[SecurityCritical]
+        [SecurityCritical]
 		internal unsafe void PushString(string str)
 		{
 			fixed (fxScriptContext* cxt = &m_extContext)
@@ -453,22 +436,6 @@ namespace CSGONET.API.Core
 			{
 				return Enum.ToObject(type, (int)GetResult(typeof(int), ptr));
 			}
-
-			/*if (type.IsAssignableFrom(typeof(INativeValue)))
-			{
-				var a = (int)GetResultInternal(typeof(int), ptr);
-
-				return Activator.CreateInstance(type, a);
-			}
-
-			if (type == typeof(Vector3))
-			{
-				var x = *(float*)(&ptr[0]);
-				var y = *(float*)(&ptr[8]);
-				var z = *(float*)(&ptr[16]);
-
-				return new Vector3(x, y, z);
-			}*/
 
 			if (Marshal.SizeOf(type) <= 8)
 			{

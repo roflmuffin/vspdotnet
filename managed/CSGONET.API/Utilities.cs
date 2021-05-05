@@ -26,36 +26,6 @@ namespace CSGONET.API
 {
     public static class Utilities
     {
-        public static HandleRef ToHandle(this IntPtr ptr)
-        {
-            return new HandleRef(null, ptr);
-        }
-
-        public static T ToObject<T>(this IntPtr ptr, bool ownMemory = false) where T : BaseNative
-        {
-            if (ptr == IntPtr.Zero) return null;
-
-            if (ownMemory)
-            {
-                return (T)Activator.CreateInstance(typeof(T), ptr, true);
-            }
-            
-            return (T)Activator.CreateInstance(typeof(T), ptr, false);
-
-        }
-
-        public static T ToObjectNativeObject<T>(this IntPtr ptr, bool ownMemory = false) where T : NativeObject
-        {
-            if (ptr == IntPtr.Zero) return null;
-
-            if (ownMemory)
-            {
-                return (T)Activator.CreateInstance(typeof(T), ptr, true);
-            }
-
-            return (T)Activator.CreateInstance(typeof(T), ptr, false);
-
-        }
 
         public static IEnumerable<T> FlagsToList<T>(this T flags) where T : Enum
         {

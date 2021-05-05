@@ -40,8 +40,7 @@ namespace CSGONET.API.Modules.Players
 
         private PlayerInfo _playerInfo;
 
-        public PlayerInfo PlayerInfo => _playerInfo ??
-                                        new PlayerInfo(NativeAPI.PlayerinfoFromIndex(Index));
+        public PlayerInfo PlayerInfo => _playerInfo ??= new PlayerInfo(NativeAPI.PlayerinfoFromIndex(Index));
         public bool IsAlive => LifeState == (int)Entities.Constants.LifeState.LIFE_ALIVE;
 
         public ObserverMode ObserverMode

@@ -47,10 +47,10 @@ namespace CSGONET.API.Core
         public class CallbackSubscriber
         {
             private Delegate _underlyingMethod;
-            private int _functionReferenceIdentifier;
-            private object _value;
+            private readonly int _functionReferenceIdentifier;
+            private readonly object _value;
 
-            private InputArgument _inputArgument;
+            private readonly InputArgument _inputArgument;
 
             public CallbackSubscriber(object value, Delegate underlyingMethod, Delegate wrapperMethod)
             {
@@ -80,11 +80,11 @@ namespace CSGONET.API.Core
 
         }
 
-        public Dictionary<Delegate, CallbackSubscriber> handlers = new Dictionary<Delegate, CallbackSubscriber>();
-        public Dictionary<Delegate, CallbackSubscriber> commandHandlers = new Dictionary<Delegate, CallbackSubscriber>();
-        public Dictionary<Delegate, CallbackSubscriber> convarChangeHandlers = new Dictionary<Delegate, CallbackSubscriber>();
-        public Dictionary<Delegate, CallbackSubscriber> listeners = new Dictionary<Delegate, CallbackSubscriber>();
-        public List<Timer> timers = new List<Timer>();
+        public readonly Dictionary<Delegate, CallbackSubscriber> Handlers = new Dictionary<Delegate, CallbackSubscriber>();
+        public readonly Dictionary<Delegate, CallbackSubscriber> CommandHandlers = new Dictionary<Delegate, CallbackSubscriber>();
+        public readonly Dictionary<Delegate, CallbackSubscriber> ConvarChangeHandlers = new Dictionary<Delegate, CallbackSubscriber>();
+        public readonly Dictionary<Delegate, CallbackSubscriber> Listeners = new Dictionary<Delegate, CallbackSubscriber>();
+        public readonly List<Timer> Timers = new List<Timer>();
 
         public void RegisterEventHandler(string name, Action<GameEvent> handler, bool post = false)
         {
@@ -97,18 +97,18 @@ namespace CSGONET.API.Core
             var data = new object[] {name, post};
             var subscriber = new CallbackSubscriber(data, handler, wrappedHandler);
             NativeAPI.HookEvent(name, subscriber.GetInputArgument(), post);
-            handlers[handler] = subscriber;
+            Handlers[handler] = subscriber;
         }
 
         public void DeregisterEventHandler(string name, Action<GameEvent> handler, bool post)
         {
-            if (handlers.ContainsKey(handler))
+            if (Handlers.ContainsKey(handler))
             {
-                var subscriber = handlers[handler];
+                var subscriber = Handlers[handler];
 
                 NativeAPI.UnhookEvent(name, subscriber.GetInputArgument(), post);
                 FunctionReference.Remove(subscriber.GetReferenceIdentifier());
-                handlers.Remove(handler);
+                Handlers.Remove(handler);
             }
         }
 
@@ -122,19 +122,19 @@ namespace CSGONET.API.Core
 
             var subscriber = new CallbackSubscriber(name, handler, wrappedHandler);
             NativeAPI.AddCommand(name, description, false, 0, subscriber.GetInputArgument());
-            commandHandlers[handler] = subscriber;
+            CommandHandlers[handler] = subscriber;
         }
 
         public void RemoveCommand(string name, CommandInfo.CommandCallback handler)
         {
-            if (commandHandlers.ContainsKey(handler))
+            if (CommandHandlers.ContainsKey(handler))
             {
-                var subscriber = commandHandlers[handler];
+                var subscriber = CommandHandlers[handler];
 
                 NativeAPI.RemoveCommand(name, subscriber.GetInputArgument());
 
                 FunctionReference.Remove(subscriber.GetReferenceIdentifier());
-                commandHandlers.Remove(handler);
+                CommandHandlers.Remove(handler);
             }
         }
 
@@ -147,17 +147,18 @@ namespace CSGONET.API.Core
 
             var subscriber = new CallbackSubscriber(convar, handler, wrappedHandler);
             NativeAPI.HookConvarChange(convar.Handle, subscriber.GetInputArgument());
-            convarChangeHandlers[handler] = subscriber;
+            ConvarChangeHandlers[handler] = subscriber;
         }
+        
         public void UnhookConVarChange(ConVar convar, ConVar.ConVarChangedCallback handler)
         {
-            if (convarChangeHandlers.ContainsKey(handler))
+            if (ConvarChangeHandlers.ContainsKey(handler))
             {
-                var subscriber = convarChangeHandlers[handler];
+                var subscriber = ConvarChangeHandlers[handler];
 
                 NativeAPI.UnhookConvarChange(convar.Handle, subscriber.GetInputArgument());
                 FunctionReference.Remove(subscriber.GetReferenceIdentifier());
-                commandHandlers.Remove(handler);
+                CommandHandlers.Remove(handler);
             }
         }
 
@@ -179,38 +180,38 @@ namespace CSGONET.API.Core
 
             var subscriber = new CallbackSubscriber(name, handler, wrappedHandler);
             NativeAPI.AddListener(name, subscriber.GetInputArgument());
-            listeners[handler] = subscriber;
+            Listeners[handler] = subscriber;
         }
 
         public void RemoveListener<T>(string name, Listeners.SourceEventHandler<T> handler)
             where T : EventArgs, new()
         {
-            if (listeners.ContainsKey(handler))
+            if (Listeners.ContainsKey(handler))
             {
-                var subscriber = listeners[handler];
+                var subscriber = Listeners[handler];
 
                 NativeAPI.RemoveListener(name, subscriber.GetInputArgument());
                 FunctionReference.Remove(subscriber.GetReferenceIdentifier());
-                listeners.Remove(handler);
+                Listeners.Remove(handler);
             }
         }
 
         public void RemoveListener(string name, Delegate handler)
         {
-            if (listeners.ContainsKey(handler))
+            if (Listeners.ContainsKey(handler))
             {
-                var subscriber = listeners[handler];
+                var subscriber = Listeners[handler];
 
                 NativeAPI.RemoveListener(name, subscriber.GetInputArgument());
                 FunctionReference.Remove(subscriber.GetReferenceIdentifier());
-                listeners.Remove(handler);
+                Listeners.Remove(handler);
             }
         }
 
         public Timer AddTimer(float interval, Action callback, TimerFlags? flags = null)
         {
             var timer = new Timer(interval, callback, flags ?? 0);
-            timers.Add(timer);
+            Timers.Add(timer);
             return timer;
         }
 
