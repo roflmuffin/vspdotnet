@@ -12,5 +12,5 @@
 	url = https://github.com/roflmuffin/DynamicHooks
 [submodule "libraries/hl2sdk-csgo"]
 	path = libraries/hl2sdk-csgo
-	url = https://github.com/roflmuffin/hl2sdk-csgo
+	url = https://github.com/roflmuffin/hl2sdk
 	branch = csgo
